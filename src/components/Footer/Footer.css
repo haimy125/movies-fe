@@ -1,0 +1,29 @@
+.footer {
+
+  background: #2e2e2e ; 
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer .movie-genres, .footer .contact-info {
+    flex: 1;
+  }
+  
+  .footer h4 {
+    margin-top: 0;
+  }
+  
+  .footer .contact-info {
+    text-align: left;
+  }
+  
+  .footer .movie-genres {
+    text-align: left;
+  }
+  

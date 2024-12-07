@@ -1,0 +1,152 @@
+
+.detail{
+    padding: 30px;
+    color: #fff;
+}
+.info{
+    position: relative;
+    display: flex;
+}
+.images_movies{
+    margin-bottom: 30px;
+}
+.info_content{
+    width: 40%;
+    margin-left: 30px;
+    border-right: 2px solid #fff;
+    padding: 20px;
+}
+.info_review{
+    position: absolute;
+    width: 20%;
+    top: 25%;
+    left: 70%;
+   
+}
+.toggle-description{
+    margin-left: 30px;
+    font-weight: 700;
+}
+.toggle-description:hover{
+    color: #ffbb00;
+}
+.episodes {
+    flex: 1;
+ 
+    color: #fff;
+    margin-left: 30px;
+  }
+  
+  .episode-list {
+    width: 50%;
+    height: auto;
+    max-height: 400px; /* Chiều cao tối đa của khung danh sách tập phim */
+    overflow-y: auto; /* Cho phép cuộn dọc */
+    padding: 30px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    -ms-overflow-style: none;  /* Ẩn thanh cuộn trên IE và Edge */
+    scrollbar-width: none;  /* Ẩn thanh cuộn trên Firefox */
+  }
+  
+  .episode-item {
+
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color:none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .episode-item:hover {
+   background: #fff;
+   color: #000;
+  }
+  .comment{
+position: absolute;
+    color: #fff;
+    left: 65%;
+    height: 300px;
+    max-height: 200px; /* Chiều cao tối đa của khung danh sách tập phim */
+    width: 20%;
+   
+  }
+  .movie-image{
+    width: 300px;
+    height: 450px;
+  }
+  .ep_cmt{
+    width: 100%;
+    position: relative;
+    display: flex;
+    height: 500px;
+    margin-bottom: 10%;
+  }
+  .comment_list{
+    width: 100%;
+    padding: 20px;
+    background: #2e2e2e ;
+    height: auto;
+    border: none;
+    border-radius: 10px;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* Ẩn thanh cuộn trên IE và Edge */
+  scrollbar-width: none;  /* Ẩn thanh cuộn trên Firefox */
+    max-height: 300px;
+  }
+  .comment_item{
+    width: 80%;
+    display: block;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background: #fff;
+    color: #000;
+  }
+  .info_coment_user{
+    display: flex;
+    align-items: center;
+
+  }
+  p{
+    margin-left: 10px;
+  }
+  .follow_button{
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 2px solid #fff;
+    background: #f39c12;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .follow_button:hover{
+    background: #e74c3c ;
+    color: #fff;
+
+  }
+  p{
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* Ẩn thanh cuộn trên IE và Edge */
+  scrollbar-width: none;  /* Ẩn thanh cuộn trên Firefox */
+    max-height: 160px;
+  }
+  .play{
+    position: absolute;
+    top: 80%;
+    left: 6%;
+    background: #f39c12 ;
+  }
+  .comment_content{
+    font-size: 18px;
+  }
+  .comment_date{
+    text-align: center;
+    font-size: 12px;
+  }
+  .comment_user{
+    font-weight: 700;
+    color: #ffbb00;
+  }

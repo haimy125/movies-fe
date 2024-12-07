@@ -1,0 +1,68 @@
+.top-movies {
+    padding: 30px 20px;
+    border-radius: 5px;
+    background: #2e2e2e ;
+    margin-left: 20px;
+  }
+  
+  .top-movies h2 {
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  
+  .top-movies .movie-list {
+    display: block;
+    flex-wrap: wrap;
+  }
+  
+  .top-movies .movie-card {
+    flex: 1 1 calc(20% - 20px);
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .top-movies .movie-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .top-movies .movie-card .movie-info {
+    padding: 10px;
+  }
+  
+  .top-movies .movie-card .movie-info h3 {
+    margin: 0;
+  }
+  .movie-card_top{
+    padding: 10px 10px;
+  }
+  .top-movies h3{
+    color: #fff;
+  }
+  .top-movies span{
+    font-weight: 900;
+  }
+  .top1{
+    background: linear-gradient(45deg, #FFD700, #FF4500); /* Gradient từ vàng sang đỏ */
+    -webkit-background-clip: text; /* Chỉ định gradient cho chữ (WebKit) */
+    background-clip: text; /* Chỉ định gradient cho chữ */
+    color: transparent; /* Làm cho màu nền không bị ảnh hưởng */
+  }
+  .top2{
+    background: linear-gradient(45deg, #ff0000, #ff00b7); /* Gradient từ vàng sang đỏ */
+    -webkit-background-clip: text; /* Chỉ định gradient cho chữ (WebKit) */
+    background-clip: text; /* Chỉ định gradient cho chữ */
+    color: transparent; /* Làm cho màu nền không bị ảnh hưởng */
+  }
+  .top3{
+    background: linear-gradient(45deg, #bf00ff, #0004ff); /* Gradient từ vàng sang đỏ */
+    -webkit-background-clip: text; /* Chỉ định gradient cho chữ (WebKit) */
+    background-clip: text; /* Chỉ định gradient cho chữ */
+    color: transparent; /* Làm cho màu nền không bị ảnh hưởng */
+  }
+  .top_movie_link:hover{
+    color: #FF4500;
+    cursor: default;
+  }

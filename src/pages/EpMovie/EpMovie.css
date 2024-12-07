@@ -1,0 +1,24 @@
+/* Ensure body and html are scrollable */
+body, html {
+    overflow: auto;
+    height: 100%;
+  }
+  .detail {
+    overflow: auto;
+    height: auto; /* Allow content to expand */
+    -ms-overflow-style: none;  /* Ẩn thanh cuộn trên IE và Edge */
+    scrollbar-width: none;  /* Ẩn thanh cuộn trên Firefox */
+  }
+  .info{
+    width: 95%;
+    height: 600px;
+    max-height: 790px;
+    padding: 30px;
+    border-radius: 5px;
+  }
+  .movie_name{
+    padding: 10px 20px ;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+  }

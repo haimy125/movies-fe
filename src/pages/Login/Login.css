@@ -1,0 +1,106 @@
+
+ .font_body{
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../assets/images/obz1713801361.jpg')   ;
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+
+
+ }
+ .login-container, .register-container {
+    display: grid;
+    place-items: center; /* Căn giữa theo cả chiều ngang và chiều dọc */
+    width: 100%;
+    height: 70%;
+    border-radius: 5px;
+   
+/* background-image: url('../../assets/images/obz1713801361.jpg')   ;
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+z-index: 1; */
+  }
+
+  .login-form{
+    display: grid;
+    place-items: center; /* Căn giữa theo cả chiều ngang và chiều dọc */
+    width: 100%;
+
+  }
+
+  .font_container{
+    width: 100%;
+    position: relative;
+    width: 50%;
+    height: 80%;
+    background: #fff;
+    border-radius: 5px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  form div {
+    width: 100%;
+  
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-group {
+    width: 60%;
+
+    box-sizing: border-box;
+  }
+  .form_input{
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 30px;
+    padding: 10px 20px;
+    border-bottom: 1px solid #000;
+  }
+  .form_input:focus{
+    outline: none;
+
+  }
+  .login-button {
+    margin-top: 30px;
+    width: 20%;
+    padding: 10px 15px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #e74c3c ;
+  }
+  .forgotpassword{
+    text-decoration: none;
+    color: #000;
+  }
+
+.rememberandforgot{
+  width: 100%;
+  height: 30px;
+  padding-left: 35%;
+
+  display: grid;
+    place-items: center;
+}
+.remember{
+  display: flex;
+}
+.rememberitem{
+  align-items: center;
+  display: flex;
+  
+}

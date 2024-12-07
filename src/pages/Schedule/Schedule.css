@@ -1,0 +1,25 @@
+.schedule_page{
+    width: 100%;
+
+}
+.page_item{
+    width:100% ;
+    display: grid;
+    place-items: center;
+}
+.schedule_page_item{
+    background: #2e2e2e;
+    color: #fff;
+    width: 90%;
+    padding: 20px;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+.movie_item_List{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+}

@@ -1,0 +1,28 @@
+.admin_header{
+    position: relative;
+    height: 50px;
+}
+.admin_logo {
+    display: flex;
+
+}
+.admin_logo_img{
+    position: absolute;
+    top: 10px;
+    background-color: #000;
+    width: 150px;
+    height: 150px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    z-index: 999;
+}
+.logo_name{
+    font-size: 20px;
+    font-weight: 700;
+    position: absolute;
+    left: 13%;
+    color: #fff;
+}
+.admin_logo {
+    align-items: center;
+}

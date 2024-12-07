@@ -1,0 +1,13 @@
+body{
+    background: #1c1c1c ;
+}
+body.scrolled {
+    display: inline-block;
+}
+.view_movie{
+    text-decoration: none;
+    color: #fff;
+}
+.view_movie:hover{
+    color: #fc8f00;
+}

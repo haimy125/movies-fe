@@ -1,0 +1,43 @@
+.comment-form {
+    display: block;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+
+  }
+  
+  .form-group-comment {
+
+    margin-bottom: 15px;
+  }
+  
+  .form-group-comment label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .comment_input{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-group-comment textarea {
+    resize: vertical;
+  }
+  
+  .comment-form button {
+    padding: 10px 20px;
+    background-color: #f39c12 ;
+    color: white;
+    width: 100%;
+    border-radius: 5px;
+
+  }
+  
+  .comment-form button:hover {
+    background-color: #e74c3c ;
+  }
+  

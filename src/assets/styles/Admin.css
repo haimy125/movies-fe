@@ -1,0 +1,36 @@
+.admin_layout{
+  background: #fff;
+}
+
+.content{
+    
+    height: auto;
+    width: 100%;
+    display: flex;
+}
+.nav{
+    position: relative;
+    width: 25%;
+    border: 1px solid #ddd;
+    height: 100vh;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom-right-radius: 10px;
+}
+.content_nav{
+    position: absolute;
+    top: 17%;
+    width: 80%;
+
+}
+.content_data{
+    padding: 20px 30px ;
+    width: 100%;
+    flex-wrap: wrap;
+
+}
+.info{
+    background: #2e2e2e ;
+}
+.movie_orders_name{
+    color: #ff9d00;
+}

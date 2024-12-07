@@ -1,0 +1,53 @@
+/* Loader.css */
+@keyframes slideIn {
+  0% { opacity: 0; transform: translateY(-50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideOut {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-50px); }
+}
+
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to bottom, #f2c22f, #f2c22f); /* Nền vàng */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* Không cản trở các sự kiện chuột */
+  opacity: 0;
+  transform: translateY(-50px);
+  animation: slideIn 0.5s ease-out forwards;
+  z-index: 99999;
+}
+
+/* Hiệu ứng vòng quay */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.1); /* Vòng quay màu trắng nhạt */
+  border-left-color: #ffffff; /* Vòng quay màu trắng */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Hiệu ứng vòng quay */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Hiệu ứng biến mất */
+@keyframes disappear {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-50px); }
+}
+
+.hidden {
+  animation: disappear 0.5s ease-out forwards;
+}

@@ -1,0 +1,64 @@
+ .chart_section {
+    gap: 1rem;
+    padding: 20px;
+    display: flex;
+
+  }
+  
+  .chart_header {
+    margin-bottom: 20px;
+  }
+  
+  .stats_container {
+    display: block;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .chart_container{
+    margin: 0 auto;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px ;
+  }
+  .stats_overview{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+  }
+  .stats_card {
+    position: relative;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    width: 25%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+  .stat_value {
+    font-size: 24px;
+    font-weight: bold;
+  }
+ .icon_static{
+  position: absolute;
+  top: 30%;
+  left: 70%;
+  font-size: 50px;
+  color: #afafaf;
+ }
+ .totaluser{
+  border-left: 5px solid #09ff00;
+ }
+ .totalmovie{
+  border-left: 5px solid #00e5ff;
+ }
+ .totalcategory{
+  border-left: 5px solid #ffb700;
+ }

@@ -1,0 +1,76 @@
+/* src/components/HotMovies.css */
+
+.hot-movies {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.hot-movies-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.hot-movies-list {
+  display: flex;
+  transition: transform 0.5s ease;
+  padding: 50px;
+  position: relative;
+}
+
+.movie-card {
+  flex: 0 0 auto;
+  width: 200px;
+  margin-right: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+ 
+}
+
+.movie-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.scroll-button {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.scroll-button.prev {
+  position: absolute;
+  top:50%;
+  left: 1%;
+  z-index: 9999;
+ 
+  
+}
+.scroll-button.prev:hover{
+  background: #fff;
+  color: #000;
+}
+
+.scroll-button.next {
+  position: absolute;
+  top:50%;
+  left: 97%;
+  z-index: 9999;
+}
+.scroll-button.next:hover{
+  background: #fff;
+  color: #000;
+}

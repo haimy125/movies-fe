@@ -1,0 +1,26 @@
+.profile_nav{
+    text-align: center;
+    background-image: url('/src/assets/images/hq720.jpg');
+    background-position: center;
+    background-size: cover;
+    
+
+}
+.profile-sidebar{
+    width: 99%;
+    height: 50px;
+    padding: 30px 5px ;
+    display: flex;
+    gap:20px ;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    background: rgba(0, 0, 0, 0.5);
+   
+}
+.action_info{
+    color: #fff;
+    /* color: #ffa600; */
+    text-decoration: none;
+}
+.action_info:hover{
+    color: #ff3700;
+}

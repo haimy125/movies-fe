@@ -1,0 +1,75 @@
+/* src/components/UserMenu.css */
+
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.user-menu-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-name {
+  color: white;
+  margin-right: 10px;
+  padding: 5px;
+}
+.user-name:hover{
+  color: #e74c3c;
+}
+
+.user-menu-dropdown {
+  position: absolute;
+  width: 200px;
+  top: 40px;
+  right: 0;
+  background-color: #fffdfd;
+  border: 1px solid #333;
+
+  padding: 5px;
+  z-index: 10;
+}
+
+.user-menu-dropdown a,
+.user-menu-dropdown button {
+  display: block;
+  padding: 10px;
+  width: 90%;
+  color: #000000;
+  text-decoration: none;
+  background: #fff;
+  border: none;
+  text-align: left;
+}
+.user-menu-dropdown button {
+  width: 100%;
+}
+.user-menu-dropdown a:hover,
+.user-menu-dropdown button:hover {
+  background: #555;
+  color: #fff;
+}
+
+/* Show dropdown when user-menu-container is hovered */
+.user-menu-container:hover .user-menu-dropdown {
+  display: block;
+}
+.login a {
+  margin-right: 30px;
+  color: #fff;
+  text-decoration: none;
+  padding: 5px;
+}
+.login a:hover {
+  color: #e74c3c;
+}

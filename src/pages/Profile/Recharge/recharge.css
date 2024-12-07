@@ -1,0 +1,21 @@
+.pay_images{
+    width: 200px;
+    height: 200px;
+}
+.can_giua{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px ;
+}
+.list_pay{
+
+}
+.image_select{
+width: 50%;
+height: auto;
+}
+.modal-content{
+    width: 500px;
+    height: 500px;
+    margin-bottom: 20px;
+}

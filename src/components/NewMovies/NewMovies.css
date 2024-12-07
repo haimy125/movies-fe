@@ -1,0 +1,46 @@
+.new-movies {
+  padding: 40px 20px;
+  background: #2e2e2e;
+  border-radius: 5px;
+  position: relative;
+}
+
+.new-movies h2 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.view_all_movies {
+  color: #fff;
+  position: absolute;
+  left: 87%;
+  text-decoration: none;
+  box-shadow: 2px 2px 5px 2px inset #2e2e2e;
+  border: none;
+  padding: 5px 20px;
+  background: linear-gradient(45deg, #393939, #000000);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+
+.new-movies .movie-card .movie-info {
+  padding: 10px;
+  margin-left: 15px;
+}
+
+.new-movies .movie-card .movie-info h3 {
+  margin: 0;
+}
+
+.movie-list {
+  flex-wrap: wrap;
+  display: flex;
+  padding: 0px 5px;
+
+}
+
+.movie_item {
+  margin-left: 15px;
+  margin-bottom: 20px;
+}

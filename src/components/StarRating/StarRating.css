@@ -1,0 +1,47 @@
+.star-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+  }
+  
+  .stars {
+    display: flex;
+    font-size: 30px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .star {
+    color: #d3d3d3; /* Màu sao không được chọn */
+    position: relative;
+    transition: color 0.2s;
+    
+  }
+  
+  .star.filled {
+    color: #ffcc00; /* Màu sao đã được chọn */
+  }
+  
+  .star.half-filled::before {
+    content: '★';
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ffcc00; /* Màu sao đã được chọn */
+    width: 50%;
+    overflow: hidden;
+  }
+  
+  .star:hover {
+    color: #ffcc00; /* Màu sao khi hover */
+  }
+  
+  .large-star {
+    font-size: 50px;
+    color: #ffcc00;
+    font-weight: bold;
+    margin-bottom: 10px;
+    
+  }
+  

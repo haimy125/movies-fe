@@ -1,0 +1,30 @@
+.admin_nav {
+    display: block;
+}
+
+.admin_action {
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+   
+}
+
+.admin_action a {
+    display: block;
+    padding: 10px;
+    color: #000; /* Màu chữ mặc định */
+    font-size: 16px;
+    text-decoration: none; /* Bỏ gạch chân */
+    transition: color 0.3s; /* Thêm hiệu ứng chuyển màu chữ */
+}
+
+.admin_action a:hover {
+    background: #eeecec; /* Màu nền khi di chuột qua menu */
+}
+
+.admin_action a.active_nav {
+    color: #d58205; /* Màu chữ khi menu được chọn */
+    border: 1px solid #ffc400; /* Đường viền khi menu được chọn */
+    background: transparent; /* Đặt nền trong suốt nếu bạn không muốn thay đổi nền */
+    border-radius: 8px;
+}

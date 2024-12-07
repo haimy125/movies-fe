@@ -1,0 +1,117 @@
+@keyframes fire {
+    0% {
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700, 0 0 50px #FFD700;
+    }
+    100% {
+        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #FFD700, 0 0 60px #FFD700, 0 0 80px #FFD700, 0 0 100px #FFD700;
+    }
+}
+
+@keyframes dream {
+    0% {
+        text-shadow: 0 0 5px #33ff00, 0 0 10px #33ff00, 0 0 15px #33ff00, 0 0 20px #00bfff, 0 0 30px #00bfff, 0 0 40px #00bfff, 0 0 50px #00bfff;
+    }
+    100% {
+        text-shadow: 0 0 10px #33ff00, 0 0 20px #33ff00, 0 0 30px #33ff00, 0 0 40px #00bfff, 0 0 60px #00bfff, 0 0 80px #00bfff, 0 0 100px #00bfff;
+    }
+}
+
+.content_data {
+    display: block;
+}
+
+.create_movie_font {
+    display: grid;
+    place-items: center;
+}
+
+.create_movie_form {
+    width: 60%;
+    height: auto;
+}
+
+.create_input {
+    width: 100%;
+    height: 40px;
+    padding: 10px 10px;
+    border: none;
+    border-bottom: 1px solid #000;
+    font-size: 16px;
+}
+
+.create_input:focus {
+    outline: none;
+    border-bottom: 1px solid #0088ff;
+}
+
+.create_textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px 10px;
+    border: 1px solid #000;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.create_textarea:focus {
+    outline: none;
+    border: 1px solid #0088ff;
+}
+
+.category_movie_list {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px; /* Khoảng cách giữa các phần tử */
+}
+
+.category_movie_list_group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Khoảng cách giữa các hàng */
+    flex: 0 0  20%; /* Điều chỉnh để các phần tử chiếm 30% chiều rộng của container */
+}
+
+.category_movie_list_group input[type='checkbox'] {
+    margin-right: 5px; /* Khoảng cách giữa checkbox và label */
+}
+.custom-file-input {
+    display: none; /* Ẩn nút chọn file mặc định */
+  }
+  
+  .custom-file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .custom-file-label:hover {
+    background-color: #0056b3;
+  }
+.image_movie{
+    width: 50%;
+    height: 400px;
+    border-radius: 10px;
+background: #c6c6c6;
+    padding: 3px;
+}
+  .selected_image{
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+  
+
+  }
+  .create_button{
+    width: 20%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #37f312 ;
+  }

@@ -1,0 +1,44 @@
+.history_table{
+    width: 100%;
+    height: auto;
+}
+.history_table_content {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #fff;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    background-color: #2e2e2e;
+    overflow: hidden;
+}
+
+.history_table_content th,
+.history_table_content td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    text-align: left;
+    border-top: 1px solid #dee2e6;
+    width: 25%; /* Căn đều chiều rộng cho các cột */
+}
+
+.history_table_content thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: #3e3e3e;
+}
+
+.history_table_content tbody tr:nth-child(even) {
+    background-color: #3e3e3e;
+}
+
+.history_table_content tbody tr:hover {
+    background-color: #4e4e4e;
+}
+.green-content{
+    color: #91ff00;
+}
+.red-content{
+    color: #ff0000;
+}
