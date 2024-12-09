@@ -79,15 +79,14 @@ const OrdersList = () => {
                 <th>Số xu</th>
               </tr>
               {movies.map((item, index) => (
-                <tr>
+                <tr key={index}>
                   <td>{index + 1}</td>
-                  <td className='vnname'>{item.movie.vnname}</td>
-                  <td className='cnname'>{item.user.username}</td>
-                  <td>{convertMillisecondsToDate(item.date)}</td>
-                  <td className='status'>{item.point} Xu</td>
+                  <td className='vnName'>{item.movie?.vnName ?? 'Không có tên phim'}</td>
+                  <td className='cnname'>{item.user?.username ?? 'Không có tên người dùng'}</td>
+                  <td>{item.date ? convertMillisecondsToDate(item.date) : 'Không có ngày'}</td>
+                  <td className='status'>{item.point != null ? `${item.point} Xu` : 'Không có điểm'}</td>
                 </tr>
               ))}
-
             </table>
           </div>
 

@@ -5,6 +5,7 @@ import '../../../../assets/styles/Admin.css';
 import HeaderAdmin from '../../../../components/AdminHeader/AdminHeader';
 import AdminNav from '../../../../components/AdminNav/AdminNav';
 import { useAuth } from '../../../../services/authService';
+
 const UserEdit = () => {
     const { id } = useParams();
     const [formData, setFormData] = useState({
@@ -128,10 +129,8 @@ const UserEdit = () => {
                   </label>
                 </div>
               </div>
-
-             
               <button className='create_button' type='submit'>
-                Cập nhật phim
+                Cập nhật
               </button>
             </form>
           </div>

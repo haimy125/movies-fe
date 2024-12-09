@@ -80,7 +80,7 @@ const MovieBuyed = () => {
                                         {notification.map((item, index) => (
                                             <tr key={index}>
                                                 <td>{index + 1}</td>
-                                                <td className='movie_orders_name'>{item.movie.vnname}</td>
+                                                <td className='movie_orders_name'>{item.movie.vnName}</td>
                                                 <td>{convertMillisecondsToDate(item.date)}</td>
                                                 <td >{item.point}</td>
                                                 <td ><a href='#' className='view_movie' onClick={() => handleaction(item.movie.id)}> <i class="fa-solid fa-eye"></i></a></td>

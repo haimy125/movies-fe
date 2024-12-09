@@ -41,7 +41,7 @@ if(movies && movies?.length===0){
       <div className="movie-list">
         {movies.map((item, index)=>(
           <div className='movie_item' key={index} onClick={() => handleaction(item.id)}>
-          <MovieCard id={item.id} name={item.vnname} vip={item.vipmovie} ep={item.episodenumber} />
+          <MovieCard id={item.id} name={item.vnName} vip={item.vipmovie} ep={item.episodenumber} />
           </div>
         ))}
       </div>

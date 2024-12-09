@@ -118,10 +118,10 @@ setLoading(false);
               {movies.map((item, index) => (
                 <tr>
                   <td>{index + 1}</td>
-                  <td className='vnname'>{item.name}</td>
+                  <td className='vnName'>{item.name}</td>
           
                   <td>{convertMillisecondsToDate(item.timeadd)}</td>
-                  <td className='vnname'>{item.views}</td>
+                  <td className='vnName'>{item.views}</td>
                 
                   <td className='status'>{item.likes}</td>
                  

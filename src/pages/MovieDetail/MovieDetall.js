@@ -132,7 +132,7 @@ const MovieDetail = () => {
             {!checkvips && movie?.vipmovie && <button className='follow_button play' onClick={handleBuyMovie}>Mua Phim</button>}
           </div>
           <div className='info_content'>
-            <h1>{movie?.vnname}</h1>
+            <h1>{movie?.vnName}</h1>
             <p>Tên tiếng hán: {movie?.cnname}</p>
             <p>Tác giả: {movie?.author}</p>
             <p>Thời điểm đăng: {movie ? convertMillisecondsToDate(movie?.timeadd) : "N/A"}</p>
@@ -172,7 +172,10 @@ const MovieDetail = () => {
                   <div key={index} className='comment_item'>
                     <p className='comment_content'>{item.content}</p>
                     <div className='info_coment_user'>
-                      <p className='comment_user'>{item.useradd.username}</p>
+                      {/* Kiểm tra nếu item.useradd và item.useradd.username tồn tại */}
+                      <p className='comment_user'>
+                        {item.useradd && item.useradd.username ? item.useradd.username : 'Anonymous'}
+                      </p>
                       <p className='comment_date'>{convertMillisecondsToDate(item.timeadd)}</p>
                     </div>
                   </div>

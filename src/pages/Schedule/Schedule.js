@@ -71,7 +71,7 @@ const Schedule = () => {
                                             moviesBySchedule[scheduleItem.id].map((movieitem) => (
                                                 <div className='movie_item' onClick={() => handleAction(movieitem.id)} key={movieitem.id}>
                                                     <MovieCard id={movieitem.movie.id}
-                                                        name={movieitem.movie.vnname}
+                                                        name={movieitem.movie.vnName}
                                                         vip={movieitem.movie.vipmovie}
                                                         ep={movieitem.movie.episodenumber} />
                                                 </div>

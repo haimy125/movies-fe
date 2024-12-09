@@ -188,7 +188,7 @@ const MoviePage = () => {
             <div className='list'>
             {movies.map((item, index) => (
               <div className='movie_item' onClick={() => handleAction(item.id)} key={index}>
-                <MovieCard id={item.id} name={item.vnname} vip={item.vipmovie} ep={item.episodenumber} />
+                <MovieCard id={item.id} name={item.vnName} vip={item.vipmovie} ep={item.episodenumber} />
               </div>
             ))}
             </div>

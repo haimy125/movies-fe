@@ -33,7 +33,7 @@ const [keyword, setKeyword] = useState('');
     <header>
     <div className="logo">
       <img src={`/logo.png`}  alt='logo' className='logo_img'/>
-      <Link to="/">3D China Movies</Link>
+      <Link to="/">5SS Movies</Link>
       <div className='menu'>
       <nav>
       <div className="dropdown">

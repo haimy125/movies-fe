@@ -154,7 +154,7 @@ const UserList = () => {
                 {movies.map((item, index) => (
                   <tr key={item.id}>
                     <td>{index + 1}</td>
-                    <td className='vnname'>{item.username}</td>
+                    <td className='vnName'>{item.username}</td>
                     <td className='cnname'>{item.email}</td>
                     {/* Chuyển đổi định dạng ngày */}
                     <td>{new Date(item.timeAdd).toLocaleDateString('vi-VN')}</td>

@@ -121,7 +121,7 @@ const MovieList = () => {
               {movies.map((item, index) => (
                 <tr>
                   <td>{index + 1}</td>
-                  <td className='vnname'>{item.vnname}</td>
+                  <td className='vnName'>{item.vnName}</td>
                   <td className='cnname'>{item.cnname}</td>
                   <td>{convertMillisecondsToDate(item.timeadd)}</td>
                   <td className='status'>{item.status}</td>

@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './VideoPlayer.css';
 
-const VideoPlayer = ({ videoId, vnname,ep }) => {
+const VideoPlayer = ({ videoId, vnName,ep }) => {
     const [videoURL, setVideoURL] = useState('');
     const [subtitles, setSubtitles] = useState([]);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -180,7 +180,7 @@ const VideoPlayer = ({ videoId, vnname,ep }) => {
                     <button onClick={handleFullscreen} className="control-button">
                         {isFullscreen ? <i class="fa-solid fa-compress"></i> : <i class="fa-solid fa-expand"></i>}
                     </button>
-                    <button onClick={() => { const link = document.createElement('a'); link.href = videoURL; link.download = `${vnname}-${ep}-[Vietsub].mp4`; link.click(); }} className="control-button"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                    <button onClick={() => { const link = document.createElement('a'); link.href = videoURL; link.download = `${vnName}-${ep}-[Vietsub].mp4`; link.click(); }} className="control-button"><i class="fa-solid fa-cloud-arrow-down"></i></button>
                 </div>
                 </>
             )}

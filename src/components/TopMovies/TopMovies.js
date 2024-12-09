@@ -28,7 +28,7 @@ const TopMovies = () => {
         {movies?.map((item, index)=>(
           <div className="movie-info"   key={`div-${index}`}>
           <span className={`top${index+1}`}  key={`span-${index}`}>TOP {index+1}</span>
-            <h3 className='top_movie_link' key={`h3-${index}`} onClick={() => handleaction(item.id)} >{item.vnname} </h3>
+            <h3 className='top_movie_link' key={`h3-${index}`} onClick={() => handleaction(item.id)} >{item.vnName} </h3>
           </div>
         ))}
         </div>

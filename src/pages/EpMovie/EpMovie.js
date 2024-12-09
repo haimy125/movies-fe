@@ -83,7 +83,7 @@ const EpMovie = () => {
       <Header />
       <div className="detail">
         <div className='info'>
-         <VideoPlayer videoId={id} vnname={movie?.movie.vnname} ep={movie?.name}/>
+         <VideoPlayer videoId={id} vnName={movie?.movie.vnName} ep={movie?.name}/>
         </div>
         <h2 className='movie_name'>
         {movie?.name}

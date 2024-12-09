@@ -88,7 +88,7 @@ const MovieEdit = () => {
       const rp = await axios.get(`http://localhost:1412/api/admin/movies/getbyid/${id}`);
         const data = rp.data;
         setFormData({
-            vn_name: data.vnname,
+            vn_name: data.vnName,
             cn_name: data.cnname,
             description: data.description,
             user_add: '', // Assuming a default user ID, you can change this as needed
