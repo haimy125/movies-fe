@@ -21,14 +21,13 @@
   position: relative;
 }
 
-.movie-card {
+.hot-movie-card {
   flex: 0 0 auto;
   width: 200px;
   margin-right: 10px;
   border-radius: 8px;
   overflow: hidden;
   position: relative;
- 
 }
 
 .movie-card img {
@@ -53,24 +52,22 @@
 
 .scroll-button.prev {
   position: absolute;
-  top:50%;
+  top: 50%;
   left: 1%;
   z-index: 9999;
- 
-  
 }
-.scroll-button.prev:hover{
+.scroll-button.prev:hover {
   background: #fff;
   color: #000;
 }
 
 .scroll-button.next {
   position: absolute;
-  top:50%;
+  top: 50%;
   left: 97%;
   z-index: 9999;
 }
-.scroll-button.next:hover{
+.scroll-button.next:hover {
   background: #fff;
   color: #000;
 }
