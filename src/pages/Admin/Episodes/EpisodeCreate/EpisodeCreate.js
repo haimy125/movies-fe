@@ -8,13 +8,13 @@ import './EpisodeCreate.css';
 import { useAuth } from '../../../../services/authService';
 const EpisodeCreate = () => {
     const { id } = useParams();
-    const {user} = useAuth();
-    console.log('user',user);
+    const { user } = useAuth();
+    console.log('user', user);
     const [formData, setFormData] = useState({
         name: '',
         views: '',
         description: '',
-        useradd:'', // Assuming a default user ID, you can change this as needed
+        useradd: '', // Assuming a default user ID, you can change this as needed
         likes: '',
         movie: id,
         videofile: null,
@@ -68,9 +68,9 @@ const EpisodeCreate = () => {
             console.error('Error submitting form:', error);
         }
     };
- const handleAction =()=>{
-    window.location.href =`/admin/movie/episodes/${id}`;
- }
+    const handleAction = () => {
+        window.location.href = `/admin/movie/episodes/${id}`;
+    }
     return (
         <div className='admin_layout'>
             <div className='header_ad'>
@@ -86,10 +86,8 @@ const EpisodeCreate = () => {
                     <div className='label_list'>
                         <h2>Thêm mới phim</h2>
                     </div>
-                    <a  onClick={() => handleAction()}>Quay lại </a>
+                    <a onClick={() => handleAction()}>Quay lại </a>
                     <div className='create_movie_font'>
-                        {notification && <p style={{ color: 'green' }}>{notification}</p>}
-                        {error && <p style={{ color: 'red' }}>{error}</p>}
                         <form onSubmit={handleSubmit} className='create_movie_form'>
                             <div className='form_group'>
                                 <label>Tập phim</label>
@@ -155,9 +153,11 @@ const EpisodeCreate = () => {
                                     type='file'
                                     name='subfile'
                                     onChange={handleChange}
-                            
+
                                 />
                             </div>
+                            {error && <p style={{ color: 'red' }}>{error}</p>}
+                            {notification && <p style={{ color: 'green' }}>{notification}</p>}
                             <button className='create_button' type='submit'>
                                 Thêm mới phim
                             </button>

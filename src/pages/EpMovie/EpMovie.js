@@ -113,7 +113,7 @@ const EpMovie = () => {
                   <div className='comment_item'>
                     <p className='comment_content'>{item?.content}</p>
                     <div className='info_coment_user'><p className='comment_user'>{item?.useradd?.username}</p>
-                      <p className='comment_date'>{convertMillisecondsToDate(item?.timeadd)}</p></div>
+                      <p className='comment_date'>{convertMillisecondsToDate(item?.timeAdd)}</p></div>
                   </div>
                 ))}
                 <div className="pagination_user">

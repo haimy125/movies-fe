@@ -14,11 +14,11 @@ const OrdersList = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage,keyword]);
+  }, [currentPage, keyword]);
   const fetchData = async (page) => {
     try {
       let rp;
-        rp = await axios.get(`http://localhost:1412/api/admin/orders/all?page=${page}&limit=10`);
+      rp = await axios.get(`http://localhost:1412/api/admin/orders/all?page=${page}&limit=10`);
       setMovies(rp.data.listResult);
       setTotalPages(rp.data.totalPage); // Giả sử API trả về tổng số trang
       console.log(rp.data.listResult)
@@ -27,7 +27,7 @@ const OrdersList = () => {
       console.error(error);
     }
   };
-  
+
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
@@ -35,19 +35,19 @@ const OrdersList = () => {
   };
   const convertMillisecondsToDate = (milliseconds) => {
     const date = new Date(milliseconds);
-  
+
     const day = date.getDate();
     const month = date.getMonth() + 1; // Months are zero-based, so add 1
     const year = date.getFullYear();
-  
+
     // Format the day and month with leading zeros if needed
     const formattedDay = day < 10 ? `0${day}` : day;
     const formattedMonth = month < 10 ? `0${month}` : month;
-  
+
     return `${formattedDay}-${formattedMonth}-${year}`;
   };
-  
-  if(loading){
+
+  if (loading) {
     return <Loader />
   }
   return (
@@ -71,26 +71,30 @@ const OrdersList = () => {
           </div>
           <div className='table'>
             <table>
-              <tr>
-                <th>#</th>
-                <th>Tên phim mua</th>
-                <th>Tài khoản mua</th>
-                <th>Ngày mua</th>
-                <th>Số xu</th>
-              </tr>
-              {movies.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td className='vnName'>{item.movie?.vnName ?? 'Không có tên phim'}</td>
-                  <td className='cnname'>{item.user?.username ?? 'Không có tên người dùng'}</td>
-                  <td>{item.date ? convertMillisecondsToDate(item.date) : 'Không có ngày'}</td>
-                  <td className='status'>{item.point != null ? `${item.point} Xu` : 'Không có điểm'}</td>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Tên phim mua</th>
+                  <th>Tài khoản mua</th>
+                  <th>Ngày mua</th>
+                  <th>Số xu</th>
                 </tr>
-              ))}
+              </thead>
+              <tbody>
+                {movies.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td className='vnName'>{item.movie?.vnName ?? 'Không có tên phim'}</td>
+                    <td className='cnName'>{item.user?.username ?? 'Không có tên người dùng'}</td>
+                    <td>{item.date ? convertMillisecondsToDate(item.date) : 'Không có ngày'}</td>
+                    <td className='status'>{item.point != null ? `${item.point} Xu` : 'Không có điểm'}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
 
-          <div class="pagination">
+          <div className="pagination">
             <a href="#" onClick={() => handlePageChange(currentPage - 1)}>&laquo;</a>
             {[...Array(totalPages)].map((_, i) => (
               <a

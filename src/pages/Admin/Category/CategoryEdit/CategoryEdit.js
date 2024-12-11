@@ -8,51 +8,47 @@ import { useAuth } from '../../../../services/authService';
 import './CategoryEdit.css';
 import Loader from '../../../../components/Loader/Loader';
 const CategoryEdit = () => {
-    const {id} = useParams();
-    const {user} = useAuth();
-    const [loading, setLoading] = useState(true);
-    const [newcategory, setNewcategory] = useState({
-        name: '',
-      });
-     const [notification, setNotification] = useState('');
-      const [error, setError] = useState('');
-      const handleChange = (e) => {
-        const { name, value } = e.target;
-      
-        setNewcategory({
-            ...newcategory,
-            [name]: value
-          });
-       
-      };
-      useEffect(() => {
-        fetchData();
-      }, []);
+  const { id } = useParams();
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [newcategory, setNewcategory] = useState({
+    name: '',
+  });
+  const [notification, setNotification] = useState('');
+  const [error, setError] = useState('');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-      const fetchData = async () => {
-        try {
-       
-          const  rp = await axios.get(`http://localhost:1412/admin/category/getbyid/${id}`);
-           
-          const data = rp.data;
-        
-          setNewcategory({
-            name:data.name,
-          });
-          setLoading(false);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-if(loading){
-return <Loader />
-}
+    setNewcategory({
+      ...newcategory,
+      [name]: value
+    });
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const rp = await axios.get(`http://localhost:1412/admin/category/getbyid/${id}`);
+      const data = rp.data;
+
+      setNewcategory({
+        name: data.name,
+      });
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  if (loading) {
+    return <Loader />
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.put(`http://localhost:1412/admin/category/update/${id}`, newcategory);
       setNotification('Cập nhật thành công!');
-   
       console.log('Category created:', response.data);
     } catch (error) {
       setError(error.data)
@@ -77,26 +73,23 @@ return <Loader />
             <a href='/admin/category' className='backtolist'> Quay lại </a>
           </div>
           <div className='create_movie_font'>
-            {notification && <p style={{color:'green'}}>{notification}</p>}
-            {error && <p style={{color:'red'}}>{error}</p>}
-          <form onSubmit={handleSubmit} className='create_movie_form'>
-            <div className='form_group'>
-              <label>Tên thể thoại</label>
-              <input
-             
-                type='text'
-                name='name'
-                 className='create_input'
-                placeholder='Nhập tên thể loại phim'
-                value={newcategory.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-           
-            <button type='submit' className='create_button'>Cập nhật</button>
-          </form>
-         
+            <form onSubmit={handleSubmit} className='create_movie_form'>
+              <div className='form_group'>
+                <label>Tên thể loại</label>
+                <input
+                  type='text'
+                  name='name'
+                  className='create_input'
+                  placeholder='Nhập tên thể loại phim'
+                  value={newcategory.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              {error && <p style={{ color: 'red' }}>{error}</p>}
+              {notification && <p style={{ color: 'green' }}>{notification}</p>}
+              <button type='submit' className='create_button'>Cập nhật</button>
+            </form>
           </div>
         </div>
       </div>

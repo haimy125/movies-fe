@@ -70,7 +70,7 @@ const MovieBuyed = () => {
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Tên phim</th>
+                                            <th>Tên phim</th>   
                                             <th>Thời gian mua</th>
                                             <th>Số xu</th>
                                             <th></th>
@@ -83,7 +83,7 @@ const MovieBuyed = () => {
                                                 <td className='movie_orders_name'>{item.movie.vnName}</td>
                                                 <td>{convertMillisecondsToDate(item.date)}</td>
                                                 <td >{item.point}</td>
-                                                <td ><a href='#' className='view_movie' onClick={() => handleaction(item.movie.id)}> <i class="fa-solid fa-eye"></i></a></td>
+                                                <td ><a href='#' className='view_movie' onClick={() => handleaction(item.movie.id)}> <i className="fa-solid fa-eye"></i></a></td>
                                             </tr>
                                         ))}
                                     </tbody>

@@ -8,29 +8,28 @@ const CheckUser = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get( `http://localhost:1412/api/login/find/user?username=${username}&email=${email}`);
+      const response = await axios.get(`http://localhost:1412/api/login/find/user?username=${username}&email=${email}`);
       setLoading(true);
       setTimeout(() => {
-      window.location.href = `/forgetpassword/${response.data.id}`;
-       }, 3000);
+        window.location.href = `/forgetpassword/${response.data.id}`;
+      }, 3000);
     } catch (error) {
       setError(error.response.data);
     }
   };
-if(loading){
- return <Loader/>
-}
+  if (loading) {
+    return <Loader />
+  }
   return (
     <div className='font_body'>
-      <Header/>
+      <Header />
       <div className="login-container">
         <div className='font_container'>
           <form onSubmit={handleSubmit} className="login-form">
             <h2>Tìm kiếm tài khoản</h2>
-            {error && <p style={{color:'red'}}>{error}</p>}
             <div className="form-group">
               <label>Tên đăng nhập:</label>
               <input
@@ -53,13 +52,13 @@ if(loading){
                 required
               />
             </div>
-          
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             <button type="submit" className="login-button">Đăng nhập</button>
             <p>Bạn đã có tài khoản.<a href='/login'>Đăng nhập</a>  tài đây!</p>
           </form>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

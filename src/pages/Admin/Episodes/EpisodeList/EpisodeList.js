@@ -7,30 +7,30 @@ import AdminNav from '../../../../components/AdminNav/AdminNav';
 import './EpisodeList.css';
 import Loader from '../../../../components/Loader/Loader';
 const EpisodeList = () => {
-    const {id} = useParams();
+  const { id } = useParams();
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [keyword, setKeyword] = useState('');
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchData(currentPage);
   }, [currentPage]);
   const fetchData = async (page) => {
     try {
-    
-       const rp = await axios.get(`http://localhost:1412/api/admin/episode/getBymovie/${id}?page=${page}&limit=10`);
+
+      const rp = await axios.get(`http://localhost:1412/api/admin/episode/getBymovie/${id}?page=${page}&limit=10`);
       setMovies(rp.data.listResult);
       setTotalPages(rp.data.totalPage); // Giả sử API trả về tổng số trang
-setLoading(false);      
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
   };
-  if(loading){
-    return <Loader/>
+  if (loading) {
+    return <Loader />
   }
   const handleAction = (epid) => {
     window.location.href = `/admin/movie/episodes/edit/${epid}`;
@@ -57,19 +57,19 @@ setLoading(false);
   };
   const convertMillisecondsToDate = (milliseconds) => {
     const date = new Date(milliseconds);
-  
+
     const day = date.getDate();
     const month = date.getMonth() + 1; // Months are zero-based, so add 1
     const year = date.getFullYear();
-  
+
     // Format the day and month with leading zeros if needed
     const formattedDay = day < 10 ? `0${day}` : day;
     const formattedMonth = month < 10 ? `0${month}` : month;
-  
+
     return `${formattedDay}-${formattedMonth}-${year}`;
   };
-  const handleActiontocreate = ()=>{
-    window.location.href =`/admin/movie/episodes/${id}/create`;
+  const handleActiontocreate = () => {
+    window.location.href = `/admin/movie/episodes/${id}/create`;
   }
   return (
     <div className='admin_layout'>
@@ -101,42 +101,42 @@ setLoading(false);
             </div> */}
           </div>
           <div className='create_movie'>
-            <a onClick={() => handleActiontocreate()} className='crate_button'>Thêm mới <i class="fa-solid fa-plus"></i></a>
+            <a onClick={() => handleActiontocreate()} className='crate_button'>Thêm mới <i className="fa-solid fa-plus"></i></a>
 
           </div>
           <div className='table'>
             <table>
-              <tr>
-                <th>#</th>
-                <th>Tên </th>
-              
-                <th>ngày đăng</th>
-                <th>Lượt xem</th>
-                <th>Lượt thích</th>
-                <th>chỉnh sửa</th>
-              </tr>
-              {movies.map((item, index) => (
+              <thead>
                 <tr>
-                  <td>{index + 1}</td>
-                  <td className='vnName'>{item.name}</td>
-          
-                  <td>{convertMillisecondsToDate(item.timeadd)}</td>
-                  <td className='vnName'>{item.views}</td>
-                
-                  <td className='status'>{item.likes}</td>
-                 
-                  <td>
-
-                    <a href='#'  onClick={() => handleAction(item.id)}><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href='#' onClick={() => handleDelete(item.id)}><i class="fa-solid fa-trash"></i></a>
-                  </td>
+                  <th>#</th>
+                  <th>Tên </th>
+                  <th>ngày đăng</th>
+                  <th>Lượt xem</th>
+                  <th>Lượt thích</th>
+                  <th>chỉnh sửa</th>
                 </tr>
-              ))}
+              </thead>
+              <tbody>
+                {movies.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td className='vnName'>{item.name}</td>
 
+                    <td>{convertMillisecondsToDate(item.timeAdd)}</td>
+                    <td className='vnName'>{item.views}</td>
+
+                    <td className='status'>{item.likes}</td>
+                    <td>
+                      <a href='#' onClick={() => handleAction(item.id)}><i className="fa-solid fa-pen-to-square"></i></a>
+                      <a href='#' onClick={() => handleDelete(item.id)}><i className="fa-solid fa-trash"></i></a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
 
-          <div class="pagination">
+          <div className="pagination">
             <a href="#" onClick={() => handlePageChange(currentPage - 1)}>&laquo;</a>
             {[...Array(totalPages)].map((_, i) => (
               <a

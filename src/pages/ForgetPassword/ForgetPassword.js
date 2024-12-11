@@ -33,7 +33,6 @@ const handleActiontologin =()=>{
         <div className='font_container'>
           <form onSubmit={handleSubmit} className="login-form">
             <h2>Tìm kiếm tài khoản</h2>
-            {error && <p style={{color:'red'}}>{error}</p>}
             <div className="form-group">
               <label>Mật khẩu mới:</label>
               <input
@@ -56,7 +55,7 @@ const handleActiontologin =()=>{
                 required
               />
             </div>
-          
+            {error && <p style={{color:'red'}}>{error}</p>}
             <button type="submit" className="login-button">Đăng nhập</button>
             <p >Bạn đã có tài khoản.<a href='/login'>Đăng nhập</a>  tài đây!</p>
           </form>

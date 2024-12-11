@@ -15,17 +15,17 @@ const CategoryList = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage,keyword]);
+  }, [currentPage, keyword]);
   const fetchData = async (page) => {
     try {
-      let rp ;
-      if(keyword===''){
+      let rp;
+      if (keyword === '') {
         rp = await axios.get(`http://localhost:1412/admin/category/all?page=${page}&limit=10`);
-       
-      }else{
+
+      } else {
         rp = await axios.get(`http://localhost:1412/admin/category/getbyname?name=${keyword}&page=${page}&limit=12`);
       }
-      
+
       setCategory(rp.data.listResult);
       setLoading(false);
       setTotalPages(rp.data.totalPage); // Giả sử API trả về tổng số trang
@@ -34,7 +34,7 @@ const CategoryList = () => {
       console.error(error);
     }
   };
-  const handleAction = (id)=>{
+  const handleAction = (id) => {
     window.location.href = `/admin/category/edit/${id}`;
   }
   const handleDelete = async (id) => {
@@ -51,12 +51,12 @@ const CategoryList = () => {
   const handleSearch = () => {
     fetchData(1); // Reset to first page when searching
   };
-  const handlePageChange = (page) => {  
+  const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
   };
-  if(loading){
+  if (loading) {
     return <Loader />
   }
   return (
@@ -73,14 +73,14 @@ const CategoryList = () => {
 
         <div className='content_data'>
           <div className='lable_list'>
-            <h2>Danh sách thể thoại</h2>
+            <h2>Danh sách thể loại</h2>
           </div>
           <div className='search_lable'>
             <div className='search'>
-            <a href='/admin/category/create' className='crate_button'>Thêm mới <i class="fa-solid fa-plus"></i></a>
+              <a href='/admin/category/create' className='crate_button'>Thêm mới <i className="fa-solid fa-plus"></i></a>
             </div>
             <div className='admintouser'>
-            <input type='text' className='search_input' placeholder='Nhập tên phim muốn tìm!' onChange={(e) => setKeyword(e.target.value)}  />
+              <input type='text' className='search_input' placeholder='Nhập tên phim muốn tìm!' onChange={(e) => setKeyword(e.target.value)} />
               <button className='search_button' onClick={handleSearch}>
                 Tìm kiếm
               </button>
@@ -91,28 +91,30 @@ const CategoryList = () => {
             </div>
           </div>
           <div className='create_movie'>
-           
+
 
           </div>
           <div className='table'>
             <table>
-              <tr>
-                <th>#</th>
-                <th>Tên thể loại</th>
-                <th>chỉnh sửa</th>
-              </tr>
-              {category.map((item, index) => (
+              <thead>
                 <tr>
-                  <td>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>
-                    <a href='#' onClick={() => handleAction(item.id)}><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href='#' onClick={() => handleDelete(item.id)}><i class="fa-solid fa-trash"></i></a>
-                  </td>
+                  <th>#</th>
+                  <th>Tên thể loại</th>
+                  <th>chỉnh sửa</th>
                 </tr>
-
-              ))}
-
+              </thead>
+              <tbody>
+                {category.map((item, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>
+                      <a href='#' onClick={() => handleAction(item.id)}><i className="fa-solid fa-pen-to-square"></i></a>
+                      <a href='#' onClick={() => handleDelete(item.id)}><i className="fa-solid fa-trash"></i></a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
 
@@ -131,14 +133,14 @@ const CategoryList = () => {
             <a href="#" onClick={() => handlePageChange(currentPage + 1)}>&raquo;</a>
           </div>
           {showNotification && (
-          <>
+            <>
               <div className='notification-background'></div>
               <div className='notification'>
                 <p>{notificationMessage}</p>
-                <button  className='notification_button' onClick={() => setShowNotification(false)}>Xác nhận</button>
+                <button className='notification_button' onClick={() => setShowNotification(false)}>Xác nhận</button>
               </div>
             </>
-          )} 
+          )}
         </div>
       </div>
 

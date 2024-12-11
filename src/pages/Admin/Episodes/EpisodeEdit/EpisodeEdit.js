@@ -6,7 +6,7 @@ import HeaderAdmin from '../../../../components/AdminHeader/AdminHeader';
 import AdminNav from '../../../../components/AdminNav/AdminNav';
 import { useAuth } from '../../../../services/authService';
 const EpisodeEdit = () => {
-    const {user} = useAuth();
+    const { user } = useAuth();
     const { id } = useParams();
     const movie = localStorage.getItem('movieid');
     const [formData, setFormData] = useState({
@@ -25,27 +25,27 @@ const EpisodeEdit = () => {
     const [nameFile, setNameFile] = useState('');
 
     useEffect(() => {
-            const fetchData = async () => {
-        try {
-            const response = await axios.get(`http://localhost:1412/api/admin/episode/getbyid/${id}`);
-            const ep = response.data;
-            console.log('ep',response.data);
-            setFormData({
-                name: ep.name,
-                views: ep.views,
-                description: ep.description,
-                useradd: '', // Assuming a default user ID, you can change this as needed
-                likes: ep.likes,
-                movie: movie,
-                videofile: null,
-                subfile: null,
-            });
-        
-        } catch (error) {
-            setError(error.response ? error.response.data : 'Error fetching data');
-            console.error('Error fetching data:', error);
-        }
-    };
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:1412/api/admin/episode/getbyid/${id}`);
+                const ep = response.data;
+                console.log('ep', response.data);
+                setFormData({
+                    name: ep.name,
+                    views: ep.views,
+                    description: ep.description,
+                    useradd: '', // Assuming a default user ID, you can change this as needed
+                    likes: ep.likes,
+                    movie: movie,
+                    videofile: null,
+                    subfile: null,
+                });
+
+            } catch (error) {
+                setError(error.response ? error.response.data : 'Error fetching data');
+                console.error('Error fetching data:', error);
+            }
+        };
         fetchData();
     }, []);
 
@@ -118,8 +118,6 @@ const EpisodeEdit = () => {
                     </div>
                     <a onClick={handleAction}>Quay lại</a>
                     <div className='create_movie_font'>
-                        {notification && <p style={{ color: 'green' }}>{notification}</p>}
-                        {error && <p style={{ color: 'red' }}>{error}</p>}
                         <form onSubmit={handleSubmit} className='create_movie_form'>
                             <div className='form_group'>
                                 <label>Tập phim</label>
@@ -186,6 +184,8 @@ const EpisodeEdit = () => {
                                     onChange={handleChange}
                                 />
                             </div>
+                            {error && <p style={{ color: 'red' }}>{error}</p>}
+                            {notification && <p style={{ color: 'green' }}>{notification}</p>}
                             <button className='create_button' type='submit'>
                                 Cập nhật phim
                             </button>

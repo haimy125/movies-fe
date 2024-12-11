@@ -60,8 +60,8 @@ const Profile = () => {
         document.getElementById('avatarInput').click();
     };
 
-    const convertMillisecondsToDate = (milliseconds) => {
-        const date = new Date(milliseconds);
+    const convertDateArrayToDate = (dateArray) => {
+        const date = new Date(dateArray[0], dateArray[1] - 1, dateArray[2], dateArray[3], dateArray[4]);
 
         const day = date.getDate();
         const month = date.getMonth() + 1; // Months are zero-based, so add 1
@@ -106,7 +106,7 @@ const Profile = () => {
                                 <p><strong>Tên tài khoản:</strong> {users?.username}</p>
                                 <p><strong>Email:</strong> {users?.email}</p>
                                 <p><strong>Xu:</strong> {users?.point} xu</p>
-                                <p><strong>Ngày tạo:</strong> {convertMillisecondsToDate(users?.time_add)}</p>
+                                <p><strong>Ngày tạo:</strong> {convertDateArrayToDate(users?.timeAdd)}</p>
                                 {avatar && <button className='button_avartar_update' onClick={handleAvatarUpload}>Lưu</button>}
                             </div>
                         </div>

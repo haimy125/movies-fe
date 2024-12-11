@@ -31,7 +31,7 @@ const Register = () => {
                     withCredentials: true,
                 }
             );
-    
+
             setNotification('Đăng ký thành công!');
             setLoading(true);
             setTimeout(() => {
@@ -41,7 +41,7 @@ const Register = () => {
             if (error.response) {
                 // Xử lý lỗi từ phía Backend
                 const backendError = error.response.data;
-    
+
                 if (typeof backendError === 'string') {
                     // Trường hợp lỗi RuntimeException trả về chuỗi
                     setError(backendError);
@@ -63,10 +63,10 @@ const Register = () => {
             }
         }
     };
-    
+
     if (loading) {
         return <Loader />;
-    }    
+    }
 
     return (
         <div className='font_body'>
@@ -74,9 +74,7 @@ const Register = () => {
             <div className="register-container">
                 <div className='font_container'>
                     <form onSubmit={handleSubmit} className="login-form">
-                        {notification && <p style={{ color: 'green' }}>{notification} </p>}
                         <h2>Đăng Ký</h2>
-                        {error && <p style={{ color: 'red' }}>{error}</p>}
                         <div className="form-group">
                             <label>Tên đăng ký:</label>
                             <input
@@ -110,6 +108,8 @@ const Register = () => {
                                 required
                             />
                         </div>
+                        {error && <p style={{ color: 'red' }}>{error}</p>}
+                        {notification && <p style={{ color: 'green' }}>{notification} </p>}
                         <button type="submit" className="login-button">Đăng ký</button>
                         <p>Bạn đã tài khoản.<a href='/login'>Đăng nhập</a>  tại đây!</p>
                     </form>

@@ -3,16 +3,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './HotMovies.css';
 import axios from 'axios';
-const HotMovies = ( ) => {
+const HotMovies = () => {
   const [offset, setOffset] = useState(0);
   const containerRef = useRef(null);
   const scrollIntervalRef = useRef(null);
   const scrollStep = 300; // Số pixels để di chuyển mỗi lần
   const [movies, setMovies] = useState([]);
-  useEffect(()=>{
+  useEffect(() => {
     fechdata();
-  },[]);
-  const fechdata=async () =>{
+  }, []);
+  const fechdata = async () => {
     try {
       const rp = await axios.get('http://localhost:1412/user/home/hot?page=1&limit=10');
       setMovies(rp.data.listResult);
@@ -20,7 +20,7 @@ const HotMovies = ( ) => {
       console.error(error.data);
     }
   }
-  
+
   useEffect(() => {
     // Di chuyển tự động
     scrollIntervalRef.current = setInterval(() => {
@@ -52,16 +52,16 @@ const HotMovies = ( ) => {
       setOffset(newOffset);
     }
   };
-  if(movies || movies?.length===0){
+  if (movies || movies?.length === 0) {
     return (
       <div className="hot-movies">
         <h2>Không có phim nào</h2>
       </div>
     );
   }
-  const handleaction=(id)=>{
+  const handleaction = (id) => {
     window.location.href = `/movie/detail/${id}`;
-    }
+  }
   return (
     <div className="hot-movies">
       <button className="scroll-button prev" onClick={handlePrev}>
@@ -69,16 +69,14 @@ const HotMovies = ( ) => {
       </button>
       <div className="hot-movies-container" ref={containerRef}>
         <div className="hot-movies-list" style={{ transform: `translateX(-${offset}px)` }}>
-          {/* {movies.map((movie) => ( */}
-          {movies.map((item, index)=>(
-            <div  className="movie-card"   onClick={() => handleaction(item.id)}>
-              <img src={'http://localhost:1412/user/home/view/'+item.id} alt="thôn phệ tinh không" />
-              
+          {movies.map((item, index) => (
+            <div key={index} className="movie-card" onClick={() => handleaction(item.id)}>
+              <img key={"image" + index} src={'http://localhost:1412/user/home/view/' + item.id} alt="thôn phệ tinh không" />
             </div>
           ))}
-            
-           
-            
+
+
+
           {/* ))} */}
         </div>
       </div>

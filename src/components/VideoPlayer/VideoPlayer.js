@@ -163,24 +163,24 @@ const VideoPlayer = ({ videoId, vnName,ep }) => {
             <div ref={subtitlesRef} className="subtitles"></div>
             {showControls && (
                 <>
-                  <button onClick={handlePlayPause} className="control-button control-button_main">{isPlaying ? <i class="fa-solid fa-pause"></i> : <i class="fa-solid fa-play"></i>}</button>
+                  <button onClick={handlePlayPause} className="control-button control-button_main">{isPlaying ? <i className="fa-solid fa-pause"></i> : <i className="fa-solid fa-play"></i>}</button>
                 <div className="controls">
-                    <button onClick={handlePlayPause} className="control-button">{isPlaying ? <i class="fa-solid fa-pause"></i> : <i class="fa-solid fa-play"></i>}</button>
-                    <button onClick={() => handleSeek(-10)} className="control-button"><i class="fa-solid fa-backward"></i></button>
-                    <button onClick={() => handleSeek(10)} className="control-button"><i class="fa-solid fa-forward"></i></button>
+                    <button onClick={handlePlayPause} className="control-button">{isPlaying ? <i className="fa-solid fa-pause"></i> : <i className="fa-solid fa-play"></i>}</button>
+                    <button onClick={() => handleSeek(-10)} className="control-button"><i className="fa-solid fa-backward"></i></button>
+                    <button onClick={() => handleSeek(10)} className="control-button"><i className="fa-solid fa-forward"></i></button>
                     <div className="progress-bar" ref={progressBarRef} onClick={handleProgressBarClick}>
                         <div className="progress-bar-inner" style={{ width: `${(videoRef.current?.currentTime / videoRef.current?.duration) * 100}%` }}></div>
                     </div>
                     <div className="volume-container">
-                        <span className="volume-icon"><i class="fa-solid fa-volume-high"></i></span>
+                        <span className="volume-icon"><i className="fa-solid fa-volume-high"></i></span>
                         <div className="volume-slider">
                             <input type="range" min="0" max="1" step="0.1" value={volume} onChange={handleVolumeChange} />
                         </div>
                     </div>
                     <button onClick={handleFullscreen} className="control-button">
-                        {isFullscreen ? <i class="fa-solid fa-compress"></i> : <i class="fa-solid fa-expand"></i>}
+                        {isFullscreen ? <i className="fa-solid fa-compress"></i> : <i className="fa-solid fa-expand"></i>}
                     </button>
-                    <button onClick={() => { const link = document.createElement('a'); link.href = videoURL; link.download = `${vnName}-${ep}-[Vietsub].mp4`; link.click(); }} className="control-button"><i class="fa-solid fa-cloud-arrow-down"></i></button>
+                    <button onClick={() => { const link = document.createElement('a'); link.href = videoURL; link.download = `${vnName}-${ep}-[Vietsub].mp4`; link.click(); }} className="control-button"><i className="fa-solid fa-cloud-arrow-down"></i></button>
                 </div>
                 </>
             )}

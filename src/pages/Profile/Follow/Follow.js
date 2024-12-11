@@ -91,9 +91,8 @@ const Follows = () => {
                                             <tr key={index}>
                                                 <td>{index + 1}</td>
                                                 <td className='movie_orders_name'>{item.movie.vnName}</td>
-                                                <td ><a href='#' className='view_movie' onClick={() => handleaction(item.movie.id)}> <i class="fa-solid fa-eye"></i> xem phim</a></td>
-                                                <td ><a href='#' className='view_movie' onClick={() => handleDeleteFollow(item.movie.id)}> <i class="fa-solid fa-rotate-left"></i> Bỏ theo dõi</a></td>
-                                     
+                                                <td ><a href='#' className='view_movie' onClick={() => handleaction(item.movie.id)}> <i className="fa-solid fa-eye"></i> xem phim</a></td>
+                                                <td ><a href='#' className='view_movie' onClick={() => handleDeleteFollow(item.movie.id)}> <i className="fa-solid fa-rotate-left"></i> Bỏ theo dõi</a></td>
                                             </tr>
                                         ))}
                                     </tbody>

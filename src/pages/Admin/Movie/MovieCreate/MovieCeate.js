@@ -7,7 +7,7 @@ import { useAuth } from '../../../../services/authService';
 import './MovieCreate.css';
 
 const MovieCreate = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     vn_name: '',
     cn_name: '',
@@ -21,7 +21,7 @@ const MovieCreate = () => {
     vip_movie: false,
     price: '',
     image: null,
-    year:'',
+    year: '',
   });
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileName, setFileName] = useState('');
@@ -138,8 +138,6 @@ const MovieCreate = () => {
             <a href='/admin/movie' className='backtolist'> Quay lại </a>
           </div>
           <div className='create_movie_font'>
-            {notification && <p style={{ color: 'green' }}>{notification}</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={handleSubmit} className='create_movie_form'>
               <div className='form_group'>
                 <label>Tên Việt Nam</label>
@@ -276,7 +274,7 @@ const MovieCreate = () => {
               </div>
               <label>Thể loại</label>
               <div className='category_movie_list'>
-                
+
                 {categoryList.map((item, index) => (
                   <div className='category_movie_list_group' key={index}>
                     <input
@@ -287,10 +285,9 @@ const MovieCreate = () => {
                   </div>
                 ))}
               </div>
-              <br/>
+              <br />
               <label>lịch chiếu</label>
               <div className='category_movie_list'>
-                
                 {scheduleList.map((item, index) => (
                   <div className='category_movie_list_group' key={index}>
                     <input
@@ -318,6 +315,8 @@ const MovieCreate = () => {
               <div className='form_group image_movie'>
                 <img src={selectedImage} alt='Selected' className='selected_image' />
               </div>
+              {error && <p style={{ color: 'red' }}>{error}</p>}
+              {notification && <p style={{ color: 'green' }}>{notification}</p>}
               <button className='create_button' type='submit'>
                 Thêm mới phim
               </button>

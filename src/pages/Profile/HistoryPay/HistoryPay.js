@@ -78,7 +78,7 @@ const HistoryPay = () => {
                                             <tr key={index}>
                                                 <td>{index + 1}</td>
                                                 <td className={item.status ? 'green-content' : 'red-content'}>{item.content}</td>
-                                                <td>{convertMillisecondsToDate(item.timeadd)}</td>
+                                                <td>{convertMillisecondsToDate(item.timeAdd)}</td>
                                             </tr>
                                         ))}
                                     </tbody>

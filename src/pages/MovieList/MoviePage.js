@@ -87,7 +87,7 @@ const MoviePage = () => {
 
   const handleFilter = () => {
     const selectedCriteriaCount = [genre, year, sortBy, vip]?.filter(value => value !== '')?.length || 0;
-    
+
     if (selectedCriteriaCount < 2) {
       setNotificationMessage('Vui lòng chọn ít nhất 2 tiêu chí để lọc!');
       setShowNotification(true);
@@ -122,94 +122,95 @@ const MoviePage = () => {
         {/* Movie Filter */}
         <div className="movie-filter">
           <div className='filter'>
-          <div className="filter-group">
-            <select
-              id="genre"
-              className='filter-input'
-              value={genre}
-              onChange={(e) => setGenre(e.target.value)}
-            >
-              <option value="">Thể loại</option>
-              {categorys.map((item, index) => (
-                <option key={index} value={item.id}>{item.name}</option>
-              ))}
-            </select>
+            <div className="filter-group">
+              <select
+                id="genre"
+                className='filter-input'
+                value={genre}
+                onChange={(e) => setGenre(e.target.value)}
+              >
+                <option value="">Thể loại</option>
+                {categorys.map((item, index) => (
+                  <option key={index} value={item.id}>{item.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="filter-group">
+              <select
+                id="year"
+                className='filter-input'
+                value={year}
+                onChange={handleYearChange}
+              >
+                <option value="">Năm sản xuất</option>
+                {years.map((yearOption) => (
+                  <option key={yearOption} value={yearOption}>{yearOption}</option>
+                ))}
+              </select>
+            </div>
+            <div className="filter-group">
+              <select
+                id="vip"
+                className='filter-input'
+                value={vip}
+                onChange={(e) => setVip(e.target.value)}
+              >
+                <option value="">Loại phí</option>
+                <option value="true">Trả phí</option>
+                <option value="false">Miễn phí</option>
+              </select>
+            </div>
+            <div className="filter-group">
+              <select
+                id="sortBy"
+                className='filter-input'
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <option value="">Sắp xếp</option>
+                <option value="date">Ngày đăng</option>
+                <option value="views">Lượt xem</option>
+                <option value="name">Tên tiếng Việt</option>
+              </select>
+            </div>
+            {/* Button to apply filter */}
+            {filterApplied ?
+              <button onClick={handleReset} className='filter-apply-button'><i className="fa-solid fa-filter-circle-xmark"></i></button>
+              :
+              <button onClick={handleFilter} className='filter-apply-button'><i className="fa-solid fa-filter"></i></button>}
           </div>
-          <div className="filter-group">
-            <select
-              id="year"
-              className='filter-input'
-              value={year}
-              onChange={handleYearChange}
-            >
-              <option value="">Năm sản xuất</option>
-              {years.map((yearOption) => (
-                <option key={yearOption} value={yearOption}>{yearOption}</option>
-              ))}
-            </select>
-          </div>
-          <div className="filter-group">
-            <select
-              id="vip"
-              className='filter-input'
-              value={vip}
-              onChange={(e) => setVip(e.target.value)}
-            >
-              <option value="">Loại phí</option>
-              <option value="true">Trả phí</option>
-              <option value="false">Miễn phí</option>
-            </select>
-          </div>
-          <div className="filter-group">
-            <select
-              id="sortBy"
-              className='filter-input'
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-            >
-              <option value="">Sắp xếp</option>
-              <option value="date">Ngày đăng</option>
-              <option value="views">Lượt xem</option>
-              <option value="name">Tên tiếng Việt</option>
-            </select>
-          </div>
-           {/* Button to apply filter */}
-          {filterApplied ? 
-          <button onClick={handleReset} className='filter-apply-button'><i className="fa-solid fa-filter-circle-xmark"></i></button> 
-          : 
-          <button onClick={handleFilter} className='filter-apply-button'><i className="fa-solid fa-filter"></i></button>}
-          </div>
-          
+
         </div>
 
         {/* Movie List */}
         <div className="page-movies">
           <div className="movie-list-page">
             <div className='list'>
-            {movies.map((item, index) => (
-              <div className='movie_item' onClick={() => handleAction(item.id)} key={index}>
-                <MovieCard id={item.id} name={item.vnName} vip={item.vipmovie} ep={item.episodenumber} />
-              </div>
-            ))}
+              {movies.map((item, index) => {
+                console.log("item movie", item)
+                return (<div className='movie_item' onClick={() => handleAction(item.id)} key={index}>
+                  <MovieCard id={item.id} name={item.vnName} vip={item.vipmovie} ep={item.episodenumber} />
+                </div>)
+              })}
             </div>
-           
+
           </div>
           <div className="pagination_user">
-          <a href="#" onClick={() => handlePageChange(currentPage - 1)}>&laquo;</a>
-          {[...Array(totalPages)].map((_, i) => (
-            <a
-              key={i + 1}
-              href="#"
-              className={i + 1 === currentPage ? 'active' : ''}
-              onClick={() => handlePageChange(i + 1)}
-            >
-              {i + 1}
-            </a>
-          ))}
-          <a href="#" onClick={() => handlePageChange(currentPage + 1)}>&raquo;</a>
+            <a href="#" onClick={() => handlePageChange(currentPage - 1)}>&laquo;</a>
+            {[...Array(totalPages)].map((_, i) => (
+              <a
+                key={i + 1}
+                href="#"
+                className={i + 1 === currentPage ? 'active' : ''}
+                onClick={() => handlePageChange(i + 1)}
+              >
+                {i + 1}
+              </a>
+            ))}
+            <a href="#" onClick={() => handlePageChange(currentPage + 1)}>&raquo;</a>
+          </div>
         </div>
-        </div>
-   
+
       </div>
       <Footer />
       {showNotification && (

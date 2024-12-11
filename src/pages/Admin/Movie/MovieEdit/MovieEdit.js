@@ -8,8 +8,8 @@ import { useAuth } from '../../../../services/authService';
 import Loader from '../../../../components/Loader/Loader';
 import './MovieEdit.css';
 const MovieEdit = () => {
-  const {user} = useAuth();
-    const {id} = useParams();
+  const { user } = useAuth();
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     vn_name: '',
     cn_name: '',
@@ -86,22 +86,22 @@ const MovieEdit = () => {
   const fetchDetail = async () => {
     try {
       const rp = await axios.get(`http://localhost:1412/api/admin/movies/getbyid/${id}`);
-        const data = rp.data;
-        setFormData({
-            vn_name: data.vnName,
-            cn_name: data.cnname,
-            description: data.description,
-            user_add: '', // Assuming a default user ID, you can change this as needed
-            author: data.author,
-            episode_number: data.episodenumber,
-            status: data.status,
-            new_movie: data.newmovie,
-            hot_movie: data.hotmovie,
-            vip_movie: data.vipmovie,
-            price: data.price,
-            image: null,
-            year:data.year,
-        });
+      const data = rp.data;
+      setFormData({
+        vn_name: data.vnName,
+        cn_name: data.cnName,
+        description: data.description,
+        user_add: '', // Assuming a default user ID, you can change this as needed
+        author: data.author,
+        episode_number: data.episodeNumber,
+        status: data.status,
+        new_movie: data.newMovie,
+        hot_movie: data.hotMovie,
+        vip_movie: data.vipMovie,
+        price: data.price,
+        image: null,
+        year: data.year,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -121,34 +121,34 @@ const MovieEdit = () => {
       console.error(error);
     }
   };
-  if(loading){
+  if (loading) {
     return <Loader />
   }
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     if (name === 'image') {
-        if (files &&files?.length > 0) {
-            setFormData({
-                ...formData,
-                [name]: files[0],
-            });
-            setFileName(files[0]);
-            setSelectedImage(URL.createObjectURL(files[0]));
-        } else {
-            setFormData({
-                ...formData,
-                [name]: null,
-            });
-            setFileName(null);
-            setSelectedImage(`http://localhost:1412/api/admin/movies/view/${id}`);
-        }
-    } else {
+      if (files && files?.length > 0) {
         setFormData({
-            ...formData,
-            [name]: type === 'checkbox' ? checked : value,
+          ...formData,
+          [name]: files[0],
         });
+        setFileName(files[0]);
+        setSelectedImage(URL.createObjectURL(files[0]));
+      } else {
+        setFormData({
+          ...formData,
+          [name]: null,
+        });
+        setFileName(null);
+        setSelectedImage(`http://localhost:1412/api/admin/movies/view/${id}`);
+      }
+    } else {
+      setFormData({
+        ...formData,
+        [name]: type === 'checkbox' ? checked : value,
+      });
     }
-};
+  };
 
   const handleCategoryChange = (e, id) => {
     if (e.target.checked) {
@@ -179,16 +179,16 @@ const MovieEdit = () => {
     dataToSubmit.append('status', formData.status);
     dataToSubmit.append('new_movie', formData.new_movie);
     dataToSubmit.append('hot_movie', formData.hot_movie);
-    dataToSubmit.append('vip_movie', formData.vip_movie );
+    dataToSubmit.append('vip_movie', formData.vip_movie);
     dataToSubmit.append('price', formData.price);
     dataToSubmit.append('year', formData.year);
     dataToSubmit.append('categorylist', categoryIdsString);
     dataToSubmit.append('schedulelist', scheduleIdString);
-    if(fileName){
+    if (fileName) {
       dataToSubmit.append('image', formData.image);
     }
 
- 
+
     try {
       const response = await axios.put(`http://localhost:1412/api/admin/movies/update/${id}`, dataToSubmit, {
         headers: {
@@ -218,10 +218,9 @@ const MovieEdit = () => {
             <h2>Cập nhật thông tin phim</h2>
             <a href='/admin/movie' className='backtolist'> Quay lại </a>
           </div>
-          
+
           <div className='create_movie_font'>
             {notification && <p style={{ color: 'green' }}>{notification}</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
             <form onSubmit={handleSubmit} className='create_movie_form'>
               <div className='form_group'>
                 <label>Tên Việt Nam</label>
@@ -288,12 +287,12 @@ const MovieEdit = () => {
                 <select
                   className='create_input'
                   name='status'
-                  value={formData.status}
+                  defaultValue={formData.status}
                   onChange={handleChange}
                 >
-                  <option value="Đang ra"selected={formData.hot_movie === 'Đang ra'} >Đang ra</option>
-                  <option value="Tạm hoãn" selected={formData.hot_movie === 'Tạm hoãn'} >Tạm hoãn</option>
-                  <option value="Hoàn thành" selected={formData.hot_movie === 'Hoàn thành'} >Hoàn thành</option>
+                  <option value="Đang ra">Đang ra</option>
+                  <option value="Tạm hoãn"  >Tạm hoãn</option>
+                  <option value="Hoàn thành" >Hoàn thành</option>
                 </select>
               </div>
               <div className='form_group'>
@@ -301,11 +300,11 @@ const MovieEdit = () => {
                 <select
                   className='create_input'
                   name='new_movie'
-                  value={formData.new_movie}
+                  defaultValue={formData.new_movie}
                   onChange={handleChange}
                 >
-                  <option value="true" selected={formData.new_movie === true}>Truyện mới ra</option>
-                  <option value="false"  selected={formData.new_movie === false}>Truyện đã ra lâu</option>
+                  <option value={true}>Truyện mới ra</option>
+                  <option value={false}>Truyện đã ra lâu</option>
                 </select>
               </div>
               <div className='form_group'>
@@ -313,11 +312,11 @@ const MovieEdit = () => {
                 <select
                   className='create_input'
                   name='hot_movie'
-                  value={formData.hot_movie}
+                  defaultValue={formData.hot_movie}
                   onChange={handleChange}
                 >
-                  <option value="true" selected={formData.hot_movie === true}>Truyện đang nổi</option>
-                  <option value="false" selected={formData.hot_movie === false}>Truyện thường</option>
+                  <option value={true}>Truyện đang nổi</option>
+                  <option value={false}>Truyện thường</option>
                 </select>
               </div>
               <div className='form_group'>
@@ -325,11 +324,11 @@ const MovieEdit = () => {
                 <select
                   className='create_input'
                   name='vip_movie'
-                  value={formData.vip_movie}
+                  defaultValue={formData.vip_movie}
                   onChange={handleChange}
                 >
-                  <option value="true" selected={formData.vip_movie === true}>Trả phí</option>
-                  <option value="false"  selected={formData.vip_movie === false}>Miễn phí</option>
+                  <option value={true}>Trả phí</option>
+                  <option value={false}>Miễn phí</option>
                 </select>
               </div>
               <div className='form_group'>
@@ -363,7 +362,7 @@ const MovieEdit = () => {
                     <input
                       type='checkbox'
                       checked={(selectedCategories ?? []).includes(item.id)}
-                      
+
                       onChange={(e) => handleCategoryChange(e, item.id)}
                     />
                     <label>{item.name}</label>
@@ -377,7 +376,7 @@ const MovieEdit = () => {
                     <input
                       type='checkbox'
                       checked={(selectedSchedules ?? []).includes(item.id)}
-                      
+
                       onChange={(e) => handleScheduleChange(e, item.id)}
                     />
                     <label>{item.name}</label>
@@ -397,15 +396,15 @@ const MovieEdit = () => {
                   Chọn file
                 </label>
               </div>
-              {selectedImage ?  
-              <div className='form_group image_movie'>
-                <img src={selectedImage} alt='Selected' className='selected_image' />
-              </div> :
-               <div className='form_group image_movie'>
-               <img src={`http://localhost:1412/api/admin/movies/view/${id}`} alt='Selected' className='selected_image' />
-             </div> 
+              {selectedImage ?
+                <div className='form_group image_movie'>
+                  <img src={selectedImage} alt='Selected' className='selected_image' />
+                </div> :
+                <div className='form_group image_movie'>
+                  <img src={`http://localhost:1412/api/admin/movies/view/${id}`} alt='Selected' className='selected_image' />
+                </div>
               }
-             
+              {error && <p style={{ color: 'red' }}>{error}</p>}
               <button className='create_button' type='submit'>
                 Cập nhật phim
               </button>

@@ -81,16 +81,21 @@ const UserList = () => {
     setUserid(id);
     setPointCreate(true);
   };
-  const convertMillisecondsToDate = (timestamp) => {
-    if (!timestamp) return "Không có dữ liệu";
-    const date = new Date(timestamp); // Chuyển đổi timestamp thành đối tượng Date
-    return date.toLocaleDateString("vi-VN", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-    });
-};
 
+
+  const convertDateArrayToDate = (dateArray) => {
+    const date = new Date(dateArray[0], dateArray[1] - 1, dateArray[2], dateArray[3], dateArray[4]);
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Months are zero-based, so add 1
+    const year = date.getFullYear();
+
+    // Format the day and month with leading zeros if needed
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = month < 10 ? `0${month}` : month;
+
+    return `${formattedDay}-${formattedMonth}-${year}`;
+  };
 
   if (loading) {
     return <Loader />;
@@ -155,9 +160,8 @@ const UserList = () => {
                   <tr key={item.id}>
                     <td>{index + 1}</td>
                     <td className='vnName'>{item.username}</td>
-                    <td className='cnname'>{item.email}</td>
-                    {/* Chuyển đổi định dạng ngày */}
-                    <td>{new Date(item.timeAdd).toLocaleDateString('vi-VN')}</td>
+                    <td className='cnName'>{item.email}</td>
+                    <td>{convertDateArrayToDate(item.timeAdd)}</td>
                     <td className='status'>{item.point}</td>
                     <td className='vip'>{item.role.name}</td>
                     <td>

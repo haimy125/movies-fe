@@ -46,7 +46,7 @@ const AdminNav = () => {
       </div>
       <div className='admin_action'>
         <NavLink to='/admin/orders' className={({ isActive }) => (isActive ? 'active_nav' : '')}>
-        <i class="fa-solid fa-crown"></i> Quản lý phim đã mua
+        <i className="fa-solid fa-crown"></i> Quản lý phim đã mua
         </NavLink>
       </div>
     </nav>

@@ -15,7 +15,7 @@ const MovieList = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage,keyword]);
+  }, [currentPage, keyword]);
   const fetchData = async (page) => {
     try {
       let rp;
@@ -25,7 +25,7 @@ const MovieList = () => {
       } else {
         rp = await axios.get(`http://localhost:1412/api/admin/movies/getbyname?name=${keyword}&page=${page}&limit=10`);
       }
-      
+
       setMovies(rp.data.listResult);
       setTotalPages(rp.data.totalPage); // Giả sử API trả về tổng số trang
       console.log(rp.data.listResult)
@@ -61,19 +61,19 @@ const MovieList = () => {
   };
   const convertMillisecondsToDate = (milliseconds) => {
     const date = new Date(milliseconds);
-  
+
     const day = date.getDate();
     const month = date.getMonth() + 1; // Months are zero-based, so add 1
     const year = date.getFullYear();
-  
+
     // Format the day and month with leading zeros if needed
     const formattedDay = day < 10 ? `0${day}` : day;
     const formattedMonth = month < 10 ? `0${month}` : month;
-  
+
     return `${formattedDay}-${formattedMonth}-${year}`;
   };
-  
-  if(loading){
+
+  if (loading) {
     return <Loader />
   }
   return (
@@ -94,11 +94,11 @@ const MovieList = () => {
           </div>
           <div className='search_lable'>
             <div className='search'>
-            <a href='/admin/movie/create' className='crate_button'>Thêm mới <i class="fa-solid fa-plus"></i></a>
+              <a href='/admin/movie/create' className='crate_button'>Thêm mới <i className="fa-solid fa-plus"></i></a>
             </div>
             <div className='admintouser'>
-            <input type='text' className='search_input' placeholder='Nhập tên phim muốn tìm!' onChange={(e) => setKeyword(e.target.value)} />
-            <button className='search_button' onClick={handleSearch}>Tìm kiếm</button>
+              <input type='text' className='search_input' placeholder='Nhập tên phim muốn tìm!' onChange={(e) => setKeyword(e.target.value)} />
+              <button className='search_button' onClick={handleSearch}>Tìm kiếm</button>
               {/* <select className='select_admin_user'>
                 <option value="1">User</option>
                 <option value="0">Admin</option>
@@ -109,37 +109,40 @@ const MovieList = () => {
           </div>
           <div className='table'>
             <table>
-              <tr>
-                <th>#</th>
-                <th>Tên phim</th>
-                <th>Tên tiếng hán</th>
-                <th>ngày đăng</th>
-                <th>trạng thái</th>
-                <th>loại hình</th>
-                <th>chỉnh sửa</th>
-              </tr>
-              {movies.map((item, index) => (
+              <thead>
                 <tr>
-                  <td>{index + 1}</td>
-                  <td className='vnName'>{item.vnName}</td>
-                  <td className='cnname'>{item.cnname}</td>
-                  <td>{convertMillisecondsToDate(item.timeadd)}</td>
-                  <td className='status'>{item.status}</td>
-                  {item.vipmovie === true ? <td className='vip'>Trả phí</td>  : <td className='non_vip'>Miễn phí</td> }
-
-                  <td>
-
-                    <a href='#'  onClick={() => handleAction(item.id)}><i class="fa-solid fa-pen-to-square"></i></a>
-                    <a href='#' onClick={() => handleDelete(item.id)}><i class="fa-solid fa-trash"></i></a>
-                    <a href='#'  onClick={() => handleActiontoep(item.id)}><i class="fa-solid fa-bars-staggered"></i></a>
-                  </td>
+                  <th>#</th>
+                  <th>Tên phim</th>
+                  <th>Tên tiếng hán</th>
+                  <th>ngày đăng</th>
+                  <th>trạng thái</th>
+                  <th>loại hình</th>
+                  <th>chỉnh sửa</th>
                 </tr>
-              ))}
-
+              </thead>
+              <tbody>{movies.map((item, index) => {
+                console.log("item movie", item)
+                return (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td className='vnName'>{item.vnName}</td>
+                    <td className='cnName'>{item.cnName}</td>
+                    <td>{convertMillisecondsToDate(item.timeAdd)}</td>
+                    <td className='status'>{item.status}</td>
+                    {item.vipmovie === true ? <td className='vip'>Trả phí</td> : <td className='non_vip'>Miễn phí</td>}
+                    <td>
+                      <a href='#' onClick={() => handleAction(item.id)}><i className="fa-solid fa-pen-to-square"></i></a>
+                      <a href='#' onClick={() => handleDelete(item.id)}><i className="fa-solid fa-trash"></i></a>
+                      <a href='#' onClick={() => handleActiontoep(item.id)}><i className="fa-solid fa-bars-staggered"></i></a>
+                    </td>
+                  </tr>
+                )
+              })}
+              </tbody>
             </table>
           </div>
 
-          <div class="pagination">
+          <div className="pagination">
             <a href="#" onClick={() => handlePageChange(currentPage - 1)}>&laquo;</a>
             {[...Array(totalPages)].map((_, i) => (
               <a

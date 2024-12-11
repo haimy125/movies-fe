@@ -122,6 +122,7 @@ const MovieDetail = () => {
       setShowNotification(true);
     }
   };
+  console.log("movie?.timeAdd", movie?.timeAdd)
   return (
     <div>
       <Header />
@@ -133,9 +134,9 @@ const MovieDetail = () => {
           </div>
           <div className='info_content'>
             <h1>{movie?.vnName}</h1>
-            <p>Tên tiếng hán: {movie?.cnname}</p>
+            <p>Tên tiếng hán: {movie?.cnName}</p>
             <p>Tác giả: {movie?.author}</p>
-            <p>Thời điểm đăng: {movie ? convertMillisecondsToDate(movie?.timeadd) : "N/A"}</p>
+            <p>Thời điểm đăng: {movie ? convertMillisecondsToDate(movie?.timeAdd) : "N/A"}</p>
             <p>Loại phim: {movie?.vipmovie ? 'trả phí' : "Miễn phí"} </p>
             <p>Giá: {movie?.price} xu</p>
             {isAuthenticated ? <button className='follow_button' onClick={() => handleFollow()}>Theo dõi</button> : <p>Bạn cần đăng nhập để có thể theo dõi phim!</p>}
@@ -176,7 +177,7 @@ const MovieDetail = () => {
                       <p className='comment_user'>
                         {item.useradd && item.useradd.username ? item.useradd.username : 'Anonymous'}
                       </p>
-                      <p className='comment_date'>{convertMillisecondsToDate(item.timeadd)}</p>
+                      <p className='comment_date'>{convertMillisecondsToDate(item.timeAdd)}</p>
                     </div>
                   </div>
                 ))}

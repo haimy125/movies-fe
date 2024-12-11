@@ -17,7 +17,7 @@ const Login = () => {
     // Kiểm tra xem thông tin đăng nhập có được lưu trong localStorage hay không
     const savedUsername = localStorage.getItem('username');
     const savedPassword = localStorage.getItem('password');
-    
+
     if (savedUsername && savedPassword) {
       setUsername(savedUsername);
       setPassword(savedPassword);
@@ -30,14 +30,14 @@ const Login = () => {
     setLoading(true);
     setError('');
     setNotification('');
-    
+
     try {
       // Tạo đối tượng params cho request
       const params = new URLSearchParams();
 
       params.append('username', username);
       params.append('password', password);
-      
+
       // Gửi request đến API login
       const response = await axios.post('http://localhost:1412/api/login/login', params, {
         headers: {
@@ -63,7 +63,7 @@ const Login = () => {
       setTimeout(() => {
         window.location.href = '/'; // Chuyển hướng đến trang chủ
       }, 3000);
-      
+
     } catch (error) {
       // Xử lý lỗi khi đăng nhập thất bại
       setLoading(false);
@@ -85,9 +85,7 @@ const Login = () => {
       <div className="login-container">
         <div className='font_container'>
           <form onSubmit={handleSubmit} className="login-form">
-            {notification && <p style={{color:'green'}}>{notification}</p>}
             <h2>Đăng nhập</h2>
-            {error && <p style={{color:'red'}}>{error}</p>}
             <div className="form-group">
               <label>Tên đăng nhập:</label>
               <input
@@ -112,26 +110,25 @@ const Login = () => {
             </div>
             <div className='rememberandforgot'>
               <div className='rememberitem'>
-              <div className="form-group remember">
-              <input
-                type="checkbox"
-                id='remember'
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-              <label for="remember" >Nhớ tài khoản</label>
-            </div>
-            <div className="form-group">
-              <label><a className='forgotpassword' href='/security/finduser'>Quên mật khẩu?</a></label>
-            </div>
+                <div className="form-group remember">
+                  <input
+                    type="checkbox"
+                    id='remember'
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                  />
+                  <label for="remember" >Nhớ tài khoản</label>
+                </div>
+                <div className="form-group">
+                  <label><a className='forgotpassword' href='/security/finduser'>Quên mật khẩu?</a></label>
+                </div>
               </div>
-           
             </div>
-            
-                {error && <div className="error-message">{error}</div>}
-              <button type="submit" disabled={loading} className="login-button">
-                {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
-              </button>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {notification && <p style={{ color: 'green' }}>{notification}</p>}
+            <button type="submit" disabled={loading} className="login-button">
+              {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+            </button>
             <p>Bạn chưa có tài khoản.<a href='/register'>Đăng ký</a> tài đây!</p>
           </form>
         </div>
