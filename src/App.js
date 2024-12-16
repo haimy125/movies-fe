@@ -1,71 +1,76 @@
 // src/App.js
-import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import './assets/styles/main.css';
-import { AdminRouters, privateRoutes, publicRoutes } from './routers/index';
-import { useAuth } from './services/authService';
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import "./assets/styles/main.css";
+import { AdminRouters, privateRoutes, publicRoutes } from "./routers/index";
+import { useAuth } from "./services/authService";
 
 const App = () => {
-  const token = Cookies.get('token');
-  const { isAuthenticated, user } = useAuth();
+  const token = Cookies.get("token");
+  const { isAuthenticated, user, isLoading } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
-  
+
   useEffect(() => {
-   console.log(isAuthenticated);
+    console.log("Authentication status:", isAuthenticated);
+    console.log("User details:", user);
+  }, [isAuthenticated, user]);
 
-  }, [isAuthenticated]);
+  const checkRoleAccess = (role) => user?.role?.name === role;
 
-  return (
+  const renderRoutes = (routes, fallback) =>
+    routes.map((route, index) => {
+      const Page = route.component;
+      return (
+        <Route
+          key={index}
+          path={route.path}
+          element={fallback ? fallback(route) : <Page />}
+        />
+      );
+    });
+
+  return isLoading ? (
+    <h1>Loading ...</h1>
+  ) : (
     <Router>
       <div id="top" className="App">
         <Routes>
           {/* Public Routes */}
-          {publicRoutes.map((route, index) => {
-            const Page = route.component;
-            return (
-              <Route key={index} path={route.path} element={<Page />} />
-            );
-          })}
+          {renderRoutes(publicRoutes)}
 
           {/* Private Routes */}
-          {privateRoutes.map((route, index) => {
-            const Page = route.component;
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={isAuthenticated === false ? <Navigate to="/login" replace /> :  <Page />}
-              />
-            );
-          })}
+          {renderRoutes(privateRoutes, (route) =>
+            isAuthenticated === false ? (
+              <Navigate to="/login" replace />
+            ) : (
+              <route.component />
+            )
+          )}
 
           {/* Admin Routes */}
-          {AdminRouters.map((route, index) => {
-            const Page = route.component;
-            return (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                    user?.role.name === "ROLE_USER"
-                    ? <Navigate to="/403" replace />
-                    : <Page />
-                }
-              />
-            );
-          })}
+          {renderRoutes(AdminRouters, (route) =>
+            checkRoleAccess("ROLE_ADMIN") ? (
+              <route.component />
+            ) : (
+              <Navigate to="/403" replace />
+            )
+          )}
 
           {/* Fallback Route */}
           <Route path="*" element={<Navigate to="/404" replace />} />
         </Routes>
-        <a href="#top" className='to_top'>
+        <a href="#top" className="to_top">
           <i className="fa-solid fa-arrow-up"></i>
         </a>
       </div>
     </Router>
   );
 };
-
 
 export default App;
