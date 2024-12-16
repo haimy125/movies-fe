@@ -14,15 +14,27 @@ const UserMenu = () => {
   };
 
   const handleLogout = () => {
-    const accessToken = localStorage.getItem("accessToken");
-    const user = JSON.parse(localStorage.getItem("user"));
-
+    // Đọc giá trị từ cookie
+    const getCookie = (name) => {
+      const cookies = document.cookie.split("; "); // Tách các cookie thành mảng
+      for (let cookie of cookies) {
+        const [key, value] = cookie.split("="); // Tách tên và giá trị
+        if (key === name) {
+          return decodeURIComponent(value);
+        }
+      }
+      return null; // Trả về null nếu không tìm thấy cookie
+    };
+    const accessToken = getCookie("accessToken");
     if (accessToken && user) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("user");
+      // Xóa cookie bằng cách đặt giá trị rỗng và `expires` về quá khứ
+      document.cookie =
+        "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+
+      console.log("Cookies cleared. Logging out...");
     }
-    // // Xóa cookie token và thực hiện đăng xuất
-    // document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+
+    // Chuyển hướng đến trang đăng nhập
     setTimeout(() => {
       window.location.href = "/login";
     }, 1000);
