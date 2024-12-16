@@ -28,10 +28,12 @@ const useAuth = () => {
 
         setUser(response?.data);
         setIsAuthenticated(true);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
         setIsAuthenticated(false);
         setUser(null);
+        setIsLoading(false);
       }
     };
 
@@ -40,8 +42,8 @@ const useAuth = () => {
     } else {
       setIsAuthenticated(false);
       setUser(null);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, [token]); // useEffect sẽ chạy lại khi token thay đổi
 
   return { isAuthenticated, user, isLoading };

@@ -15,12 +15,12 @@ const App = () => {
   const { isAuthenticated, user, isLoading } = useAuth();
 
   useEffect(() => {
+    console.log("[Check] isLoading:", isLoading);
     console.log("Authentication status:", isAuthenticated);
     console.log("User details:", user);
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, isLoading]);
 
   const checkRoleAccess = (role) => {
-    console.log(user?.role?.name);
     return user?.role?.name === role;
   };
 
