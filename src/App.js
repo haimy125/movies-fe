@@ -12,9 +12,7 @@ import { AdminRouters, privateRoutes, publicRoutes } from "./routers/index";
 import { useAuth } from "./services/authService";
 
 const App = () => {
-  const token = Cookies.get("token");
   const { isAuthenticated, user, isLoading } = useAuth();
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     console.log("Authentication status:", isAuthenticated);

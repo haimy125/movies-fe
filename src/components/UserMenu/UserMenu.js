@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../services/authService";
 import "./UserMenu.css";
+import { removeToken } from "../../services/tokenService";
 
 const UserMenu = () => {
   const { user, isAuthenticated } = useAuth();
@@ -27,6 +28,7 @@ const UserMenu = () => {
     };
     const accessToken = getCookie("accessToken");
     if (accessToken && user) {
+      removeToken();
       // Xóa cookie bằng cách đặt giá trị rỗng và `expires` về quá khứ
       document.cookie =
         "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";

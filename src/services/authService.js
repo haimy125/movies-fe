@@ -6,7 +6,17 @@ const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Đặt là null để xác định trạng thái chờ
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const token = Cookies.get("accessToken");
+  const [token, setToken] = useState(Cookies.get("accessToken"));
+
+  useEffect(() => {
+    const handleTokenChange = () => {
+      setToken(Cookies.get("accessToken")); // Cập nhật token khi có sự kiện
+    };
+
+    window.addEventListener("tokenChanged", handleTokenChange);
+
+    return () => window.removeEventListener("tokenChanged", handleTokenChange); // Dọn dẹp sự kiện
+  }, []);
 
   useEffect(() => {
     const fetchUserInfoFromApi = async () => {
@@ -20,7 +30,7 @@ const useAuth = () => {
         setIsAuthenticated(true);
       } catch (error) {
         console.error(error);
-        setIsAuthenticated(false); // Chỉ cập nhật isAuthenticated một lần
+        setIsAuthenticated(false);
         setUser(null);
       }
     };
@@ -28,11 +38,11 @@ const useAuth = () => {
     if (token) {
       fetchUserInfoFromApi();
     } else {
-      setIsAuthenticated(false); // Không có token, xác thực thất bại
+      setIsAuthenticated(false);
       setUser(null);
     }
     setIsLoading(false);
-  }, [token]);
+  }, [token]); // useEffect sẽ chạy lại khi token thay đổi
 
   return { isAuthenticated, user, isLoading };
 };

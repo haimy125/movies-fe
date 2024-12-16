@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./Login.css";
+import { setToken } from "../../services/tokenService";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:1412/api";
 
@@ -50,6 +51,8 @@ const Login = () => {
     try {
       const data = await login(username, password);
       const { token, user } = data;
+
+      setToken(token);
 
       if (user && token) {
         // Lưu vào cookie
