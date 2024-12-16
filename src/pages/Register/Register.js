@@ -18,7 +18,7 @@ const Register = () => {
         event.preventDefault();
         try {
             const response = await axios.post(
-                'http://localhost:1412/api/login/register',
+                'http://localhost:1412/api/register',
                 {
                     username: username,
                     password: password,
@@ -35,8 +35,8 @@ const Register = () => {
             setNotification('Đăng ký thành công!');
             setLoading(true);
             setTimeout(() => {
-                window.location.href = '/';
-            }, 3000);
+                window.location.href = '/login';
+            }, 2000);
         } catch (error) {
             if (error.response) {
                 // Xử lý lỗi từ phía Backend
