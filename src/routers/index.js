@@ -1,3 +1,4 @@
+//routers.js
 import CategoryCreate from "../pages/Admin/Category/CategoryCreate/CategoryCreate";
 import CategoryEdit from "../pages/Admin/Category/CategoryEdit/CategoryEdit";
 import CategoryList from "../pages/Admin/Category/CategoryList/categoryList";

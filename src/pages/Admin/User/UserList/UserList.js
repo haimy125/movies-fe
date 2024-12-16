@@ -1,23 +1,26 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import '../../../../assets/styles/Admin.css';
-import HeaderAdmin from '../../../../components/AdminHeader/AdminHeader';
-import AdminNav from '../../../../components/AdminNav/AdminNav';
-import Loader from '../../../../components/Loader/Loader';
-import './UserList.css';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import "../../../../assets/styles/Admin.css";
+import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
+import AdminNav from "../../../../components/AdminNav/AdminNav";
+import Loader from "../../../../components/Loader/Loader";
+import "./UserList.css";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserList = () => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState("");
   const [showNotification, setShowNotification] = useState(false);
   const [pointCreate, setPointCreate] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState('');
-  const [userid, setUserid] = useState('');
-  const [point, setPoint] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [userid, setUserid] = useState("");
+  const [point, setPoint] = useState("");
   const [roleid, setRoleid] = useState(2);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData(currentPage);
@@ -26,10 +29,14 @@ const UserList = () => {
   const fetchData = async (page) => {
     try {
       let rp;
-      if (keyword === '') {
-        rp = await axios.get(`http://localhost:1412/api/admin/user/getbyrole?roleid=${roleid}&page=${page}&limit=10`);
+      if (keyword === "") {
+        rp = await axios.get(
+          `http://localhost:1412/api/admin/user/getbyrole?roleid=${roleid}&page=${page}&limit=10`
+        );
       } else {
-        rp = await axios.get(`http://localhost:1412/api/admin/user/getbyname?name=${keyword}&page=${page}&limit=10`);
+        rp = await axios.get(
+          `http://localhost:1412/api/admin/user/getbyname?name=${keyword}&page=${page}&limit=10`
+        );
       }
       setLoading(false);
       setMovies(rp.data.listResult);
@@ -41,13 +48,13 @@ const UserList = () => {
   };
 
   const handleAction = (id) => {
-    window.location.href = `/admin/users/edit/role/${id}`;
+    navigate(`/admin/users/edit/role/${id}`);
   };
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:1412/api/admin/user/delete/${id}`);
-      setNotificationMessage('Xóa thành công!');
+      setNotificationMessage("Xóa thành công!");
       setShowNotification(true);
       fetchData(currentPage); // Refresh the data
     } catch (error) {
@@ -57,8 +64,10 @@ const UserList = () => {
 
   const handleCreatePoints = async () => {
     try {
-      await axios.put(`http://localhost:1412/api/admin/user/recharge?userid=${userid}&point=${point}`);
-      setNotificationMessage('Nạp xu thành công!');
+      await axios.put(
+        `http://localhost:1412/api/admin/user/recharge?userid=${userid}&point=${point}`
+      );
+      setNotificationMessage("Nạp xu thành công!");
       setPointCreate(false);
       setShowNotification(true);
       fetchData(currentPage); // Refresh the data
@@ -82,9 +91,14 @@ const UserList = () => {
     setPointCreate(true);
   };
 
-
   const convertDateArrayToDate = (dateArray) => {
-    const date = new Date(dateArray[0], dateArray[1] - 1, dateArray[2], dateArray[3], dateArray[4]);
+    const date = new Date(
+      dateArray[0],
+      dateArray[1] - 1,
+      dateArray[2],
+      dateArray[3],
+      dateArray[4]
+    );
 
     const day = date.getDate();
     const month = date.getMonth() + 1; // Months are zero-based, so add 1
@@ -102,33 +116,35 @@ const UserList = () => {
   }
 
   return (
-    <div className='admin_layout'>
-      <div className='header_ad'>
+    <div className="admin_layout">
+      <div className="header_ad">
         <HeaderAdmin />
       </div>
-      <div className='content'>
-        <div className='nav'>
-          <div className='content_nav'>
+      <div className="content">
+        <div className="nav">
+          <div className="content_nav">
             <AdminNav />
           </div>
         </div>
-        <div className='content_data'>
-          <div className='lable_list'>
+        <div className="content_data">
+          <div className="lable_list">
             <h2>Danh sách người dùng</h2>
           </div>
-          <div className='search_lable'>
-            <div className='search'>
+          <div className="search_lable">
+            <div className="search">
               <input
-                type='text'
-                className='search_input'
-                placeholder='Nhập tên người dùng muốn tìm!'
+                type="text"
+                className="search_input"
+                placeholder="Nhập tên người dùng muốn tìm!"
                 onChange={(e) => setKeyword(e.target.value)}
               />
-              <button className='search_button' onClick={handleSearch}>Tìm kiếm</button>
+              <button className="search_button" onClick={handleSearch}>
+                Tìm kiếm
+              </button>
             </div>
-            <div className='admintouser'>
+            <div className="admintouser">
               <select
-                className='select_admin_user'
+                className="select_admin_user"
                 value={roleid}
                 onChange={(e) => setRoleid(e.target.value)}
               >
@@ -137,12 +153,12 @@ const UserList = () => {
               </select>
             </div>
           </div>
-          <div className='create_movie'>
-            <a href='/admin/users/create' className='crate_button'>
+          <div className="create_movie">
+            <Link to={"/admin/users/create"} className="crate_button">
               Thêm mới <i className="fa-solid fa-plus"></i>
-            </a>
+            </Link>
           </div>
-          <div className='table'>
+          <div className="table">
             <table>
               <thead>
                 <tr>
@@ -159,21 +175,21 @@ const UserList = () => {
                 {movies.map((item, index) => (
                   <tr key={item.id}>
                     <td>{index + 1}</td>
-                    <td className='vnName'>{item.username}</td>
-                    <td className='cnName'>{item.email}</td>
+                    <td className="vnName">{item.username}</td>
+                    <td className="cnName">{item.email}</td>
                     <td>{convertDateArrayToDate(item.timeAdd)}</td>
-                    <td className='status'>{item.point}</td>
-                    <td className='vip'>{item.role.name}</td>
+                    <td className="status">{item.point}</td>
+                    <td className="vip">{item.role.name}</td>
                     <td>
-                      <a href='#' onClick={() => handleAction(item.id)}>
+                      <button onClick={() => handleAction(item.id)}>
                         <i className="fa-solid fa-shield-halved"></i>
-                      </a>
-                      <a href='#' onClick={() => handleDelete(item.id)}>
+                      </button>
+                      <button to="#" onClick={() => handleDelete(item.id)}>
                         <i className="fa-solid fa-trash"></i>
-                      </a>
-                      <a href='#' onClick={() => handleCreatePoint(item.id)}>
+                      </button>
+                      <button to="#" onClick={() => handleCreatePoint(item.id)}>
                         <i className="fa-solid fa-coins"></i>
-                      </a>
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -181,46 +197,63 @@ const UserList = () => {
             </table>
           </div>
           <div className="pagination">
-            <a href="#" onClick={() => handlePageChange(currentPage - 1)}>&laquo;</a>
+            <Link to="#" onClick={() => handlePageChange(currentPage - 1)}>
+              &laquo;
+            </Link>
             {[...Array(totalPages)].map((_, i) => (
-              <a
+              <Link
                 key={i + 1}
-                href="#"
-                className={i + 1 === currentPage ? 'active' : ''}
+                to="#"
+                className={i + 1 === currentPage ? "active" : ""}
                 onClick={() => handlePageChange(i + 1)}
               >
                 {i + 1}
-              </a>
+              </Link>
             ))}
-            <a href="#" onClick={() => handlePageChange(currentPage + 1)}>&raquo;</a>
+            <Link to="#" onClick={() => handlePageChange(currentPage + 1)}>
+              &raquo;
+            </Link>
           </div>
           {showNotification && (
             <>
-              <div className='notification-background'></div>
-              <div className='notification'>
+              <div className="notification-background"></div>
+              <div className="notification">
                 <p>{notificationMessage}</p>
-                <button className='notification_button' onClick={() => setShowNotification(false)}>Xác nhận</button>
+                <button
+                  className="notification_button"
+                  onClick={() => setShowNotification(false)}
+                >
+                  Xác nhận
+                </button>
               </div>
             </>
           )}
           {pointCreate && (
             <>
-              <div className='notification-background'></div>
-              <div className='notification'>
-                <div className='closes_point' onClick={() => setPointCreate(false)}>
+              <div className="notification-background"></div>
+              <div className="notification">
+                <div
+                  className="closes_point"
+                  onClick={() => setPointCreate(false)}
+                >
                   <i className="fa-solid fa-xmark"></i>
                 </div>
-                <div className='form_group'>
+                <div className="form_group">
                   <label>Xu nạp</label>
                   <input
-                    type='text'
-                    className='create_input'
-                    placeholder='Nhập số xu'
+                    type="text"
+                    className="create_input"
+                    placeholder="Nhập số xu"
                     onChange={(e) => setPoint(e.target.value)}
                     required
                   />
                 </div>
-                <button className='notification_button' onClick={handleCreatePoints}>Xác nhận</button>
+                <button
+                  className="notification_button"
+                  onClick={handleCreatePoints}
+                >
+                  Xác nhận
+                </button>
               </div>
             </>
           )}

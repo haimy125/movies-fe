@@ -19,7 +19,10 @@ const App = () => {
     console.log("User details:", user);
   }, [isAuthenticated, user]);
 
-  const checkRoleAccess = (role) => user?.role?.name === role;
+  const checkRoleAccess = (role) => {
+    console.log(user?.role?.name);
+    return user?.role?.name === role;
+  };
 
   const renderRoutes = (routes, fallback) =>
     routes.map((route, index) => {
@@ -52,13 +55,14 @@ const App = () => {
           )}
 
           {/* Admin Routes */}
-          {renderRoutes(AdminRouters, (route) =>
-            checkRoleAccess("ROLE_ADMIN") ? (
+          {renderRoutes(AdminRouters, (route) => {
+            if (isLoading) return <h1>Loading...</h1>;
+            return checkRoleAccess("ROLE_ADMIN") ? (
               <route.component />
             ) : (
               <Navigate to="/403" replace />
-            )
-          )}
+            );
+          })}
 
           {/* Fallback Route */}
           <Route path="*" element={<Navigate to="/404" replace />} />

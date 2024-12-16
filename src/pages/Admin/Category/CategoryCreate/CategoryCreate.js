@@ -1,71 +1,79 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import '../../../../assets/styles/Admin.css';
-import HeaderAdmin from '../../../../components/AdminHeader/AdminHeader';
-import AdminNav from '../../../../components/AdminNav/AdminNav';
-import './CategoryCreate.css';
+import axios from "axios";
+import React, { useState } from "react";
+import "../../../../assets/styles/Admin.css";
+import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
+import AdminNav from "../../../../components/AdminNav/AdminNav";
+import "./CategoryCreate.css";
+import { Link } from "react-router-dom";
 
 const CategoryCreate = () => {
   const [newcategory, setNewcategory] = useState({
-    name: '',
-
+    name: "",
   });
-  const [notification, setNotification] = useState('');
-  const [error, setError] = useState('');
+  const [notification, setNotification] = useState("");
+  const [error, setError] = useState("");
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     setNewcategory({
       ...newcategory,
-      [name]: value
+      [name]: value,
     });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:1412/admin/category/create', newcategory);
-      setNotification('Thêm mới thành công!');
+      const response = await axios.post(
+        "http://localhost:1412/admin/category/create",
+        newcategory
+      );
+      setNotification("Thêm mới thành công!");
       setNewcategory({
-        name: '',
-      })
+        name: "",
+      });
     } catch (error) {
-      setError(error.data)
+      setError(error.data);
     }
   };
 
   return (
-    <div className='admin_layout'>
-      <div className='header_ad'>
+    <div className="admin_layout">
+      <div className="header_ad">
         <HeaderAdmin />
       </div>
-      <div className='content'>
-        <div className='nav'>
-          <div className='content_nav'>
+      <div className="content">
+        <div className="nav">
+          <div className="content_nav">
             <AdminNav />
           </div>
         </div>
-        <div className='content_data'>
-          <div className='label_list'>
+        <div className="content_data">
+          <div className="label_list">
             <h2>Thêm mới thể loại</h2>
-            <a href='/admin/category' className='backtolist'> Quay lại </a>
+            <Link to="/admin/category" className="backtolist">
+              {" "}
+              Quay lại{" "}
+            </Link>
           </div>
-          <div className='create_movie_font'>
-            <form onSubmit={handleSubmit} className='create_movie_form'>
-              <div className='form_group'>
+          <div className="create_movie_font">
+            <form onSubmit={handleSubmit} className="create_movie_form">
+              <div className="form_group">
                 <label>Tên thể loại</label>
                 <input
-                  type='text'
-                  name='name'
-                  className='create_input'
-                  placeholder='Nhập tên thể loại phim'
+                  type="text"
+                  name="name"
+                  className="create_input"
+                  placeholder="Nhập tên thể loại phim"
                   value={newcategory.name}
                   onChange={handleChange}
                   required
                 />
               </div>
-              {error && <p style={{ color: 'red' }}>{error}</p>}
-              {notification && <p style={{ color: 'green' }}>{notification}</p>}
-              <button type='submit' className='create_button'>Thêm mới</button>
+              {error && <p style={{ color: "red" }}>{error}</p>}
+              {notification && <p style={{ color: "green" }}>{notification}</p>}
+              <button type="submit" className="create_button">
+                Thêm mới
+              </button>
             </form>
           </div>
         </div>
