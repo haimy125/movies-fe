@@ -1,17 +1,21 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 
 const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Đặt là null để xác định trạng thái chờ
   const [user, setUser] = useState(null);
-  const token = Cookies.get('token');
-  console.log("token test:::",token);
+  const token = Cookies.get("accessToken");
+
   useEffect(() => {
     const fetchUserInfoFromApi = async () => {
       try {
-        const response = await axios.get(`http://localhost:1412/api/login/checktoken?token=${token}`);
-        setUser(response.data);
+        const response = await axios.get(
+          `http://localhost:1412/api/checktoken?token=${token}`
+        );
+        if (!response?.data) return;
+
+        setUser(response?.data);
         setIsAuthenticated(true);
       } catch (error) {
         console.error(error);
