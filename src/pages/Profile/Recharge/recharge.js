@@ -13,8 +13,6 @@ const Recharge = () => {
     const [loading, setLoading] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
 
-    
-
     const handleImageClick = (imageSrc) => {
         setSelectedImage(imageSrc);
     };

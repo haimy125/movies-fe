@@ -52,16 +52,13 @@ const Login = () => {
       const { token, user } = data;
 
       if (user && token) {
-        localStorage.setItem("accessToken", token);
-        localStorage.setItem("user", JSON.stringify(user));
-
         // Lưu vào cookie
         document.cookie = `accessToken=${token}; path=/; Secure; SameSite=Strict; max-age=${
           60 * 60 * 24
         }`; // Lưu token trong 1 ngày
-        document.cookie = `user=${encodeURIComponent(
-          JSON.stringify(user)
-        )}; path=/; Secure; max-age=${60 * 60 * 24}`; // Lưu user trong 1 ngày
+        // document.cookie = `user=${encodeURIComponent(
+        //   JSON.stringify(user)
+        // )}; path=/; Secure; max-age=${60 * 60 * 24}`; // Lưu user trong 1 ngày
       }
 
       setNotification("Đăng nhập thành công!");
