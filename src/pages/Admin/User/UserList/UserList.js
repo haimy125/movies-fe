@@ -138,7 +138,7 @@ const UserList = () => {
             </div>
           </div>
           <div className='create_movie'>
-            <a href='/admin/movie/create' className='crate_button'>
+            <a href='/admin/users/create' className='crate_button'>
               Thêm mới <i className="fa-solid fa-plus"></i>
             </a>
           </div>
