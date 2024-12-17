@@ -1,29 +1,34 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import CommentForm from '../../components/Comment/CommentForm';
-import Footer from '../../components/Footer/Footer';
-import Header from '../../components/Header/Header';
-import Loader from '../../components/Loader/Loader';
-import StarRating from '../../components/StarRating/StarRating';
-import { useAuth } from '../../services/authService';
-import './MovieDetall.css'; // Tạo file CSS cho styling
+import axios from "axios";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import CommentForm from "../../components/Comment/CommentForm";
+import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header/Header";
+import Loader from "../../components/Loader/Loader";
+import StarRating from "../../components/StarRating/StarRating";
+import { useAuth } from "../../services/authService";
+import "./MovieDetall.css"; // Tạo file CSS cho styling
+import { Typography } from "@mui/material";
+import BasicModal from "../../components/Modal/BasicModal";
+import QRPayModal from "../../components/Modal/QrPayModal";
 
 const MovieDetail = () => {
   const { id } = useParams();
-  const token = Cookies.get('token');
-  const { isAuthenticated, user } = useAuth();
-  
+  const token = Cookies.get("token");
+  const { isAuthenticated, user, isLoading } = useAuth();
+  const navigate = useNavigate();
+
+  const [isOpenQrModal, setIsOpenQrModal] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [loading, setLoading] = useState(true);
   const [episode, setEpisode] = useState([]);
   const [comments, setComments] = useState([]);
   const [movie, setMovie] = useState(null);
-  const [checkvips, setCheckvips] = useState(false);
+  const [checkPrice, setCheckPrice] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationMessage, setNotificationMessage] = useState("");
   const [showNotification, setShowNotification] = useState(false);
 
   const toggleDescription = () => {
@@ -31,29 +36,40 @@ const MovieDetail = () => {
   };
 
   useEffect(() => {
-    if (!token) {
-      window.location.href = '/login';
-      return; // Thoát khỏi useEffect nếu chưa có token
-    }
+    console.log("Trạng thái QR Modal: ", isOpenQrModal);
+  }, [isOpenQrModal]);
+
+  useEffect(() => {
+    // if (!token) {
+    //   window.location.href = '/login';
+    //   return; // Thoát khỏi useEffect nếu chưa có token
+    // }
 
     const fetchData = async () => {
       try {
-        const [movieResponse, episodeResponse, commentResponse] = await Promise.all([
-          axios.get(`http://localhost:1412/api/admin/movies/getbyid/${id}`),
-          axios.get(`http://localhost:1412/api/admin/episode/getBymovie/all/${id}`),
-          axios.get(`http://localhost:1412/api/user/comment/movie/bymovie/${id}?page=${currentPage}&limit=10`)
-        ]);
+        const [movieResponse, episodeResponse, commentResponse] =
+          await Promise.all([
+            axios.get(`http://localhost:1412/api/admin/movies/getbyid/${id}`),
+            axios.get(
+              `http://localhost:1412/api/admin/episode/getBymovie/all/${id}`
+            ),
+            axios.get(
+              `http://localhost:1412/api/user/comment/movie/bymovie/${id}?page=${currentPage}&limit=10`
+            ),
+          ]);
 
         setMovie(movieResponse.data);
         setEpisode(episodeResponse.data.listResult);
         setComments(commentResponse.data.listResult || {});
-        
+
         if (user?.id) {
-          const vipResponse = await axios.get(`http://localhost:1412/api/user/movie/checkvip?userid=${user.id}&movieid=${id}`);
-          setCheckvips(true);
+          const vipResponse = await axios.get(
+            `http://localhost:1412/api/user/movie/checkvip?userid=${user.id}&movieid=${id}`
+          );
+          setCheckPrice(true);
         }
       } catch (error) {
-        console.error('Error fetching data', error);
+        console.error("Error fetching data", error);
       } finally {
         setLoading(false);
       }
@@ -87,34 +103,52 @@ const MovieDetail = () => {
 
   const handleAction = async (epid) => {
     if (movie?.vipmovie) {
-      if (checkvips) {
-        window.location.href = `/movie/ep/${epid}`;
+      if (checkPrice) {
+        navigate(`/movie/ep/${epid}`);
       } else {
-        setNotificationMessage('Đây là phim có yêu cầu trả phí, bạn vui lòng mua phim trước khi xem!');
+        setNotificationMessage(
+          "Đây là phim có yêu cầu trả phí, bạn vui lòng mua phim trước khi xem!"
+        );
         setShowNotification(true);
       }
     } else {
-      window.location.href = `/movie/ep/${epid}`;
+      navigate(`/movie/ep/${epid}`);
     }
   };
 
   const handleBuyMovie = async () => {
-    try {
-      const response = await axios.post(`http://localhost:1412/api/user/movie/buymovie?userid=${user.id}&movieid=${id}`);
-      setNotificationMessage("Bạn đã mua phim thành công ");
-      setShowNotification(true);
-      setCheckvips(true);
-    } catch (error) {
-      console.error('lỗi', error.response.data);
-      setNotificationMessage(error.response.data);
-      setShowNotification(true);
-      setCheckvips(false);
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
     }
+
+    setIsOpenQrModal(true);
+
+    // try {
+    //   const response = await axios.post(
+    //     `http://localhost:1412/api/user/movie/buymovie?userid=${user.id}&movieid=${id}`
+    //   );
+    //   setNotificationMessage("Bạn đã mua phim thành công ");
+    //   setShowNotification(true);
+    //   setCheckPrice(true);
+    // } catch (error) {
+    //   console.error("lỗi", error.response.data);
+    //   setNotificationMessage(error.response.data);
+    //   setShowNotification(true);
+    //   setCheckPrice(false);
+    // }
   };
 
   const handleFollow = async () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+
     try {
-      const response = await axios.post(`http://localhost:1412/api/user/follow/add?userid=${user.id}&movieid=${id}`);
+      const response = await axios.post(
+        `http://localhost:1412/api/user/follow/add?userid=${user.id}&movieid=${id}`
+      );
       setNotificationMessage("Bạn đã theo dõi phim thành công ");
       setShowNotification(true);
     } catch (error) {
@@ -122,96 +156,170 @@ const MovieDetail = () => {
       setShowNotification(true);
     }
   };
-  console.log("movie?.timeAdd", movie?.timeAdd)
+  console.log("movie?.timeAdd", movie?.timeAdd);
+
+  const handleOnOpenQrModal = () => {
+    setIsOpenQrModal(true);
+  };
+  const handleOnCloseQrModal = () => {
+    setIsOpenQrModal(false);
+  };
+
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div>
       <Header />
       <div className="detail">
-        <div className='info'>
-          <div className='images_movies'>
-            <img src={`http://localhost:1412/api/admin/movies/view/${id}`} className="movie-image" alt="Movie Poster" />
-            {!checkvips && movie?.vipmovie && <button className='follow_button play' onClick={handleBuyMovie}>Mua Phim</button>}
+        <div className="info">
+          <div className="images_movies">
+            <img
+              src={`http://localhost:1412/api/admin/movies/view/${id}`}
+              className="movie-image"
+              alt="Movie Poster"
+            />
           </div>
-          <div className='info_content'>
+          <div className="info_content">
             <h1>{movie?.vnName}</h1>
             <p>Tên tiếng hán: {movie?.cnName}</p>
             <p>Tác giả: {movie?.author}</p>
-            <p>Thời điểm đăng: {movie ? convertMillisecondsToDate(movie?.timeAdd) : "N/A"}</p>
-            <p>Loại phim: {movie?.vipmovie ? 'trả phí' : "Miễn phí"} </p>
+            <p>
+              Thời điểm đăng:{" "}
+              {movie ? convertMillisecondsToDate(movie?.timeAdd) : "N/A"}
+            </p>
+            <p>Loại phim: {movie?.vipmovie ? "trả phí" : "Miễn phí"} </p>
             <p>Giá: {movie?.price} xu</p>
-            {isAuthenticated ? <button className='follow_button' onClick={() => handleFollow()}>Theo dõi</button> : <p>Bạn cần đăng nhập để có thể theo dõi phim!</p>}
             <p>Mô tả:</p>
             <p>
-              {showFullDescription ? movie?.description : `${movie?.description.substring(0, 100)}...`}
+              {showFullDescription
+                ? movie?.description
+                : `${movie?.description.substring(0, 100)}...`}
               <span className="toggle-description" onClick={toggleDescription}>
-                {showFullDescription ? 'Thu gọn' : 'Xem thêm'}
+                {showFullDescription ? "Thu gọn" : "Xem thêm"}
               </span>
             </p>
+            {/* {!checkPrice && movie?.price > 0 && ( */}
+            {true && (
+              <button className="follow_button play" onClick={handleBuyMovie}>
+                Mua Phim
+              </button>
+            )}
+            <button className="follow_button" onClick={() => handleFollow()}>
+              Theo dõi
+            </button>
           </div>
-          <div className='info_review'>
-            {isAuthenticated ? <StarRating userId={user.id} movieId={id} /> : "Bạn phải đăng nhập mới có thể sử dụng chức năng này!"}
+          <div className="info_review">
+            {isAuthenticated ? (
+              <StarRating userId={user.id} movieId={id} />
+            ) : (
+              "Bạn phải đăng nhập mới có thể sử dụng chức năng này!"
+            )}
           </div>
         </div>
       </div>
-      <div className='ep_cmt'>
+      <div className="ep_cmt">
         <div className="episodes">
           <h2>Danh sách tập phim</h2>
           <div className="episode-list">
             {episode.map((item, index) => (
-              <div key={index} className="episode-item" onClick={() => handleAction(item?.id)}>
+              <div
+                key={index}
+                className="episode-item"
+                onClick={() => handleAction(item?.id)}
+              >
                 {item?.name}
               </div>
             ))}
           </div>
         </div>
-        <div className='comment'>
+        <div className="comment">
           <h2>Danh sách bình luận</h2>
-          {isAuthenticated ?
+          {isAuthenticated ? (
             <>
-              <div className='comment_list'>
+              <div className="comment_list">
                 {comments.map((item, index) => (
-                  <div key={index} className='comment_item'>
-                    <p className='comment_content'>{item.content}</p>
-                    <div className='info_coment_user'>
+                  <div key={index} className="comment_item">
+                    <p className="comment_content">{item.content}</p>
+                    <div className="info_coment_user">
                       {/* Kiểm tra nếu item.useradd và item.useradd.username tồn tại */}
-                      <p className='comment_user'>
-                        {item.useradd && item.useradd.username ? item.useradd.username : 'Anonymous'}
+                      <p className="comment_user">
+                        {item.useradd && item.useradd.username
+                          ? item.useradd.username
+                          : "Anonymous"}
                       </p>
-                      <p className='comment_date'>{convertMillisecondsToDate(item.timeAdd)}</p>
+                      <p className="comment_date">
+                        {convertMillisecondsToDate(item.timeAdd)}
+                      </p>
                     </div>
                   </div>
                 ))}
                 <div className="pagination_user">
-                  <a href="#" onClick={(e) => { e.preventDefault(); handlePageChange(currentPage - 1); }}>&laquo;</a>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePageChange(currentPage - 1);
+                    }}
+                  >
+                    &laquo;
+                  </a>
                   {[...Array(totalPages)].map((_, i) => (
                     <a
                       key={i + 1}
                       href="#"
-                      className={i + 1 === currentPage ? 'active' : ''}
-                      onClick={(e) => { e.preventDefault(); handlePageChange(i + 1); }}
+                      className={i + 1 === currentPage ? "active" : ""}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handlePageChange(i + 1);
+                      }}
                     >
                       {i + 1}
                     </a>
                   ))}
-                  <a href="#" onClick={(e) => { e.preventDefault(); handlePageChange(currentPage + 1); }}>&raquo;</a>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePageChange(currentPage + 1);
+                    }}
+                  >
+                    &raquo;
+                  </a>
                 </div>
               </div>
               <CommentForm movieid={id} userid={user.id} />
             </>
-            : "Bạn phải đăng nhập mới có thể bình luận phim!"
-          }
+          ) : (
+            "Bạn phải đăng nhập mới có thể bình luận phim!"
+          )}
         </div>
       </div>
       <Footer />
       {showNotification && (
         <>
-          <div className='notification-background'></div>
-          <div className='notification'>
+          <div className="notification-background"></div>
+          <div className="notification">
             <p>{notificationMessage}</p>
-            <button className='notification_button' onClick={() => setShowNotification(false)}>Xác nhận</button>
+            <button
+              className="notification_button"
+              onClick={() => setShowNotification(false)}
+            >
+              Xác nhận
+            </button>
           </div>
         </>
       )}
+      {/* <BasicModal open={true} heading="test">
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+        </Typography>
+      </BasicModal> */}
+      <QRPayModal
+        open={isOpenQrModal}
+        qrImg={"https://img.vietqr.io/image/970415-113366668888-compact2.png"}
+        onClose={handleOnCloseQrModal}
+        onOpen={handleOnOpenQrModal}
+        onSubmit={handleOnCloseQrModal}
+      />
     </div>
   );
 };
