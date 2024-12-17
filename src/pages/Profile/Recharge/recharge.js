@@ -45,7 +45,10 @@ const Recharge = () => {
   }, [bankInfo]);
 
   const handleOnClickNap = () => {
-    if (!user) return;
+    setBankInfo({
+      ...bankInfo,
+      description: user.id + "buy" + new Date().getTime(),
+    });
     console.log(bankInfo, qrImg);
     setIsOpenQrModal(true);
   };

@@ -260,7 +260,7 @@ const MovieEdit = () => {
                 />
               </div>
               <div className="form_group">
-                <label>Tên tiếng hán</label>
+                <label>Tên tiếng nước ngoài</label>
                 <input
                   type="text"
                   name="cn_name"
