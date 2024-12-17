@@ -36,15 +36,27 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
         ) {
           const authToken = Cookies.get("accessToken"); // Token bạn lấy được từ quá trình đăng nhập
 
-          const response = await axios.put(
-            `http://localhost:1412/api/admin/user/napTien?token=${authToken}&point=${bankInfo.amount}`,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${authToken}`, // Thêm header Authorization
-              },
-            }
-          );
+          const response = await axios({
+            method: "PUT",
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${authToken}`,
+            },
+            url: `http://localhost:1412/api/admin/user/napTien`,
+            params: {
+              point: bankInfo.amount,
+            },
+          });
+
+          //   await axios.put(
+          //     `http://localhost:1412/api/admin/user/napTien?point=${bankInfo.amount}`,
+          //     {
+          //       headers: {
+          //         "Content-Type": "multipart/form-data",
+          //         Authorization: `Bearer ${authToken}`, // Thêm header Authorization
+          //       },
+          //     }
+          //   );
 
           localStorage.setItem("user", JSON.parse(response.data));
 
