@@ -13,28 +13,12 @@ import { Typography } from "@mui/material";
 import BasicModal from "../../components/Modal/BasicModal";
 import QRPayModal from "../../components/Modal/QrPayModal";
 
-const VIETTIN_ID = "970415";
-const MY_BANK_ID = "109869595383";
-const QR_IMG_ROOT =
-  "https://img.vietqr.io/image/" +
-  VIETTIN_ID +
-  "-" +
-  MY_BANK_ID +
-  "-compact2.png";
-
 const MovieDetail = () => {
   const { id } = useParams();
   const token = Cookies.get("token");
   const { isAuthenticated, user, isLoading } = useAuth();
   const navigate = useNavigate();
 
-  const [bankInfo, setBankInfo] = useState({
-    description: "",
-    qr_img: QR_IMG_ROOT,
-    amount: 0,
-    accountName: "Đỗ Trường Giang",
-  });
-  const [isOpenQrModal, setIsOpenQrModal] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [loading, setLoading] = useState(true);
   const [episode, setEpisode] = useState([]);
@@ -49,20 +33,6 @@ const MovieDetail = () => {
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
-
-  useEffect(() => {
-    if (!movie) return;
-    setBankInfo({
-      ...bankInfo,
-      amount: movie.price,
-      description: user.id + "buy" + movie.id,
-      qrImg: `${QR_IMG_ROOT}?amount=${bankInfo.amount}&addInfo=${bankInfo.description}&accountName=${bankInfo.accountName}`,
-    });
-  }, [movie]);
-
-  useEffect(() => {
-    console.log("Trạng thái QR Modal: ", isOpenQrModal);
-  }, [isOpenQrModal]);
 
   useEffect(() => {
     // if (!token) {
@@ -147,21 +117,19 @@ const MovieDetail = () => {
       return;
     }
 
-    setIsOpenQrModal(true);
-
-    // try {
-    //   const response = await axios.post(
-    //     `http://localhost:1412/api/user/movie/buymovie?userid=${user.id}&movieid=${id}`
-    //   );
-    //   setNotificationMessage("Bạn đã mua phim thành công ");
-    //   setShowNotification(true);
-    //   setCheckPrice(true);
-    // } catch (error) {
-    //   console.error("lỗi", error.response.data);
-    //   setNotificationMessage(error.response.data);
-    //   setShowNotification(true);
-    //   setCheckPrice(false);
-    // }
+    try {
+      const response = await axios.post(
+        `http://localhost:1412/api/user/movie/buymovie?userid=${user.id}&movieid=${id}`
+      );
+      setNotificationMessage("Bạn đã mua phim thành công ");
+      setShowNotification(true);
+      setCheckPrice(true);
+    } catch (error) {
+      console.error("lỗi", error.response.data);
+      setNotificationMessage(error.response.data);
+      setShowNotification(true);
+      setCheckPrice(false);
+    }
   };
 
   const handleFollow = async () => {
@@ -182,13 +150,6 @@ const MovieDetail = () => {
     }
   };
   console.log("movie?.timeAdd", movie?.timeAdd);
-
-  const handleOnOpenQrModal = () => {
-    setIsOpenQrModal(true);
-  };
-  const handleOnCloseQrModal = () => {
-    setIsOpenQrModal(false);
-  };
 
   if (isLoading) return <div>Loading...</div>;
   return (
@@ -338,13 +299,6 @@ const MovieDetail = () => {
           Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
         </Typography>
       </BasicModal> */}
-      <QRPayModal
-        open={isOpenQrModal}
-        bankInfo={bankInfo}
-        onClose={handleOnCloseQrModal}
-        onOpen={handleOnOpenQrModal}
-        onSubmit={handleOnCloseQrModal}
-      />
     </div>
   );
 };

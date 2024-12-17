@@ -54,8 +54,12 @@ const Login = () => {
 
       setToken(token);
 
+      console.log(token, user);
       if (user && token) {
+        user.avatar = null;
+
         // Lưu vào cookie
+        localStorage.setItem("user", JSON.stringify(user));
         document.cookie = `accessToken=${token}; path=/; Secure; SameSite=Strict; max-age=${
           60 * 60 * 24
         }`; // Lưu token trong 1 ngày

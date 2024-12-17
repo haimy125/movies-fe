@@ -2,12 +2,11 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../services/authService";
 import "./UserMenu.css";
 import { removeToken } from "../../services/tokenService";
 
 const UserMenu = () => {
-  const { user, isAuthenticated } = useAuth();
+  const user = JSON.parse(localStorage.getItem("user"));
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const handleMenuToggle = () => {
@@ -44,7 +43,7 @@ const UserMenu = () => {
 
   return (
     <div className="user-menu">
-      {isAuthenticated && user ? (
+      {user ? (
         <div className="user-menu-container" onClick={handleMenuToggle}>
           <img
             src={`http://localhost:1412/api/view/${user?.id}`}

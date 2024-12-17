@@ -15,7 +15,7 @@ const MODAL_TIME = 300;
 const INPUT_PAYMENT =
   "https://script.google.com/macros/s/AKfycbzcoKVCiqIb-BkQ2nFxhrIU7jOH2sN9HEvGq7Vkyn5Hus5tlIDyWngoNN-Rk8zg2wUE3w/exec";
 
-const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo }) => {
+const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
   const [timeLeft, setTimeLeft] = useState(MODAL_TIME); // Đếm ngược 120 giây
   const [isCheckingPayment, setIsCheckingPayment] = useState(false);
 
@@ -81,8 +81,6 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo }) => {
     // onSubmit();
     setIsCheckingPayment(true);
   };
-
-  console.log("Đang kiểm tra: ", isCheckingPayment);
 
   return (
     <div>
@@ -156,7 +154,7 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo }) => {
                 }}
               >
                 <img
-                  src={bankInfo.qrImg}
+                  src={qrImg}
                   alt="QR Code"
                   style={{
                     width: "400px",
