@@ -12,8 +12,35 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const MODAL_TIME = 300;
 
-const QRPayModal = ({ open, onOpen, onClose, onSubmit, qrImg }) => {
+const INPUT_PAYMENT =
+  "https://script.google.com/macros/s/AKfycbzcoKVCiqIb-BkQ2nFxhrIU7jOH2sN9HEvGq7Vkyn5Hus5tlIDyWngoNN-Rk8zg2wUE3w/exec";
+
+const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo }) => {
   const [timeLeft, setTimeLeft] = useState(MODAL_TIME); // Đếm ngược 120 giây
+  const [isCheckingPayment, setIsCheckingPayment] = useState(false);
+
+  const checkPayment = async () => {
+    try {
+      const response = await fetch(INPUT_PAYMENT);
+      const data = await response.json();
+      const dataCheck = await data.data[1];
+
+      if (dataCheck) {
+        const price = dataCheck["Giá trị"];
+        const description = dataCheck["Mô tả"];
+        if (
+          price >= bankInfo.amount &&
+          description.includes(bankInfo.description)
+        ) {
+          console.log("thanh toán thành công");
+        } else {
+          console.log("Chưa thanh toán");
+        }
+      }
+    } catch (error) {
+      console.log("[Error] Error when check qr payment", error);
+    }
+  };
 
   // Đếm ngược thời gian
   useEffect(() => {
@@ -45,9 +72,17 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, qrImg }) => {
   const handleClose = () => {
     onClose();
   };
-  const handleSubmit = () => {
-    onSubmit();
+  const handleSubmit = async () => {
+    setIsCheckingPayment(true);
+
+    await checkPayment();
+    await checkPayment();
+
+    // onSubmit();
+    setIsCheckingPayment(true);
   };
+
+  console.log("Đang kiểm tra: ", isCheckingPayment);
 
   return (
     <div>
@@ -111,25 +146,29 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, qrImg }) => {
             </Typography>
 
             {/* Hình ảnh QR Code */}
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                mt: 3,
-              }}
-            >
-              <img
-                src={qrImg}
-                alt="QR Code"
-                style={{
-                  width: "400px",
-                  height: "400px",
-                  objectFit: "contain",
-                  objectPosition: "center",
+            {!isCheckingPayment ? (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  mt: 3,
                 }}
-              />
-            </Box>
+              >
+                <img
+                  src={bankInfo.qrImg}
+                  alt="QR Code"
+                  style={{
+                    width: "400px",
+                    height: "400px",
+                    objectFit: "contain",
+                    objectPosition: "center",
+                  }}
+                />
+              </Box>
+            ) : (
+              <span> Đang kiểm tra thanh toán... </span>
+            )}
 
             {/* Nút xác nhận */}
             <Box sx={{ textAlign: "center", mt: 4 }}>

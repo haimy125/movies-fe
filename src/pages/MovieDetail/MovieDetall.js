@@ -13,12 +13,27 @@ import { Typography } from "@mui/material";
 import BasicModal from "../../components/Modal/BasicModal";
 import QRPayModal from "../../components/Modal/QrPayModal";
 
+const VIETTIN_ID = "970415";
+const MY_BANK_ID = "109869595383";
+const QR_IMG_ROOT =
+  "https://img.vietqr.io/image/" +
+  VIETTIN_ID +
+  "-" +
+  MY_BANK_ID +
+  "-compact2.png";
+
 const MovieDetail = () => {
   const { id } = useParams();
   const token = Cookies.get("token");
   const { isAuthenticated, user, isLoading } = useAuth();
   const navigate = useNavigate();
 
+  const [bankInfo, setBankInfo] = useState({
+    description: "",
+    qr_img: QR_IMG_ROOT,
+    amount: 0,
+    accountName: "Đỗ Trường Giang",
+  });
   const [isOpenQrModal, setIsOpenQrModal] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -34,6 +49,16 @@ const MovieDetail = () => {
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
+
+  useEffect(() => {
+    if (!movie) return;
+    setBankInfo({
+      ...bankInfo,
+      amount: movie.price,
+      description: user.id + "buy" + movie.id,
+      qrImg: `${QR_IMG_ROOT}?amount=${bankInfo.amount}&addInfo=${bankInfo.description}&accountName=${bankInfo.accountName}`,
+    });
+  }, [movie]);
 
   useEffect(() => {
     console.log("Trạng thái QR Modal: ", isOpenQrModal);
@@ -315,7 +340,7 @@ const MovieDetail = () => {
       </BasicModal> */}
       <QRPayModal
         open={isOpenQrModal}
-        qrImg={"https://img.vietqr.io/image/970415-113366668888-compact2.png"}
+        bankInfo={bankInfo}
         onClose={handleOnCloseQrModal}
         onOpen={handleOnOpenQrModal}
         onSubmit={handleOnCloseQrModal}
