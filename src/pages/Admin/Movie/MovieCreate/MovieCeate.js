@@ -116,6 +116,15 @@ const MovieCreate = () => {
     dataToSubmit.append("schedulelist", scheduleIdString);
     dataToSubmit.append("image", fileName);
 
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    // Lấy token từ cookie
+    const accessToken = getCookie("accessToken");
+
     try {
       const response = await axios.post(
         "http://localhost:1412/api/admin/movies/create",
@@ -123,6 +132,7 @@ const MovieCreate = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${accessToken}`, // Gửi token qua header
           },
         }
       );

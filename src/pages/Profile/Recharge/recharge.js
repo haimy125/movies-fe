@@ -23,7 +23,8 @@ const Recharge = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [bankInfo, setBankInfo] = useState({
-    description: user.id + "buy" + new Date().getTime(),
+    // description: user.id + "buy" + new Date().getTime(),
+    description: "ND:74256182471-0365096648-5buy3",
     amount: "",
     accountName: "DO%20TRUONG%20GIANG",
   });
@@ -47,7 +48,7 @@ const Recharge = () => {
   const handleOnClickNap = () => {
     setBankInfo({
       ...bankInfo,
-      description: user.id + "buy" + new Date().getTime(),
+      //   description: user.id + "buy" + new Date().getTime(),
     });
     console.log(bankInfo, qrImg);
     setIsOpenQrModal(true);

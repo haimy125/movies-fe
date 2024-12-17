@@ -9,6 +9,8 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const MODAL_TIME = 300;
 
@@ -32,6 +34,26 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
           price >= bankInfo.amount &&
           description.includes(bankInfo.description)
         ) {
+          const authToken = Cookies.get("accessToken"); // Token bạn lấy được từ quá trình đăng nhập
+
+          const dataToSubmit = {
+            token: authToken,
+            point: bankInfo.amount,
+          };
+
+          const response = await axios.post(
+            "http://localhost:1412/api/admin/user/napTien",
+            dataToSubmit,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${authToken}`, // Thêm header Authorization
+              },
+            }
+          );
+
+          localStorage.setItem("user", JSON.parse(response.data));
+
           console.log("thanh toán thành công");
         } else {
           console.log("Chưa thanh toán");
