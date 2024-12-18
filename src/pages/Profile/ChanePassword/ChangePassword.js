@@ -21,11 +21,11 @@ const ChangePassword = () => {
         formData.append('newpassword', newPassword);
         formData.append('confirmpassword', confirmPassword);
         if (user?.id) {
-            const accessToken = getToken("accessToken");
+            const token = getToken("token");
             axios.post(`http://localhost:1412/api/changepassword/${user?.id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${token}`
                 }
             })
                 .then(response => {

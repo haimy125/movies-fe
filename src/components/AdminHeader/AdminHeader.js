@@ -8,7 +8,7 @@ const HeaderAdmin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
+    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
     if (token) {
       const user = JSON.parse(localStorage.getItem('user'));
       setUser(user);
@@ -17,7 +17,6 @@ const HeaderAdmin = () => {
 
   return (
     <header className='admin_header'>
-
             <div className='admin_logo'>
               <a href='/'>
                 <img src="/logo.png" alt='logo'className='admin_logo_img'/>

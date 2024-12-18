@@ -35,11 +35,11 @@ const UserCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = getToken("accessToken");
+      const token = getToken("token");
       const response = await axios.post('http://localhost:1412/api/admin/user/create', formData, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
+          'Authorization': `Bearer ${token}`
         },
       });
       setNotification('Tạo người dùng thành công!');
@@ -97,6 +97,7 @@ const UserCreate = () => {
                 <input
                   type='password'
                   name='password'
+                  minLength={6}
                   className='create_input'
                   placeholder='Nhập mật khẩu'
                   value={formData.password}

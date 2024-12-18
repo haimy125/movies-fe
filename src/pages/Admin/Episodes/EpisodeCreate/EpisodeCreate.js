@@ -57,11 +57,11 @@ const EpisodeCreate = () => {
         }
 
         try {
-            const accessToken = getToken("accessToken");
+            const token = getToken("token");
             const response = await axios.post('http://localhost:1412/api/admin/episode/create', dataToSubmit, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization':`Bearer ${accessToken}` 
+                    'Authorization':`Bearer ${token}` 
                 },
             });
             setNotification('Thêm mới thành công!');

@@ -23,13 +23,13 @@ const CategoryCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = getToken("accessToken");
+      const token = getToken("token");
       const response = await axios.post(
         "http://localhost:1412/admin/category/create",
         newcategory, {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
+            'Authorization': `Bearer ${token}`
           },
         });
       setNotification("Thêm mới thành công!");

@@ -6,11 +6,11 @@ const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Đặt là null để xác định trạng thái chờ
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [accessToken, setAccessToken] = useState(Cookies.get("accessToken"));
+  const [token, setToken] = useState(Cookies.get("token"));
 
   useEffect(() => {
     const handleTokenChange = () => {
-      setAccessToken(Cookies.get("accessToken")); // Cập nhật token khi có sự kiện
+      setToken(Cookies.get("token")); // Cập nhật token khi có sự kiện
     };
 
     window.addEventListener("tokenChanged", handleTokenChange);
@@ -22,7 +22,7 @@ const useAuth = () => {
     const fetchUserInfoFromApi = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:1412/api/checktoken?accessToken=${accessToken}`
+          `http://localhost:1412/api/checktoken?token=${token}`
         );
         if (!response?.data) return;
 
@@ -37,14 +37,14 @@ const useAuth = () => {
       }
     };
 
-    if (accessToken) {
+    if (token) {
       fetchUserInfoFromApi();
     } else {
       setIsAuthenticated(false);
       setUser(null);
       setIsLoading(false);
     }
-  }, [accessToken]); // useEffect sẽ chạy lại khi token thay đổi
+  }, [token]); // useEffect sẽ chạy lại khi token thay đổi
 
   return { isAuthenticated, user, isLoading };
 };
@@ -54,34 +54,34 @@ export { useAuth };
 // import axios from 'axios';
 
 // const authService = {
-//   getAccessToken: () => localStorage.getItem('accessToken'),
+//   getToken: () => localStorage.getItem('token'),
 //   getRefreshToken: () => localStorage.getItem('refreshToken'),
-//   setAccessToken: (token) => localStorage.setItem('accessToken', token),
+//   setToken: (token) => localStorage.setItem('token', token),
 //   setRefreshToken: (token) => localStorage.setItem('refreshToken', token),
 
-//   refreshAccessToken: async () => {
+//   refreshToken: async () => {
 //     const refreshToken = authService.getRefreshToken();
 //     if (!refreshToken) throw new Error('No refresh token available');
 
 //     const response = await axios.post('/api/refresh-token', { refreshToken });
-//     const { accessToken } = response.data;
+//     const { token } = response.data;
 
-//     authService.setAccessToken(accessToken);
-//     return accessToken;
+//     authService.setToken(token);
+//     return token;
 //   },
 // };
 
 // axios.interceptors.request.use(
 //   async (config) => {
-//     let accessToken = authService.getAccessToken();
-//     config.headers.Authorization = `Bearer ${accessToken}`;
+//     let token = authService.getToken();
+//     config.headers.Authorization = `Bearer ${token}`;
 
 //     // Kiểm tra token hết hạn
 //     const isTokenExpired = false; // Thêm logic kiểm tra expiration của token
 //     if (isTokenExpired) {
 //       try {
-//         accessToken = await authService.refreshAccessToken();
-//         config.headers.Authorization = `Bearer ${accessToken}`;
+//         token = await authService.refreshToken();
+//         config.headers.Authorization = `Bearer ${token}`;
 //       } catch (error) {
 //         console.error('Token refresh failed', error);
 //         // Redirect nếu cần

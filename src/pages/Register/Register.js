@@ -17,7 +17,7 @@ const Register = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const accessToken = getToken("accessToken");
+            const token = getToken("token");
             const response = await axios.post(
                 'http://localhost:1412/api/register',
                 {
@@ -28,7 +28,7 @@ const Register = () => {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`
+                        'Authorization': `Bearer ${token}`
                     },
                     withCredentials: true,
                 }
@@ -93,6 +93,7 @@ const Register = () => {
                             <input
                                 className='form_input'
                                 type="password"
+                                min-length={6}
                                 value={password}
                                 placeholder='Nhập mật khẩu!'
                                 onChange={(e) => setPassword(e.target.value)}

@@ -14,11 +14,11 @@ const ForgetPassword = () => {
   const handleSubmit = async(event) => {
     event.preventDefault();
     try {
-      const accessToken = getToken("accessToken");
+      const token = getToken("token");
       const response = await axios.post( `http://localhost:1412/api/changepassword/user?id=${id}&newPassword=${newPassword}&confirmPassword=${confirmPassword}`, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
+          'Authorization': `Bearer ${token}`
         },
       });
       setNotificationMessage('bạn đã đổi mật khẩu thành công vui lòng quay lại trang đăng nhập để đăng nhập vào hệ thống!');
@@ -44,6 +44,7 @@ const handleActiontologin =()=>{
                 className='form_input'
                 placeholder='Nhập mật khẩu mới!'
                 type="password"
+                min-length={6}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
@@ -54,6 +55,7 @@ const handleActiontologin =()=>{
               <input
                 className='form_input'
                 type="password"
+                min-length={6}
                 value={confirmPassword}
                 placeholder='Nhập lại mật khẩu!'
                 onChange={(e) => setConfirmPassword(e.target.value)}

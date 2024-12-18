@@ -34,10 +34,10 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
           price >= bankInfo.amount &&
           description.includes(bankInfo.description)
         ) {
-          const authToken = Cookies.get("accessToken"); // Token bạn lấy được từ quá trình đăng nhập
+          const authToken = Cookies.get("token"); // Token bạn lấy được từ quá trình đăng nhập
 
           const response = await axios.put(
-            `http://localhost:1412/api/admin/user/napTien?accessToken=${authToken}&point=${bankInfo.amount}`,
+            `http://localhost:1412/api/admin/user/napTien?token=${authToken}&point=${bankInfo.amount}`,
             {
               headers: {
                 "Content-Type": "multipart/form-data",

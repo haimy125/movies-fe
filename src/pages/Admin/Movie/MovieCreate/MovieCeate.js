@@ -124,17 +124,17 @@ const MovieCreate = () => {
       //}
 
       //// Lấy token từ cookie
-      //const accessToken = getCookie("accessToken");
+      //const token = getCookie("token");
 
     try {
-      const accessToken = getToken("accessToken");
+      const token = getToken("token");
       const response = await axios.post(
         "http://localhost:1412/api/admin/movies/create",
         dataToSubmit,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            'Authorization': `Bearer ${accessToken}`
+            'Authorization': `Bearer ${token}`
           },
         }
       );

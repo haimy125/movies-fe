@@ -36,11 +36,11 @@ const UpdateInfo = () => {
         formData.append('fullname', fullname);
         formData.append('email', email);
         if (user?.id) {
-            const accessToken = getToken("accessToken");
+            const token = getToken("token");
             axios.post(`http://localhost:1412/api/updateinfo/${user?.id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${token}`
                 }
             })
                 .then(response => {

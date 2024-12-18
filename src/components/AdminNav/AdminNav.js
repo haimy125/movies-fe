@@ -7,7 +7,7 @@ const AdminNav = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
+    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
     if (token) {
       const user = JSON.parse(localStorage.getItem('user'));
       setUser(user);

@@ -11,11 +11,11 @@ const CommentFormEp = ({ onAddComment, epid, userid }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = getToken("accessToken");
+      const token = getToken("token");
       const response = await axios.post(`http://localhost:1412/api/user/comment/episode/add?epid=${epid}&userid=${userid}&content=${comment}`, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
+          'Authorization': `Bearer ${token}`
         },
       });
       alert('Bạn đã bình luận thành công!');

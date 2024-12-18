@@ -16,7 +16,7 @@ import QRPayModal from "../../components/Modal/QrPayModal";
 import { getToken } from '../../services/tokenService';
 const MovieDetail = () => {
     const { id } = useParams();
-    const accessToken = getToken("accessToken");
+    const token = getToken("token");
     const { isAuthenticated, user, isLoading } = useAuth();
     const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ const MovieDetail = () => {
     };
 
     useEffect(() => {
-        //if (!accessToken) {
+        //if (!token) {
         //  window.location.href = '/login';
         //  return; // Thoát khỏi useEffect nếu chưa có token
         //}
@@ -67,7 +67,7 @@ const MovieDetail = () => {
         };
 
         fetchData();
-    }, [id, currentPage, accessToken, user?.id]); // Thêm user?.id để tránh render vô tận
+    }, [id, currentPage, token, user?.id]); // Thêm user?.id để tránh render vô tận
 
     const handlePageChange = (page) => {
         if (page > 0 && page <= totalPages) {
@@ -117,7 +117,7 @@ const MovieDetail = () => {
             const response = await axios.post(`http://localhost:1412/api/user/movie/buymovie?userid=${user.id}&movieid=${id}`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${token}`
                 },
             });
             setNotificationMessage("Bạn đã mua phim thành công ");
@@ -137,11 +137,11 @@ const MovieDetail = () => {
             return;
         }
         try {
-            const accessToken = getToken("accessToken");
+            const token = getToken("token");
             const response = await axios.post(`http://localhost:1412/api/user/follow/add?userid=${user.id}&movieid=${id}`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${token}`
                 },
             });
             setNotificationMessage("Bạn đã theo dõi phim thành công ");

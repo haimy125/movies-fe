@@ -50,17 +50,17 @@ const Login = () => {
 
     try {
       const data = await login(username, password);
-      const { accessToken, user } = data;
+      const { token, user } = data;
 
-      setToken(accessToken);
+      setToken(token);
 
-      console.log(accessToken, user);
-      if (user && accessToken) {
+      console.log(token, user);
+      if (user && token) {
         user.avatar = null;
 
         // Lưu vào cookie
         localStorage.setItem("user", JSON.stringify(user));
-        document.cookie = `accessToken=${accessToken}; path=/; Secure; SameSite=Strict; max-age=${
+        document.cookie = `token=${token}; path=/; Secure; SameSite=Strict; max-age=${
           60 * 60 * 24
         }`; // Lưu token trong 1 ngày
         // document.cookie = `user=${encodeURIComponent(
@@ -108,6 +108,7 @@ const Login = () => {
               <input
                 className="form_input"
                 type="password"
+                min-length={6}
                 placeholder="Nhập mật khẩu để đăng nhập!"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

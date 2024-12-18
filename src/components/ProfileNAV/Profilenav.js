@@ -50,11 +50,11 @@ const ProfileNav = () => {
     const handleAvatarUpload = () => {
         const formData = new FormData();
         formData.append('avatar', avatar);
-        const accessToken = getToken("accessToken");
+        const token = getToken("token");
         axios.post('/api/user/avatar', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${token}`
             }
         })
       .then((response) => {
