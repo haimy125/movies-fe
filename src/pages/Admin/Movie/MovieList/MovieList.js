@@ -42,7 +42,7 @@ const MovieList = () => {
     }
   };
   const handleAction = (id) => {
-    navigate("/admin/movie/edit/${id");
+    navigate(`/admin/movie/edit/${id}`);
     // window.location.href = `/admin/movie/edit/${id}`;
   };
   const handleActiontoep = (id) => {
