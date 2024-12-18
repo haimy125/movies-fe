@@ -36,7 +36,7 @@ import Schedule from "../pages/Schedule/Schedule";
 const publicRoutes = [
   { path: "/", component: Home },
   { path: "/login", component: Login },
-  { path: "/movie/ep/:id", component: EpMovie },
+  { path: "/movie/ep/:movieId/:id", component: EpMovie },
   { path: "/movie/detail/:id", component: MovieDetail },
   { path: "/403", component: Error403 },
   { path: "/404", component: NotFound },
