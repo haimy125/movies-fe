@@ -29,11 +29,11 @@ const StarRating = ({ maxRating = 5, userId, movieId }) => {
   const handleClick = async (value) => {
     if (!isRated) {
       try {
-        const token = getToken("token");
+        const accessToken = getToken("accessToken");
         const response = await axios.post(`http://localhost:1412/api/user/ratings/review?userid=${userId}&movieid=${movieId}&rating=${value}`, {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${accessToken}`
           },
         });
         setRating(value);

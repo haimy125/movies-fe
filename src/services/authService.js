@@ -6,11 +6,11 @@ const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Đặt là null để xác định trạng thái chờ
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [token, setToken] = useState(Cookies.get("token"));
+  const [token, setToken] = useState(Cookies.get("accessToken"));
 
   useEffect(() => {
     const handleTokenChange = () => {
-      setToken(Cookies.get("token")); // Cập nhật token khi có sự kiện
+      setToken(Cookies.get("accessToken")); // Cập nhật token khi có sự kiện
     };
 
     window.addEventListener("tokenChanged", handleTokenChange);
@@ -54,34 +54,34 @@ export { useAuth };
 // import axios from 'axios';
 
 // const authService = {
-//   getToken: () => localStorage.getItem('token'),
+//   getAccessToken: () => localStorage.getItem('accessToken'),
 //   getRefreshToken: () => localStorage.getItem('refreshToken'),
-//   setToken: (token) => localStorage.setItem('token', token),
+//   setAccessToken: (token) => localStorage.setItem('accessToken', token),
 //   setRefreshToken: (token) => localStorage.setItem('refreshToken', token),
 
-//   refreshToken: async () => {
+//   refreshAccessToken: async () => {
 //     const refreshToken = authService.getRefreshToken();
 //     if (!refreshToken) throw new Error('No refresh token available');
 
 //     const response = await axios.post('/api/refresh-token', { refreshToken });
-//     const { token } = response.data;
+//     const { accessToken } = response.data;
 
-//     authService.setToken(token);
-//     return token;
+//     authService.setAccessToken(accessToken);
+//     return accessToken;
 //   },
 // };
 
 // axios.interceptors.request.use(
 //   async (config) => {
-//     let token = authService.getToken();
-//     config.headers.Authorization = `Bearer ${token}`;
+//     let accessToken = authService.getAccessToken();
+//     config.headers.Authorization = `Bearer ${accessToken}`;
 
 //     // Kiểm tra token hết hạn
 //     const isTokenExpired = false; // Thêm logic kiểm tra expiration của token
 //     if (isTokenExpired) {
 //       try {
-//         token = await authService.refreshToken();
-//         config.headers.Authorization = `Bearer ${token}`;
+//         accessToken = await authService.refreshAccessToken();
+//         config.headers.Authorization = `Bearer ${accessToken}`;
 //       } catch (error) {
 //         console.error('Token refresh failed', error);
 //         // Redirect nếu cần

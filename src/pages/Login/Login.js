@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./Login.css";
-import { setToken } from "../../services/tokenService";
+import { setToken, getToken } from "../../services/tokenService";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:1412/api";
 
@@ -21,11 +21,15 @@ const Login = () => {
       if (!username || !password) {
         return;
       }
+      const accessToken = getToken("accessToken");
       const response = await axios.post(
         `${API_URL}/login`,
         { username, password },
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${accessToken}`
+          },
           withCredentials: true,
         }
       );
@@ -54,15 +58,12 @@ const Login = () => {
 
       setToken(token);
 
-      console.log(token, user);
       if (user && token) {
-        user.avatar = null;
-
         // Lưu vào cookie
         localStorage.setItem("user", JSON.stringify(user));
-        document.cookie = `token=${token}; path=/; Secure; SameSite=Strict; max-age=${
+        document.cookie = `accessToken=${token}; path=/; Secure; SameSite=Strict; max-age=${
           60 * 60 * 24
-        }`; // Lưu token trong 1 ngày
+          }`; // Lưu token trong 1 ngày
         // document.cookie = `user=${encodeURIComponent(
         //   JSON.stringify(user)
         // )}; path=/; Secure; max-age=${60 * 60 * 24}`; // Lưu user trong 1 ngày
@@ -108,7 +109,6 @@ const Login = () => {
               <input
                 className="form_input"
                 type="password"
-                min-length={6}
                 placeholder="Nhập mật khẩu để đăng nhập!"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

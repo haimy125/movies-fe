@@ -50,11 +50,11 @@ const Follows = () => {
     };
     const handleDeleteFollow = async (id) => {
         try {
-            const token = getToken("token");
+            const accessToken = getToken("accessToken");
             const response = await axios.post('http://localhost:1412/api/user/follow/delete/${id}', {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${accessToken}`
                 },
             });
             setNotificationMessage("Bạn bỏ theo dõi phim thành công ");

@@ -12,11 +12,11 @@ const CommentForm = ({ onAddComment, movieid, userid }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = getToken("token");
+      const accessToken = getToken("accessToken");
       const response = await axios.post(`http://localhost:1412/api/user/comment/movie/add?movieid=${movieid}&userid=${userid}&content=${comment}`, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${accessToken}`
         },
       });
       alert('Bạn đã bình luận thành công!');

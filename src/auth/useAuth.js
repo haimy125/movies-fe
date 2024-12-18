@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import authService from '../services/authService';
 
 export function useAuth() {
-  const [token, setToken] = useState(authService.getToken());
+  const [accessToken, setAccessToken] = useState(authService.getAccessToken());
 
   useEffect(() => {
-    setToken(authService.getToken());
+    setAccessToken(authService.getAccessToken());
   }, []);
 
   return {
-    token,
-    setToken: authService.setToken,
-    refreshToken: authService.refreshToken,
+    accessToken,
+    setAccessToken: authService.setAccessToken,
+    refreshAccessToken: authService.refreshAccessToken,
   };
 }

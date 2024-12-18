@@ -36,11 +36,11 @@ const UpdateInfo = () => {
         formData.append('fullname', fullname);
         formData.append('email', email);
         if (user?.id) {
-            const token = getToken("token");
+            const accessToken = getToken("accessToken");
             axios.post(`http://localhost:1412/api/updateinfo/${user?.id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${accessToken}`
                 }
             })
                 .then(response => {
@@ -87,7 +87,7 @@ const UpdateInfo = () => {
                                 <input
                                     type='text'
                                     className='input_password'
-                                    value={fullname || ''}
+                                    value={fullname ? fullname : ''}
                                     onChange={(e) => setFullname(e.target.value)}
                                 />
                             </div>

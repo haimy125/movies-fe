@@ -27,9 +27,7 @@ z-index: 1; */
     display: grid;
     place-items: center; /* Căn giữa theo cả chiều ngang và chiều dọc */
     width: 100%;
-    .alert{
-      text-align: center;
-    }
+
   }
 
   .font_container{

@@ -20,7 +20,7 @@ const Profile = () => {
         const fetchUserDetail = async () => {
             if (user?.id) {
                 try {
-                    const token = getToken("token");
+                    const accessToken = getToken("accessToken");
                     const response = await axios.get(`http://localhost:1412/api/user/profile?id=${user.id}`);
                     setLoading(false);
                     setUsers(response.data || {}); // Đảm bảo `response.data` có dữ liệu
@@ -42,11 +42,11 @@ const Profile = () => {
     const handleAvatarUpload = () => {
         const formData = new FormData();
         formData.append('avatar', avatar);
-        const token = getToken("token");
+        const accessToken = getToken("accessToken");
         axios.post(`http://localhost:1412/api/avatar/${user?.id}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${accessToken}`
             }
         })
             .then(response => {

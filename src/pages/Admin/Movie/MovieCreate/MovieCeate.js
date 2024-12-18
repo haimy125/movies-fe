@@ -124,17 +124,17 @@ const MovieCreate = () => {
       //}
 
       //// Lấy token từ cookie
-      //const token = getCookie("token");
+      //const accessToken = getCookie("accessToken");
 
     try {
-      const token = getToken("token");
+      const accessToken = getToken("accessToken");
       const response = await axios.post(
         "http://localhost:1412/api/admin/movies/create",
         dataToSubmit,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${accessToken}`
           },
         }
       );
@@ -180,12 +180,12 @@ const MovieCreate = () => {
                 />
               </div>
               <div className="form_group">
-                <label>Tên tên nước ngoài</label>
+                <label>Tên tiếng hán</label>
                 <input
                   type="text"
                   name="cn_name"
                   className="create_input"
-                  placeholder="Nhập tên nước ngoài của phim"
+                  placeholder="Nhập tên tiếng trung của phim"
                   value={formData.cn_name}
                   onChange={handleChange}
                   required

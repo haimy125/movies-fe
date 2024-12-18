@@ -25,19 +25,19 @@ const UserMenu = () => {
       }
       return null; // Trả về null nếu không tìm thấy cookie
     };
-    const token = getCookie("token");
-    if (token && user) {
+    const accessToken = getCookie("accessToken");
+    if (accessToken && user) {
       removeToken();
       // Xóa cookie bằng cách đặt giá trị rỗng và `expires` về quá khứ
       document.cookie =
-        "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+        "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 
       console.log("Cookies cleared. Logging out...");
     }
 
     // Chuyển hướng đến trang đăng nhập
     setTimeout(() => {
-      handleLogout
+      window.location.href = "/login";
     }, 1000);
   };
 

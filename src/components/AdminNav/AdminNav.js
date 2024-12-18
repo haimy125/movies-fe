@@ -14,6 +14,13 @@ const AdminNav = () => {
     }
   }, []);
 
+  const handleLogout = () => {
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/login');
+  };
+
   return (
     <nav className='admin_nav'>
       <div className='admin_action'>
