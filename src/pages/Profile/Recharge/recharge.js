@@ -127,44 +127,6 @@ const Recharge = () => {
               >
                 Nạp
               </Button>
-              {/* <div className="password_group can_giua">
-                <div>
-                  <label>Ngân hàng Agribank</label>
-                  <img
-                    src={`/images/PayAgribank.jpg`}
-                    className="pay_images"
-                    alt="agribank"
-                    onClick={() => handleImageClick("/images/PayAgribank.jpg")}
-                  />
-                </div>
-                <div>
-                  <label>Ví điện tử MoMo</label>
-                  <img
-                    src={`/images/PayMoMo.jpg`}
-                    className="pay_images"
-                    alt="momo"
-                    onClick={() => handleImageClick("/images/PayMoMo.jpg")}
-                  />
-                </div>
-                <div>
-                  <label>Ngân hàng VietComBank</label>
-                  <img
-                    src={`/images/VietComBank.jpg`}
-                    className="pay_images"
-                    alt="vietcombank"
-                    onClick={() => handleImageClick("/images/VietComBank.jpg")}
-                  />
-                </div>
-                <div>
-                  <label>Ngân hàng OCB Bank</label>
-                  <img
-                    src={`/images/OCBBank.jpg`}
-                    className="pay_images"
-                    alt="ocb"
-                    onClick={() => handleImageClick("/images/OCBBank.jpg")}
-                  />
-                </div>
-              </div> */}
             </div>
           </div>
         </div>

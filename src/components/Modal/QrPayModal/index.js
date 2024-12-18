@@ -231,6 +231,7 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
                 variant="contained"
                 color="success"
                 onClick={handleSubmit}
+                disabled={isCheckingPayment}
               >
                 Xác nhận đã thanh toán
               </Button>
