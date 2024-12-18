@@ -7,19 +7,12 @@ const AdminNav = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+    const token = document.cookie.split('; ').find(row => row.startsWith('accessToken='));
     if (token) {
       const user = JSON.parse(localStorage.getItem('user'));
       setUser(user);
     }
   }, []);
-
-  const handleLogout = () => {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    localStorage.removeItem('user');
-    setUser(null);
-    navigate('/login');
-  };
 
   return (
     <nav className='admin_nav'>

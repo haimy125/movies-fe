@@ -6,11 +6,11 @@ const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Đặt là null để xác định trạng thái chờ
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [token, setToken] = useState(Cookies.get("accessToken"));
+  const [accessToken, setAccessToken] = useState(Cookies.get("accessToken"));
 
   useEffect(() => {
     const handleTokenChange = () => {
-      setToken(Cookies.get("accessToken")); // Cập nhật token khi có sự kiện
+      setAccessToken(Cookies.get("accessToken")); // Cập nhật token khi có sự kiện
     };
 
     window.addEventListener("tokenChanged", handleTokenChange);
@@ -22,7 +22,7 @@ const useAuth = () => {
     const fetchUserInfoFromApi = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:1412/api/checktoken?token=${token}`
+          `http://localhost:1412/api/checktoken?accessToken=${accessToken}`
         );
         if (!response?.data) return;
 
@@ -37,14 +37,14 @@ const useAuth = () => {
       }
     };
 
-    if (token) {
+    if (accessToken) {
       fetchUserInfoFromApi();
     } else {
       setIsAuthenticated(false);
       setUser(null);
       setIsLoading(false);
     }
-  }, [token]); // useEffect sẽ chạy lại khi token thay đổi
+  }, [accessToken]); // useEffect sẽ chạy lại khi token thay đổi
 
   return { isAuthenticated, user, isLoading };
 };

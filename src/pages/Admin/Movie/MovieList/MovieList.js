@@ -42,7 +42,7 @@ const MovieList = () => {
     }
   };
   const handleAction = (id) => {
-    navigate("/admin/movie/edit/${id");
+    navigate(`/admin/movie/edit/${id}`);
     // window.location.href = `/admin/movie/edit/${id}`;
   };
   const handleActiontoep = (id) => {
@@ -130,7 +130,7 @@ const MovieList = () => {
                 <tr>
                   <th>#</th>
                   <th>Tên phim</th>
-                  <th>Tên tiếng hán</th>
+                  <th>Tên nước ngoài</th>
                   <th>ngày đăng</th>
                   <th>trạng thái</th>
                   <th>loại hình</th>

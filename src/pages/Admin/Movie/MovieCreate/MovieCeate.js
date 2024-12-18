@@ -180,12 +180,12 @@ const MovieCreate = () => {
                 />
               </div>
               <div className="form_group">
-                <label>Tên tiếng hán</label>
+                <label>Tên tên nước ngoài</label>
                 <input
                   type="text"
                   name="cn_name"
                   className="create_input"
-                  placeholder="Nhập tên tiếng trung của phim"
+                  placeholder="Nhập tên nước ngoài của phim"
                   value={formData.cn_name}
                   onChange={handleChange}
                   required
