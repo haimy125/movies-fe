@@ -1,13 +1,15 @@
-.schedule_page{
+.schedule_page {
     width: 100%;
 
 }
-.page_item{
-    width:100% ;
+
+.page_item {
+    width: 100%;
     display: grid;
     place-items: center;
 }
-.schedule_page_item{
+
+.schedule_page_item {
     background: #2e2e2e;
     color: #fff;
     width: 90%;
@@ -17,9 +19,41 @@
     border-radius: 10px;
     margin-top: 30px;
 }
-.movie_item_List{
+
+.movie_list {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
+
+    .movie_item {
+        /* margin-left: 15px; */
+        margin-bottom: 20px;
+        flex: 0 0 calc(100% / 6);
+        /* 23% để có khoảng cách với gap */
+        max-width: 45%;
+        /* Đảm bảo không vượt quá 23% */
+    }
+
+    @media (max-width: 1100px) {
+        .movie_item {
+            flex: 1 1 calc(100% / 5);
+            /* 2 item mỗi hàng cho màn hình nhỏ */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .movie_item {
+            flex: 1 1 calc(100% / 4);
+            /* 2 item mỗi hàng cho màn hình nhỏ */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .movie_item {
+            flex: 1 1 calc(100% / 2);
+            /* 1 item mỗi hàng cho màn hình rất nhỏ */
+        }
+    }
 
 }

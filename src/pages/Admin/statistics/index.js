@@ -87,7 +87,7 @@ const Stats = () => {
                             </div>
                         </div>
                         <div className='chart_section'>
-                            <div className='chart_container totalcategory'>
+                            <div className='chart_container totalcategory chart-left'>
                                 <div className='chart_header'>
                                     <h3>Thống kê doanh thu theo tháng trong năm nay</h3>
                                 </div>
@@ -101,7 +101,7 @@ const Stats = () => {
                                 </LineChart>
                             </div>
 
-                            <div className='chart_container totaluser'>
+                            <div className='chart_container totaluser chart-right'>
                                 <div className='chart_header'>
                                     <h3>Phân loại phim</h3>
                                 </div>

@@ -19,7 +19,7 @@ const HistoryPay = () => {
             if (user?.id) {
                 setLoading(true);
                 try {
-                    const response = await axios.get(`http://localhost:1412/api/login/notificaion/user/${user.id}?page=${page}&limit=10`);
+                    const response = await axios.get(`http://localhost:1412/api/notificaion/user/${user.id}?page=${page}&limit=10`);
                     setNotification(response.data.listResult || []);
                     setTotalPages(response.data.totalPage);
                     setLoading(false)

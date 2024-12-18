@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './StarRating.css';
-
+import { getToken } from '../../services/tokenService'
 const StarRating = ({ maxRating = 5, userId, movieId }) => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [isRated, setIsRated] = useState(false);
 
-  console.log('user',userId);
-  console.log('movie',movieId);
+  console.log('user', userId);
+  console.log('movie', movieId);
   // Fetch existing rating when the component mounts
-  
+
   useEffect(() => {
-    const fetchRantings = async()=>{
-      try{
+    const fetchRantings = async () => {
+      try {
         const response = await axios.get(`http://localhost:1412/api/user/ratings/getuserandmovie?userid=${userId}&movieid=${movieId}`);
         setRating(response.data.rating);
         setIsRated(true);
-      }catch(error){
+      } catch (error) {
         console.error('Error submitting rating:', error)
       }
-     
+
     }
     fetchRantings();
   }, [userId, movieId]);
@@ -28,15 +28,21 @@ const StarRating = ({ maxRating = 5, userId, movieId }) => {
   // Handle click event when the user selects a star
   const handleClick = async (value) => {
     if (!isRated) {
-      try{
-          const response = await axios.post(`http://localhost:1412/api/user/ratings/review?userid=${userId}&movieid=${movieId}&rating=${value}`);
-          setRating(value);
-          setIsRated(true);
-          console.log('Rating submitted:', response.data);
-      }catch(error){
+      try {
+        const accessToken = getToken("accessToken");
+        const response = await axios.post(`http://localhost:1412/api/user/ratings/review?userid=${userId}&movieid=${movieId}&rating=${value}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+          },
+        });
+        setRating(value);
+        setIsRated(true);
+        console.log('Rating submitted:', response.data);
+      } catch (error) {
         console.error('Error submitting rating:', error)
       }
-     
+
     }
   };
 

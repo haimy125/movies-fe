@@ -11,7 +11,7 @@ const CheckUser = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:1412/api/login/find/user?username=${username}&email=${email}`);
+      const response = await axios.get(`http://localhost:1412/api/find/user?username=${username}&email=${email}`);
       setLoading(true);
       setTimeout(() => {
         window.location.href = `/forgetpassword/${response.data.id}`;

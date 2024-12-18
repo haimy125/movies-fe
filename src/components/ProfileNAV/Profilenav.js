@@ -6,13 +6,14 @@ import Footer from "../../components/Footer/Footer";
 import "./Profilenav.css";
 import QRPayModal from "../Modal/QrPayModal";
 import { useAuth } from "../../services/authService";
+import { getToken } from '../../services/tokenService';
 
 const ProfileNav = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [selectedMenu, setSelectedMenu] = useState("account-info");
-  const [avatar, setAvatar] = useState(null);
-  const [avatarPreview, setAvatarPreview] = useState(null);
+    const [avatar, setAvatar] = useState(null);
+    const [avatarPreview, setAvatarPreview] = useState(null);
 
   //   useEffect(() => {
   //     console.log("User check:", user);
@@ -36,65 +37,65 @@ const ProfileNav = () => {
   //     // }
   //   }, [user]); // Khi component mount, sẽ gọi API
 
-  const handleMenuClick = (menu) => {
-    setSelectedMenu(menu);
-  };
+    const handleMenuClick = (menu) => {
+        setSelectedMenu(menu);
+    };
 
-  const handleAvatarChange = (event) => {
-    const file = event.target.files[0];
-    setAvatar(file);
-    setAvatarPreview(URL.createObjectURL(file));
-  };
+    const handleAvatarChange = (event) => {
+        const file = event.target.files[0];
+        setAvatar(file);
+        setAvatarPreview(URL.createObjectURL(file));
+    };
 
-  const handleAvatarUpload = () => {
-    const formData = new FormData();
-    formData.append("avatar", avatar);
-
-    axios
-      .post("/api/user/avatar", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+    const handleAvatarUpload = () => {
+        const formData = new FormData();
+        formData.append('avatar', avatar);
+        const accessToken = getToken("accessToken");
+        axios.post('/api/user/avatar', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
       .then((response) => {
         alert("Avatar updated successfully");
         // setUser({ ...user, avatarUrl: response.data.avatarUrl });
-      })
+            })
       .catch((error) => console.error(error));
-  };
+    };
 
-  const triggerFileInput = () => {
+    const triggerFileInput = () => {
     document.getElementById("avatarInput").click();
-  };
+    };
 
-  return (
-    <div className="profile_nav">
-      {/* <h2 >Xin chao: jinhyk21</h2> */}
-      <div className="profile-sidebar">
-        <Link to="/user/profile" className="action_info">
-          Thông tin tài khoản
-        </Link>
-        <Link to="/user/changepassword" className="action_info">
-          Đổi mật khẩu
-        </Link>
-        <Link to="/user/update/detail" className="action_info">
-          Cập nhật thông tin
-        </Link>
-        <Link to="/user/recharge" className="action_info">
-          Nạp xu
-        </Link>
-        <Link to="/user/history" className="action_info">
-          Lịch sử giao dịch
-        </Link>
-        <Link to="/user/buy" className="action_info">
-          Bộ phim đã mua
-        </Link>
-        <Link to="/user/follows" className="action_info">
-          Theo dõi
-        </Link>
-      </div>
-    </div>
-  );
+    return (
+        <div className="profile_nav">
+            {/* <h2 >Xin chao: jinhyk21</h2> */}
+            <div className="profile-sidebar">
+                <Link to="/user/profile" className="action_info">
+                    Thông tin tài khoản
+                </Link>
+                <Link to="/user/changepassword" className="action_info">
+                    Đổi mật khẩu
+                </Link>
+                <Link to="/user/update/detail" className="action_info">
+                    Cập nhật thông tin
+                </Link>
+                <Link to="/user/recharge" className="action_info">
+                    Nạp xu
+                </Link>
+                <Link to="/user/history" className="action_info">
+                    Lịch sử giao dịch
+                </Link>
+                <Link to="/user/buy" className="action_info">
+                    Bộ phim đã mua
+                </Link>
+                <Link to="/user/follows" className="action_info">
+                    Theo dõi
+                </Link>
+            </div>
+        </div>
+    );
 };
 
 export default ProfileNav;

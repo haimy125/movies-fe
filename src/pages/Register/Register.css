@@ -8,9 +8,11 @@
   background-position: center;
   background-size: cover;
 }
+
 .register-container {
   display: grid;
-  place-items: center; /* Căn giữa theo cả chiều ngang và chiều dọc */
+  place-items: center;
+  /* Căn giữa theo cả chiều ngang và chiều dọc */
   width: 100%;
   height: 80%;
   border-radius: 5px;
@@ -24,7 +26,8 @@ z-index: 1; */
 
 .login-form {
   display: grid;
-  place-items: center; /* Căn giữa theo cả chiều ngang và chiều dọc */
+  place-items: center;
+  /* Căn giữa theo cả chiều ngang và chiều dọc */
   width: 100%;
 }
 
@@ -37,6 +40,7 @@ z-index: 1; */
   border-radius: 5px;
   margin-top: 50px;
   margin-bottom: 50px;
+  align-content: center;
 }
 
 form div {
@@ -55,6 +59,7 @@ label {
 
   box-sizing: border-box;
 }
+
 .form_input {
   outline: none;
   border: none;
@@ -63,9 +68,11 @@ label {
   padding: 10px 20px;
   border-bottom: 1px solid #000;
 }
+
 .form_input:focus {
   outline: none;
 }
+
 .login-button {
   margin-top: 30px;
   width: 20%;

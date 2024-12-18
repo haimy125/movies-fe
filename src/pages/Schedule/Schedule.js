@@ -66,7 +66,7 @@ const Schedule = () => {
                                 <hr/>
                                 <br/>
                                 <div className="movie_item_schedule">
-                                    <div className='movie_item_List'>
+                                    <div className='movie_list'>
                                         {moviesBySchedule &&moviesBySchedule[scheduleItem.id]?.length > 0 ? (
                                             moviesBySchedule[scheduleItem.id].map((movieitem) => (
                                                 <div className='movie_item' onClick={() => handleAction(movieitem.id)} key={movieitem.id}>

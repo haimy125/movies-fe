@@ -39,6 +39,7 @@ z-index: 1; */
     border-radius: 5px;
     margin-top: 50px;
     margin-bottom: 50px;
+    align-content: center;
   }
 
   form div {
