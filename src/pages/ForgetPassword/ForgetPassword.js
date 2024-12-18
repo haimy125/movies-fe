@@ -30,7 +30,7 @@ const handleActiontologin =()=>{
       <div className="login-container">
         <div className='font_container'>
           <form onSubmit={handleSubmit} className="login-form">
-            <h2>Tìm kiếm tài khoản</h2>
+            <h2>Quên mật khẩu</h2>
             <div className="form-group">
               <label>Mật khẩu mới:</label>
               <input

@@ -176,13 +176,13 @@ const EpisodeEdit = () => {
                 </p>
                 <input type="file" name="videofile" onChange={handleChange} />
               </div>
-              <div className="form_group">
+              {/* <div className="form_group">
                 <label>Chọn file sub mới</label>
                 <p className="notification_info">
                   kích cỡ file không quá 100MB
                 </p>
                 <input type="file" name="subfile" onChange={handleChange} />
-              </div>
+              </div> */}
               {error && <p style={{ color: "red" }}>{error}</p>}
               {notification && <p style={{ color: "green" }}>{notification}</p>}
               <button className="create_button" type="submit">

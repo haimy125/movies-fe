@@ -25,18 +25,6 @@ const UserMenu = () => {
   };
 
   const handleLogout = async () => {
-/* The code snippet you provided is making a POST request to the `/logout` endpoint using
-Axios. Here's a breakdown of what each part of the request is doing: */
-    // await axios.post(
-    //   `${API_URL}/logout`,
-    //   {  },
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     withCredentials: true,
-    //   }
-    // );
     // Đọc giá trị từ cookie
     const getCookie = (name) => {
       setUser(null);
