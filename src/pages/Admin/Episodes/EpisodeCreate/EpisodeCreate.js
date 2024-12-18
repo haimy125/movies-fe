@@ -118,6 +118,7 @@ const EpisodeCreate = () => {
                   value={formData.views}
                   onChange={handleChange}
                   required
+                  disabled
                 />
               </div>
               <div className="form_group">
@@ -130,6 +131,7 @@ const EpisodeCreate = () => {
                   value={formData.likes}
                   onChange={handleChange}
                   required
+                  disabled
                 />
               </div>
               <div className="form_group">

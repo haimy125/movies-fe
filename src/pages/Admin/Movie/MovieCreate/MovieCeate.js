@@ -6,7 +6,7 @@ import AdminNav from "../../../../components/AdminNav/AdminNav";
 import { useAuth } from "../../../../services/authService";
 import "./MovieCreate.css";
 import { Link } from "react-router-dom";
-import { getToken } from '../../../../services/tokenService';
+import { getToken } from "../../../../services/tokenService";
 
 const MovieCreate = () => {
   const { user } = useAuth();
@@ -117,14 +117,14 @@ const MovieCreate = () => {
     dataToSubmit.append("schedulelist", scheduleIdString);
     dataToSubmit.append("image", fileName);
 
-      //function getCookie(name) {
-      //    const value = `; ${document.cookie}`;
-      //    const parts = value.split(`; ${name}=`);
-      //    if (parts.length === 2) return parts.pop().split(";").shift();
-      //}
+    //function getCookie(name) {
+    //    const value = `; ${document.cookie}`;
+    //    const parts = value.split(`; ${name}=`);
+    //    if (parts.length === 2) return parts.pop().split(";").shift();
+    //}
 
-      //// Lấy token từ cookie
-      //const accessToken = getCookie("accessToken");
+    //// Lấy token từ cookie
+    //const accessToken = getCookie("accessToken");
 
     try {
       const accessToken = getToken("accessToken");
@@ -134,7 +134,7 @@ const MovieCreate = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            'Authorization': `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -180,7 +180,7 @@ const MovieCreate = () => {
                 />
               </div>
               <div className="form_group">
-                <label>Tên tiếng hán</label>
+                <label>Tên nước ngoài</label>
                 <input
                   type="text"
                   name="cn_name"
