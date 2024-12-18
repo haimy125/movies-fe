@@ -76,11 +76,11 @@ const Profile = () => {
                             ) : (
                                 <img src={`http://localhost:1412/api/view/${users?.id}`} alt="Avatar" className="avatar" />
                             )}
-                            /* The button with the class name 'button_avartar' and the onClick event
+                            {/* The button with the class name 'button_avartar' and the onClick event
                             handler set to triggerFileInput function is allowing the user to select
                             an image file. When the button is clicked, it triggers the hidden file
                             input field with the id 'avatarInput', which opens a file selection
-                            dialog for the user to choose an image file. */
+                            dialog for the user to choose an image file. */}
                             {/* <button className='button_avartar' onClick={triggerFileInput}>Chọn ảnh</button> */}
                             <input
                                 type="file"

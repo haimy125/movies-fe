@@ -111,7 +111,7 @@ const MovieList = () => {
               </select> */}
             </div>
           </div>
-          <div className="create_movie"></div>
+          {/* <div className="create_movie"></div> */}
           <div className="table">
             <table>
               <thead>

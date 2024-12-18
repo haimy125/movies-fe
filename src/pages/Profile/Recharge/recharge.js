@@ -24,7 +24,7 @@ const Recharge = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [isOpenConfirmModel, setIsOpenConfirmModel] = useState(false);
   const [confirmModel, setConfirmModel] = useState({
-    heading: "Có lỗi xảy ra!",
+    heading: "Thông báo!",
     content: "Số tiền chuyển nạp không hợp lệ (Tối thiểu là 10.000 VNĐ).",
   });
   const [bankInfo, setBankInfo] = useState({
