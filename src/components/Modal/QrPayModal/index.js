@@ -11,6 +11,8 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import Cookies from "js-cookie";
+import BasicModal from "../BasicModal";
+import ConfirmationModal from "../ConfirmModel";
 
 const MODAL_TIME = 300;
 
@@ -20,54 +22,82 @@ const INPUT_PAYMENT =
 const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
   const [timeLeft, setTimeLeft] = useState(MODAL_TIME); // Đếm ngược 120 giây
   const [isCheckingPayment, setIsCheckingPayment] = useState(false);
+  const [isOpenBasicModel, setIsOpenBasicModel] = useState(false);
+  const [isHaveErrOnPayment, setIsHaveErrOnPayment] = useState(false);
+  const [basicModel, setBasicModel] = useState({
+    heading: "Basic Model Heading",
+    content: "Basic Model content",
+  });
 
   const checkPayment = async () => {
-    try {
-      const response = await fetch(INPUT_PAYMENT);
-      const data = await response.json();
-      const dataCheck = await data.data[1];
+    console.log("Bank Info", bankInfo);
+    console.log("QR Img", qrImg);
 
-      if (dataCheck) {
-        const price = dataCheck["Giá trị"];
-        const description = dataCheck["Mô tả"];
-        if (
-          price >= bankInfo.amount &&
-          description.includes(bankInfo.description)
-        ) {
-          const authToken = Cookies.get("accessToken"); // Token bạn lấy được từ quá trình đăng nhập
-
-          const response = await axios({
-            method: "PUT",
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${authToken}`,
-            },
-            url: `http://localhost:1412/api/admin/user/napTien`,
-            params: {
-              point: bankInfo.amount,
-            },
-          });
-
-          //   await axios.put(
-          //     `http://localhost:1412/api/admin/user/napTien?point=${bankInfo.amount}`,
-          //     {
-          //       headers: {
-          //         "Content-Type": "multipart/form-data",
-          //         Authorization: `Bearer ${authToken}`, // Thêm header Authorization
-          //       },
-          //     }
-          //   );
-
-          localStorage.setItem("user", JSON.parse(response.data));
-
-          console.log("thanh toán thành công");
-        } else {
-          console.log("Chưa thanh toán");
+    await fetch(INPUT_PAYMENT)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-      }
-    } catch (error) {
-      console.log("[Error] Error when check qr payment", error);
-    }
+        return response.json().data;
+      })
+      .then(() => {
+        return fetch(INPUT_PAYMENT);
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(({ data }) => {
+        console.log("Data payment input: ", data);
+        const paymentData = data[1];
+        if (paymentData) {
+          const price = paymentData["Giá trị"];
+          const description = paymentData["Mô tả"];
+
+          if (
+            price >= bankInfo.amount &&
+            description.includes(bankInfo.description)
+          ) {
+            const authToken = Cookies.get("accessToken");
+
+            return axios({
+              method: "PUT",
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${authToken}`,
+              },
+              url: `http://localhost:1412/api/admin/user/napTien`,
+              params: {
+                point: bankInfo.amount,
+              },
+            });
+          }
+        }
+      })
+      .then((response) => {
+        console.log(response.data);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        setBasicModel({
+          heading: "Thanh toán thành công!",
+          content: "Hãy mua và tận hưởng những bộ phim chất lượng cao.",
+        });
+        setIsHaveErrOnPayment(false);
+        setIsOpenBasicModel(true);
+        console.log("Thanh toán thành công");
+      })
+      .catch((error) => {
+        console.log("Có lỗi khi thanh toán");
+        console.error("Error in fetching data:", error);
+        setIsHaveErrOnPayment(true);
+        setBasicModel({
+          heading: "Có lỗi xảy ra khi thanh toán!",
+          content:
+            "Hãy xác nhận lại việc thực hiện thanh toán của bạn và bấm Xác nhận lại.",
+        });
+        setIsOpenBasicModel(true);
+      });
   };
 
   // Đếm ngược thời gian
@@ -104,10 +134,9 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
     setIsCheckingPayment(true);
 
     await checkPayment();
-    await checkPayment();
 
     // onSubmit();
-    setIsCheckingPayment(true);
+    setIsCheckingPayment(false);
   };
 
   return (
@@ -209,6 +238,26 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
           </Box>
         </Fade>
       </Modal>
+      {/* <BasicModal
+        open={isOpenBasicModel}
+        onClose={() => {
+          setIsOpenBasicModel(false);
+          handleClose();
+        }}
+        {...basicModel}
+      /> */}
+      <ConfirmationModal
+        open={isOpenBasicModel}
+        onClose={() => {
+          setIsOpenBasicModel(false);
+          !isHaveErrOnPayment && handleClose();
+        }}
+        onConfirm={() => {
+          setIsOpenBasicModel(false);
+          !isHaveErrOnPayment && handleClose();
+        }}
+        {...basicModel}
+      />
     </div>
   );
 };

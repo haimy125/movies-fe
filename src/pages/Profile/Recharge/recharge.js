@@ -9,6 +9,7 @@ import "./recharge.css";
 import CurrencyInput from "../../../components/Input/CurrencyInput";
 import { Button } from "@mui/material";
 import QRPayModal from "../../../components/Modal/QrPayModal";
+import ConfirmationModal from "../../../components/Modal/ConfirmModel";
 
 const VIETTIN_ID = "970415";
 const MY_BANK_ID = "109869595383";
@@ -21,10 +22,14 @@ const QR_IMG_ROOT =
 
 const Recharge = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-
+  const [isOpenConfirmModel, setIsOpenConfirmModel] = useState(false);
+  const [confirmModel, setConfirmModel] = useState({
+    heading: "Có lỗi xảy ra!",
+    content: "Số tiền chuyển nạp không hợp lệ (Tối thiểu là 10.000 VNĐ).",
+  });
   const [bankInfo, setBankInfo] = useState({
-    // description: user.id + "buy" + new Date().getTime(),
-    description: "ND:74256182471-0365096648-5buy3",
+    description: user.id + "buy" + new Date().getTime(),
+    // description: "ND:Tra lai TK",
     amount: "",
     accountName: "DO%20TRUONG%20GIANG",
   });
@@ -38,6 +43,7 @@ const Recharge = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
+    console.log("Bank: ", bankInfo);
     setQrImg(
       `${QR_IMG_ROOT}?amount=${bankInfo.amount ?? 0}&addInfo=${
         bankInfo.description
@@ -46,11 +52,16 @@ const Recharge = () => {
   }, [bankInfo]);
 
   const handleOnClickNap = () => {
+    const { amount } = bankInfo;
+
+    if (!amount || amount < 10000) {
+      setIsOpenConfirmModel(true);
+      return;
+    }
     setBankInfo({
       ...bankInfo,
-      //   description: user.id + "buy" + new Date().getTime(),
+      description: user.id + "buy" + new Date().getTime(),
     });
-    console.log(bankInfo, qrImg);
     setIsOpenQrModal(true);
   };
 
@@ -82,19 +93,19 @@ const Recharge = () => {
           <div className="account-info">
             <div className="detal_info">
               <h2>Nạp xu</h2>
-              <p>số tiền nạp sẽ được quy đổi ra xu</p>
-              <p>với 1 xu = 1.000 đồng</p>
+              <p>Số tiền nạp sẽ được quy đổi ra xu</p>
+              {/* <p>với 1 xu = 1.000 đồng</p> */}
               <p>
                 các bước nạp xu:
                 <br />
-                Bước 1: quét mã QR của một ngân hàng có trên
+                Bước 1: Nhập vào số tiền muốn nạp {"(>10.000 VNĐ)"}
                 <br />
-                Bước 2: nhập số tiền muốn Nạp
+                Bước 2: Nhấn nút "Nạp"
                 <br />
-                Bước 3: Nhập nội dung Chuyển khoản là: 3DCM{user?.id}
-                {user?.username}NX
+                Bước 3: Quét mã VietQR trên hình
                 <br />
-                Bước 4: Thực hiện thanh toán.
+                Bước 4: Sau khi quét mã và thục hiện thanh toán trên App xong,
+                bấm vào nút "Xác nhận đã thanh toán".
               </p>
             </div>
             <div className="avatar-section list_pay">
@@ -179,6 +190,16 @@ const Recharge = () => {
         onClose={handleOnCloseQrModal}
         onOpen={handleOnOpenQrModal}
         onSubmit={handleOnCloseQrModal}
+      />
+      <ConfirmationModal
+        open={isOpenConfirmModel}
+        onClose={() => {
+          setIsOpenConfirmModel(false);
+        }}
+        onConfirm={() => {
+          setIsOpenConfirmModel(false);
+        }}
+        {...confirmModel}
       />
     </div>
   );

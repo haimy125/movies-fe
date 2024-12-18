@@ -1,4 +1,6 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Button, IconButton, Modal, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+
 import * as React from "react";
 
 const style = {
@@ -13,15 +15,14 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal({ children, ...props }) {
-  const { open, onOpen, onClose, heading } = props;
+export default function BasicModal(props) {
+  const { open, onClose, heading, content } = props;
   //   const [open, setOpen] = React.useState(false);
   //   const handleOpen = () => setOpen(true);
   //   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={onOpen}>Open modal</Button>
       <Modal
         {...{ open, onClose }}
         aria-labelledby="modal-modal-title"
@@ -31,7 +32,20 @@ export default function BasicModal({ children, ...props }) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {heading}
           </Typography>
-          {children}
+          {/* Nút đóng */}
+          <IconButton
+            aria-label="close"
+            onClick={onClose}
+            sx={{ position: "absolute", top: 8, right: 8 }}
+          >
+            <CloseIcon />
+          </IconButton>
+          {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography> */}
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {content}
+          </Typography>
         </Box>
       </Modal>
     </div>
