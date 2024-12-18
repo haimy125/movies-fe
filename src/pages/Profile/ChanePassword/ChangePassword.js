@@ -6,7 +6,6 @@ import ProfileNav from '../../../components/ProfileNAV/Profilenav';
 import { useAuth } from '../../../services/authService';
 import Loader from '../../../components/Loader/Loader';
 import './ChangePassword.css';
-import { getToken } from '../../../services/tokenService';
 const ChangePassword = () => {
     const { user } = useAuth();
     const [oldpassword, setOldPassword] = useState('');
@@ -21,11 +20,9 @@ const ChangePassword = () => {
         formData.append('newpassword', newPassword);
         formData.append('confirmpassword', confirmPassword);
         if (user?.id) {
-            const accessToken = getToken("accessToken");
             axios.post(`http://localhost:1412/api/changepassword/${user?.id}`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Content-Type': 'multipart/form-data'
                 }
             })
                 .then(response => {

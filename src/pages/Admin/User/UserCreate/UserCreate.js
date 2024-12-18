@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import '../../../../assets/styles/Admin.css';
 import HeaderAdmin from '../../../../components/AdminHeader/AdminHeader';
 import AdminNav from '../../../../components/AdminNav/AdminNav';
-import { getToken } from "../../../../services/tokenService"
 
 const UserCreate = () => {
   const [formData, setFormData] = useState({
@@ -35,13 +34,7 @@ const UserCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = getToken("accessToken");
-      const response = await axios.post('http://localhost:1412/api/admin/user/create', formData, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-        },
-      });
+      const response = await axios.post('http://localhost:1412/api/admin/user/create', formData);
       setNotification('Tạo người dùng thành công!');
       console.log(response.data);
       setFormData({ username: '', email: '', role: '' }); // Reset form after successful creation

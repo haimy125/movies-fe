@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useAuth } from '../../services/authService';
-import { getToken } from '../../services/tokenService';
 const CommentFormEp = ({ onAddComment, epid, userid }) => {
   const { user } = useAuth();
   const [name, setName] = useState('');
@@ -11,13 +10,7 @@ const CommentFormEp = ({ onAddComment, epid, userid }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const accessToken = getToken("accessToken");
-      const response = await axios.post(`http://localhost:1412/api/user/comment/episode/add?epid=${epid}&userid=${userid}&content=${comment}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-        },
-      });
+      const response = await axios.post(`http://localhost:1412/api/user/comment/episode/add?epid=${epid}&userid=${userid}&content=${comment}`);
       alert('Bạn đã bình luận thành công!');
 
       window.location.reload();

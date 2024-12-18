@@ -5,7 +5,6 @@ import Header from '../../../components/Header/Header';
 import Loader from '../../../components/Loader/Loader';
 import ProfileNav from '../../../components/ProfileNAV/Profilenav';
 import { useAuth } from '../../../services/authService';
-import { getToken } from '../../../services/tokenService';
 
 const Follows = () => {
     const { user } = useAuth();
@@ -41,13 +40,7 @@ const Follows = () => {
 
     const handleDeleteFollow = async (id) => {
         try {
-            const accessToken = getToken("accessToken");
-            const response = await axios.post('http://localhost:1412/api/user/follow/delete/${id}', {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${accessToken}`
-                },
-            });
+            const response = await axios.post('http://localhost:1412/api/user/follow/delete/${id}');
             setNotificationMessage("Bạn bỏ theo dõi phim thành công ");
             setShowNotification(true);
         } catch (error) {

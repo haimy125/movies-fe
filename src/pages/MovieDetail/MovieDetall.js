@@ -12,9 +12,9 @@ import "./MovieDetall.css"; // Tạo file CSS cho styling
 import { Typography } from "@mui/material";
 import BasicModal from "../../components/Modal/BasicModal";
 import QRPayModal from "../../components/Modal/QrPayModal";
+import { getToken } from "../../services/tokenService";
 import { convertMillisecondsToDate } from "../../helper/FormatHelper";
 
-import { getToken } from "../../services/tokenService";
 const MovieDetail = () => {
   const { id } = useParams();
   const accessToken = getToken("accessToken");
@@ -108,13 +108,7 @@ const MovieDetail = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:1412/api/user/movie/buymovie?userid=${user.id}&movieid=${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
+        `http://localhost:1412/api/user/movie/buymovie?userid=${user.id}&movieid=${id}`
       );
       setNotificationMessage("Bạn đã mua phim thành công ");
       setShowNotification(true);
@@ -133,16 +127,8 @@ const MovieDetail = () => {
       return;
     }
     try {
-      const accessToken = getToken("accessToken");
       const response = await axios.post(
-        `http://localhost:1412/api/user/follow/add?userid=${user.id}&movieid=${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+        `http://localhost:1412/api/user/follow/add?userid=${user.id}&movieid=${id}`);
       setNotificationMessage("Bạn đã theo dõi phim thành công ");
       setShowNotification(true);
     } catch (error) {

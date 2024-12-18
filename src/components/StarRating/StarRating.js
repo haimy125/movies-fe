@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './StarRating.css';
-import { getToken } from '../../services/tokenService'
 const StarRating = ({ maxRating = 5, userId, movieId }) => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
@@ -29,13 +28,7 @@ const StarRating = ({ maxRating = 5, userId, movieId }) => {
   const handleClick = async (value) => {
     if (!isRated) {
       try {
-        const accessToken = getToken("accessToken");
-        const response = await axios.post(`http://localhost:1412/api/user/ratings/review?userid=${userId}&movieid=${movieId}&rating=${value}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`
-          },
-        });
+        const response = await axios.post(`http://localhost:1412/api/user/ratings/review?userid=${userId}&movieid=${movieId}&rating=${value}`);
         setRating(value);
         setIsRated(true);
         console.log('Rating submitted:', response.data);

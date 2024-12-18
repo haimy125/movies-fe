@@ -5,7 +5,6 @@ import Footer from '../../../components/Footer/Footer';
 import ProfileNav from '../../../components/ProfileNAV/Profilenav';
 import { useAuth } from '../../../services/authService';
 import Loader from '../../../components/Loader/Loader';
-import { getToken } from '../../../services/tokenService';
 import './Updateinfo.css';
 const UpdateInfo = () => {
     const { user } = useAuth();
@@ -36,13 +35,7 @@ const UpdateInfo = () => {
         formData.append('fullname', fullname);
         formData.append('email', email);
         if (user?.id) {
-            const accessToken = getToken("accessToken");
-            axios.post(`http://localhost:1412/api/updateinfo/${user?.id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            })
+            axios.post(`http://localhost:1412/api/updateinfo/${user?.id}`, formData)
                 .then(response => {
                     alert('Avatar updated successfully');
 
@@ -87,7 +80,7 @@ const UpdateInfo = () => {
                                 <input
                                     type='text'
                                     className='input_password'
-                                    value={fullname ? fullname : ''}
+                                    value={fullname || ''}
                                     onChange={(e) => setFullname(e.target.value)}
                                 />
                             </div>

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
-import { getToken } from '../../services/tokenService';
 const ForgetPassword = () => {
     const {id} = useParams();
   const [newPassword, setNewPassword] = useState('');
@@ -14,13 +13,7 @@ const ForgetPassword = () => {
   const handleSubmit = async(event) => {
     event.preventDefault();
     try {
-      const accessToken = getToken("accessToken");
-      const response = await axios.post( `http://localhost:1412/api/changepassword/user?id=${id}&newPassword=${newPassword}&confirmPassword=${confirmPassword}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
-        },
-      });
+      const response = await axios.post( `http://localhost:1412/api/changepassword/user?id=${id}&newPassword=${newPassword}&confirmPassword=${confirmPassword}`);
       setNotificationMessage('bạn đã đổi mật khẩu thành công vui lòng quay lại trang đăng nhập để đăng nhập vào hệ thống!');
       setShowNotification(true);
     } catch (error) {

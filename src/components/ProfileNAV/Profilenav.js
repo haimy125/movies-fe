@@ -6,36 +6,35 @@ import Footer from "../../components/Footer/Footer";
 import "./Profilenav.css";
 import QRPayModal from "../Modal/QrPayModal";
 import { useAuth } from "../../services/authService";
-import { getToken } from '../../services/tokenService';
 
 const ProfileNav = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
 
-  const [selectedMenu, setSelectedMenu] = useState("account-info");
+    const [selectedMenu, setSelectedMenu] = useState("account-info");
     const [avatar, setAvatar] = useState(null);
     const [avatarPreview, setAvatarPreview] = useState(null);
 
-  //   useEffect(() => {
-  //     console.log("User check:", user);
-  //     if (!user) return;
-  //     // const userId = localStorage.getItem("user")?.id; // Lấy userId từ localStorage
+    //   useEffect(() => {
+    //     console.log("User check:", user);
+    //     if (!user) return;
+    //     // const userId = localStorage.getItem("user")?.id; // Lấy userId từ localStorage
 
-  //     console.log("Bank info", bankInfo);
+    //     console.log("Bank info", bankInfo);
 
-  //     // if (user.id) {
-  //     //   // Gọi API để lấy thông tin người dùng với id
-  //     //   axios
-  //     //     .get(`http://localhost:1412/api/login/user/profile?id=${userId}`)
-  //     //     .then((response) => {
-  //     //       setUser(response.data);
-  //     //       console.log("test");
+    //     // if (user.id) {
+    //     //   // Gọi API để lấy thông tin người dùng với id
+    //     //   axios
+    //     //     .get(`http://localhost:1412/api/login/user/profile?id=${userId}`)
+    //     //     .then((response) => {
+    //     //       setUser(response.data);
+    //     //       console.log("test");
 
-  //     //     })
-  //     //     .catch((error) => console.error(error));
-  //     // } else {
-  //     //   console.error("User ID is not available");
-  //     // }
-  //   }, [user]); // Khi component mount, sẽ gọi API
+    //     //     })
+    //     //     .catch((error) => console.error(error));
+    //     // } else {
+    //     //   console.error("User ID is not available");
+    //     // }
+    //   }, [user]); // Khi component mount, sẽ gọi API
 
     const handleMenuClick = (menu) => {
         setSelectedMenu(menu);
@@ -50,22 +49,20 @@ const ProfileNav = () => {
     const handleAvatarUpload = () => {
         const formData = new FormData();
         formData.append('avatar', avatar);
-        const accessToken = getToken("accessToken");
         axios.post('/api/user/avatar', formData, {
             headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer ${accessToken}`
+                'Content-Type': 'multipart/form-data'
             }
         })
-      .then((response) => {
-        alert("Avatar updated successfully");
-        // setUser({ ...user, avatarUrl: response.data.avatarUrl });
+            .then((response) => {
+                alert("Avatar updated successfully");
+                // setUser({ ...user, avatarUrl: response.data.avatarUrl });
             })
-      .catch((error) => console.error(error));
+            .catch((error) => console.error(error));
     };
 
     const triggerFileInput = () => {
-    document.getElementById("avatarInput").click();
+        document.getElementById("avatarInput").click();
     };
 
     return (

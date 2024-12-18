@@ -6,7 +6,6 @@ import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import "./EpisodeCreate.css";
 import { useAuth } from "../../../../services/authService";
-import { getToken } from "../../../../services/tokenService";
 const EpisodeCreate = () => {
   const { id } = useParams();
   const { user } = useAuth();
@@ -57,14 +56,12 @@ const EpisodeCreate = () => {
     }
 
     try {
-      const accessToken = getToken("accessToken");
       const response = await axios.post(
         "http://localhost:1412/api/admin/episode/create",
         dataToSubmit,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "multipart/form-data"
           },
         }
       );

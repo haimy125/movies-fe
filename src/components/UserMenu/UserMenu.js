@@ -1,10 +1,10 @@
 // src/components/UserMenu.js
-
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./UserMenu.css";
 import { removeToken } from "../../services/tokenService";
-
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:1412/api";
 const UserMenu = () => {
   const [user, setUser] = useState(null);
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -24,7 +24,17 @@ const UserMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await axios.post(
+      `${API_URL}/logout`,
+      {  },
+      {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        withCredentials: true,
+      }
+    );
     // Đọc giá trị từ cookie
     const getCookie = (name) => {
       setUser(null);
@@ -47,7 +57,6 @@ const UserMenu = () => {
 
       console.log("Cookies cleared. Logging out...");
     }
-
     // Chuyển hướng đến trang đăng nhập
     setTimeout(() => {
       window.location.href = "/login";

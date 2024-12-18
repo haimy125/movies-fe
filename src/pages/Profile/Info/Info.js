@@ -6,7 +6,6 @@ import './Info.css';
 import ProfileNav from '../../../components/ProfileNAV/Profilenav';
 import { useAuth } from '../../../services/authService';
 import Loader from '../../../components/Loader/Loader';
-import { getToken } from '../../../services/tokenService';
 import { formatDateToDDMMYYYY } from '../../../helper/FormatHelper'; 
 const Profile = () => {
     const { user, isLoading } = useAuth();
@@ -20,7 +19,6 @@ const Profile = () => {
         const fetchUserDetail = async () => {
             if (user?.id) {
                 try {
-                    const accessToken = getToken("accessToken");
                     const response = await axios.get(`http://localhost:1412/api/user/profile?id=${user.id}`);
                     setLoading(false);
                     setUsers(response.data || {}); // Đảm bảo `response.data` có dữ liệu
@@ -42,13 +40,7 @@ const Profile = () => {
     const handleAvatarUpload = () => {
         const formData = new FormData();
         formData.append('avatar', avatar);
-        const accessToken = getToken("accessToken");
-        axios.post(`http://localhost:1412/api/avatar/${user?.id}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': `Bearer ${accessToken}`
-            }
-        })
+        axios.post(`http://localhost:1412/api/avatar/${user?.id}`, formData)
             .then(response => {
                 alert('Thay đổi ảnh thành công!');
                 setUsers({ ...users, avatar: response.data.avatar });

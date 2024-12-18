@@ -4,7 +4,6 @@ import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import './Register.css';
 import Loader from '../../components/Loader/Loader';
-import { getToken } from '../../services/tokenService';
 const Register = () => {
 
     const [username, setUsername] = useState('');
@@ -17,7 +16,6 @@ const Register = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const accessToken = getToken("accessToken");
             const response = await axios.post(
                 'http://localhost:1412/api/register',
                 {
@@ -27,8 +25,7 @@ const Register = () => {
                 },
                 {
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`
+                        'Content-Type': 'application/json'
                     },
                     withCredentials: true,
                 }
