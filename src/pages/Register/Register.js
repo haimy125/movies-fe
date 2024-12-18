@@ -9,6 +9,7 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [fullName, setFullName] = useState('');
     const [error, setError] = useState('');
     const [notification, setNotification] = useState('');
     const [loading, setLoading] = useState(false);
@@ -22,6 +23,7 @@ const Register = () => {
                     username: username,
                     password: password,
                     email: email,
+                    fullName: fullName,
                 },
                 {
                     headers: {
@@ -73,12 +75,22 @@ const Register = () => {
             <div className="register-container">
                 <div className='font_container'>
                     <form onSubmit={handleSubmit} className="login-form">
-                        <h2>Đăng Ký</h2>
-                        <div className="form-group">
-                            <label>Tên đăng ký:</label>
+                        <h2>Đăng Ký</h2> <div className="form-group">
+                            <label>Họ tên:</label>
                             <input
                                 className='form_input'
-                                placeholder='Nhập tên đăng ký của bạn!'
+                                placeholder='Nhập họ tên của bạn!'
+                                type="text"
+                                value={fullName}
+                                onChange={(e) => setFullName(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Tên đăng nhập:</label>
+                            <input
+                                className='form_input'
+                                placeholder='Nhập tên đăng nhập của bạn!'
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
