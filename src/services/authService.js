@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // Đặt là null để xác định trạng thái chờ
@@ -24,7 +25,10 @@ const useAuth = () => {
         const response = await axios.get(
           `http://localhost:1412/api/checktoken?token=${token}`
         );
-        if (!response?.data) return;
+        if (!response?.data) {
+          window.location.href = "/login";
+          return;
+        }
 
         setUser(response?.data);
         setIsAuthenticated(true);

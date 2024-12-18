@@ -1,13 +1,24 @@
 // src/components/UserMenu.js
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./UserMenu.css";
 import { removeToken } from "../../services/tokenService";
 
 const UserMenu = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(null);
   const [isMenuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const localUser = localStorage.getItem("user");
+    if (localUser) {
+      try {
+        setUser(JSON.parse(localUser));
+      } catch (error) {
+        console.error("Error parsing user data from localStorage:", error);
+      }
+    }
+  }, []);
 
   const handleMenuToggle = () => {
     setMenuOpen(!isMenuOpen);
@@ -16,6 +27,8 @@ const UserMenu = () => {
   const handleLogout = () => {
     // Đọc giá trị từ cookie
     const getCookie = (name) => {
+      setUser(null);
+      localStorage.removeItem("user");
       const cookies = document.cookie.split("; "); // Tách các cookie thành mảng
       for (let cookie of cookies) {
         const [key, value] = cookie.split("="); // Tách tên và giá trị
