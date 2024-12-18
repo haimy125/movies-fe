@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import authService from '../services/authServxice';
+import authService from '../services/authService';
 
 export function useAuth() {
   const [accessToken, setAccessToken] = useState(authService.getAccessToken());

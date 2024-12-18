@@ -5,7 +5,7 @@ import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import "./CategoryCreate.css";
 import { Link } from "react-router-dom";
-
+import { getToken } from "../../../../services/tokenService"
 const CategoryCreate = () => {
   const [newcategory, setNewcategory] = useState({
     name: "",
@@ -23,10 +23,15 @@ const CategoryCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const accessToken = getToken("accessToken");
       const response = await axios.post(
         "http://localhost:1412/admin/category/create",
-        newcategory
-      );
+        newcategory, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+          },
+        });
       setNotification("Thêm mới thành công!");
       setNewcategory({
         name: "",

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useAuth } from '../../services/authService';
+import { getToken } from '../../services/tokenService';
 import './CommentForm.css';
 const CommentForm = ({ onAddComment, movieid, userid }) => {
   const { user } = useAuth();
@@ -11,7 +12,13 @@ const CommentForm = ({ onAddComment, movieid, userid }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:1412/api/user/comment/movie/add?movieid=${movieid}&userid=${userid}&content=${comment}`);
+      const accessToken = getToken("accessToken");
+      const response = await axios.post(`http://localhost:1412/api/user/comment/movie/add?movieid=${movieid}&userid=${userid}&content=${comment}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+      });
       alert('Bạn đã bình luận thành công!');
 
       window.location.reload();

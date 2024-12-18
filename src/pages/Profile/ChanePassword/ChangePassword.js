@@ -6,6 +6,7 @@ import ProfileNav from '../../../components/ProfileNAV/Profilenav';
 import { useAuth } from '../../../services/authService';
 import Loader from '../../../components/Loader/Loader';
 import './ChangePassword.css';
+import { getToken } from '../../../services/tokenService';
 const ChangePassword = () => {
     const { user } = useAuth();
     const [oldpassword, setOldPassword] = useState('');
@@ -14,28 +15,30 @@ const ChangePassword = () => {
     const [loading, setLoading] = useState(false);
 
 
-        const fetchUserDetail = async () => {
-            const formData = new FormData();
-            formData.append('password', oldpassword);
-            formData.append('newpassword', newPassword);
-            formData.append('confirmpassword', confirmPassword);
-            if (user?.id) {
-                axios.post(`http://localhost:1412/api/login/changepassword/${user?.id}`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
+    const fetchUserDetail = async () => {
+        const formData = new FormData();
+        formData.append('password', oldpassword);
+        formData.append('newpassword', newPassword);
+        formData.append('confirmpassword', confirmPassword);
+        if (user?.id) {
+            const accessToken = getToken("accessToken");
+            axios.post(`http://localhost:1412/api/changepassword/${user?.id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+                .then(response => {
+                    alert('đổi mật khẩu thành công!');
+
+                    window.location.reload();
                 })
-                    .then(response => {
-                        alert('đổi mật khẩu thành công!');
-                      
-                        window.location.reload();
-                    })
-                    .catch(error => {
-                        alert(error.response.data);
-                        console.error(error)
-                    });
-            }
-        };
+                .catch(error => {
+                    alert(error.response.data);
+                    console.error(error)
+                });
+        }
+    };
 
 
     if (loading) {
@@ -46,7 +49,7 @@ const ChangePassword = () => {
         <div>
             <Header />
             <div className="profile-container">
-                <ProfileNav />  
+                <ProfileNav />
                 <div className="profile-content">
                     <div className="account-info">
                         <div className='detal_info'>
@@ -56,33 +59,33 @@ const ChangePassword = () => {
                         <div className="avatar-section">
                             <div className='password_group'>
                                 <label>Mật khẩu hiện tại</label>
-                            <input 
-                            type='password' 
-                            className='input_password ' 
-                            placeholder='Nhập mật khẩu hiện tại của bạn!'
-                             value={oldpassword}
-                             onChange={(e) => setOldPassword(e.target.value)}/>
+                                <input
+                                    type='password'
+                                    className='input_password '
+                                    placeholder='Nhập mật khẩu hiện tại của bạn!'
+                                    value={oldpassword}
+                                    onChange={(e) => setOldPassword(e.target.value)} />
                             </div>
                             <div className='password_group'>
-                            <label>Mật khẩu mới</label>
-                            <input
-                            type='password'
-                             className='input_password'
-                              placeholder='Nhập mật khẩu mới của bạn!'
-                              value={newPassword}
-                              onChange={(e) => setNewPassword(e.target.value)}/>
+                                <label>Mật khẩu mới</label>
+                                <input
+                                    type='password'
+                                    className='input_password'
+                                    placeholder='Nhập mật khẩu mới của bạn!'
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)} />
                             </div>
                             <div className='password_group'>
                                 <label>Xác nhận mật khẩu</label>
-                            <input
-                             type='password'
-                              className='input_password' 
-                              placeholder='Nhập lại mật khẩu mới của bạn!' 
-                              value={confirmPassword}
-                              onChange={(e) => setConfirmPassword(e.target.value)}/>
+                                <input
+                                    type='password'
+                                    className='input_password'
+                                    placeholder='Nhập lại mật khẩu mới của bạn!'
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)} />
                             </div>
                             <div className='password_group'>
-                            <button className='button_change_password' onClick={fetchUserDetail} >Lưu</button>
+                                <button className='button_change_password' onClick={fetchUserDetail} >Lưu</button>
                             </div>
                         </div>
                     </div>

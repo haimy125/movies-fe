@@ -4,12 +4,18 @@ import React, { useState } from 'react';
 import '../../../../assets/styles/Admin.css';
 import HeaderAdmin from '../../../../components/AdminHeader/AdminHeader';
 import AdminNav from '../../../../components/AdminNav/AdminNav';
+import { getToken } from "../../../../services/tokenService"
 
 const UserCreate = () => {
   const [formData, setFormData] = useState({
     username: '',
+    fullname: '',
+    password: '',
     email: '',
     role: '',
+    point: 0,
+    status: true,
+    active: true
   });
   const [notification, setNotification] = useState('');
   const [error, setError] = useState('');
@@ -29,7 +35,13 @@ const UserCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:1412/api/admin/user/create', formData);
+      const accessToken = getToken("accessToken");
+      const response = await axios.post('http://localhost:1412/api/admin/user/create', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+      });
       setNotification('Tạo người dùng thành công!');
       console.log(response.data);
       setFormData({ username: '', email: '', role: '' }); // Reset form after successful creation
@@ -57,13 +69,37 @@ const UserCreate = () => {
           <div className='create_movie_font'>
             <form onSubmit={handleSubmit} className='create_movie_form'>
               <div className='form_group'>
+                <label>Họ tên</label>
+                <input
+                  type='text'
+                  name='fullname'
+                  className='create_input'
+                  placeholder='Nhập họ tên'
+                  value={formData.fullname}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className='form_group'>
                 <label>Tên người dùng</label>
                 <input
                   type='text'
                   name='username'
                   className='create_input'
                   placeholder='Nhập tên người dùng'
-                  value={formData.username}
+                  value={formData.f}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className='form_group'>
+                <label>Mật khẩu</label>
+                <input
+                  type='password'
+                  name='password'
+                  className='create_input'
+                  placeholder='Nhập mật khẩu'
+                  value={formData.password}
                   onChange={handleChange}
                   required
                 />

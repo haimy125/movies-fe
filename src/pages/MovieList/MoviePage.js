@@ -47,8 +47,7 @@ const MoviePage = () => {
       let response;
       if (filterApplied) {
         response = await axios.get(
-          `http://localhost:1412/api/user/movie/list?category=${genre}&year=${year}&vip=${vip}&sortBy=${
-            sortBy ?? "date"
+          `http://localhost:1412/api/user/movie/list?category=${genre}&year=${year}&vip=${vip}&sortBy=${sortBy ?? "date"
           }&page=${page}&limit=30`
         );
         setLoading(false);
@@ -161,25 +160,23 @@ const MoviePage = () => {
   };
 
   const __renderMovieList = () => (
-    <div className="list">
-      {movies.map((item, index) => {
-        return (
-          <div
-            className="movie_item"
-            onClick={() => handleAction(item.id)}
-            key={index}
-          >
-            <MovieCard
-              id={item.id}
-              name={item.vnName}
-              vip={item.vipmovie}
-              ep={item.episodenumber}
-            />
-          </div>
-        );
-      })}
-    </div>
-  );
+    movies.map((item, index) => {
+      return (
+        <div
+          className="movie_item"
+          onClick={() => handleAction(item.id)}
+          key={index}
+        >
+          <MovieCard
+            id={item.id}
+            name={item.vnName}
+            vip={item.vipmovie}
+            ep={item.episodenumber}
+          />
+        </div>
+      );
+    })
+    );
 
   if (loading) {
     return <Loader />;
@@ -253,8 +250,8 @@ const MoviePage = () => {
         </div>
 
         {/* Movie List */}
-        <div className="page-movies">
-          <div className="movie-list-page">{__renderMovieList()}</div>
+        <div className="pages">
+          <div className="movie-list">{__renderMovieList()}</div>
           <div className="pagination_user">
             <a href="#" onClick={() => handlePageChange(currentPage - 1)}>
               &laquo;
