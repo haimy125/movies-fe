@@ -87,7 +87,7 @@ const UpdateInfo = () => {
                                 <input
                                     type='text'
                                     className='input_password'
-                                    value={fullname ? fullname : ''}
+                                    value={fullname || ''}
                                     onChange={(e) => setFullname(e.target.value)}
                                 />
                             </div>
