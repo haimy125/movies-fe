@@ -39,15 +39,6 @@ const Follows = () => {
         }
     };
 
-    const convertMillisecondsToDate = (milliseconds) => {
-        const date = new Date(milliseconds);
-        const day = date.getDate();
-        const month = date.getMonth() + 1; // Months are zero-based, so add 1
-        const year = date.getFullYear();
-        const formattedDay = day < 10 ? `0${day}` : day;
-        const formattedMonth = month < 10 ? `0${month}` : month;
-        return `${formattedDay}-${formattedMonth}-${year}`;
-    };
     const handleDeleteFollow = async (id) => {
         try {
             const accessToken = getToken("accessToken");

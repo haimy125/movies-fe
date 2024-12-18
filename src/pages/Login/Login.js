@@ -1,10 +1,11 @@
+//main
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./Login.css";
-import { setToken, getToken } from "../../services/tokenService";
+import { setToken } from "../../services/tokenService";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:1412/api";
 
@@ -21,20 +22,20 @@ const Login = () => {
       if (!username || !password) {
         return;
       }
-      const accessToken = getToken("accessToken");
       const response = await axios.post(
         `${API_URL}/login`,
         { username, password },
         {
           headers: {
-            "Content-Type": "application/json",
-            'Authorization': `Bearer ${accessToken}`
+            "Content-Type": "application/json"
           },
           withCredentials: true,
         }
       );
 
-      if (!response?.data) return;
+      if (!response?.data) {
+        return;
+      }
       return response?.data;
     } catch (error) {
       console.error("Login failed in login function:", error);

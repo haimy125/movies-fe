@@ -1,8 +1,8 @@
 import React from 'react';
 import MovieCard from '../MovieCard/MovieCard';
-import './VIPMovie.css';
+import './VipMovie.css';
 
-const VIPMovies = () => {
+const VipMovies = () => {
   const movies = [
     // Dữ liệu mẫu cho phim mới
   ];
@@ -33,4 +33,4 @@ const VIPMovies = () => {
   );
 };
 
-export default VIPMovies;
+export default VipPMovies;

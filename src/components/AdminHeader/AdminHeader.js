@@ -25,7 +25,6 @@ const HeaderAdmin = () => {
 
   return (
     <header className='admin_header'>
-
             <div className='admin_logo'>
               <a href='/'>
                 <img src="/logo.png" alt='logo'className='admin_logo_img'/>

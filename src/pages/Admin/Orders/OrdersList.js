@@ -4,6 +4,7 @@ import '../../../assets/styles/Admin.css';
 import HeaderAdmin from '../../../components/AdminHeader/AdminHeader';
 import AdminNav from '../../../components/AdminNav/AdminNav';
 import Loader from '../../../components/Loader/Loader';
+import { convertMillisecondsToDate } from '../../../helper/FormatHelper';
 const OrdersList = () => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,19 +33,6 @@ const OrdersList = () => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
-  };
-  const convertMillisecondsToDate = (milliseconds) => {
-    const date = new Date(milliseconds);
-
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Months are zero-based, so add 1
-    const year = date.getFullYear();
-
-    // Format the day and month with leading zeros if needed
-    const formattedDay = day < 10 ? `0${day}` : day;
-    const formattedMonth = month < 10 ? `0${month}` : month;
-
-    return `${formattedDay}-${formattedMonth}-${year}`;
   };
 
   if (loading) {

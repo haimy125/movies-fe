@@ -6,7 +6,7 @@ import ProfileNav from '../../../components/ProfileNAV/Profilenav';
 import { useAuth } from '../../../services/authService';
 import Loader from '../../../components/Loader/Loader';
 import './HistoryPay.css';
-
+import { convertMillisecondsToDate } from '../../../helper/FormatHelper';
 const HistoryPay = () => {
     const { user } = useAuth();
     const [notification, setNotification] = useState([]);
@@ -36,16 +36,6 @@ const HistoryPay = () => {
         if (page > 0 && page <= totalPages) {
             setCurrentPage(page);
         }
-    };
-
-    const convertMillisecondsToDate = (milliseconds) => {
-        const date = new Date(milliseconds);
-        const day = date.getDate();
-        const month = date.getMonth() + 1; // Months are zero-based, so add 1
-        const year = date.getFullYear();
-        const formattedDay = day < 10 ? `0${day}` : day;
-        const formattedMonth = month < 10 ? `0${month}` : month;
-        return `${formattedDay}-${formattedMonth}-${year}`;
     };
 
     if (loading) {

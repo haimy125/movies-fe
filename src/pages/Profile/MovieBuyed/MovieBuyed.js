@@ -5,7 +5,7 @@ import Header from '../../../components/Header/Header';
 import Loader from '../../../components/Loader/Loader';
 import ProfileNav from '../../../components/ProfileNAV/Profilenav';
 import { useAuth } from '../../../services/authService';
-
+import { convertMillisecondsToDate } from '../../../helper/FormatHelper';
 const MovieBuyed = () => {
     const { user } = useAuth();
     const [notification, setNotification] = useState([]);
@@ -37,15 +37,6 @@ const MovieBuyed = () => {
         }
     };
 
-    const convertMillisecondsToDate = (milliseconds) => {
-        const date = new Date(milliseconds);
-        const day = date.getDate();
-        const month = date.getMonth() + 1; // Months are zero-based, so add 1
-        const year = date.getFullYear();
-        const formattedDay = day < 10 ? `0${day}` : day;
-        const formattedMonth = month < 10 ? `0${month}` : month;
-        return `${formattedDay}-${formattedMonth}-${year}`;
-    };
     const handleaction=(id)=>{
         window.location.href = `/movie/detail/${id}`;
         }

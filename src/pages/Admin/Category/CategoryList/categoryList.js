@@ -109,7 +109,7 @@ const CategoryList = () => {
                 <tr>
                   <th>#</th>
                   <th>Tên thể loại</th>
-                  <th>chỉnh sửa</th>
+                  <th>Hành động</th>
                 </tr>
               </thead>
               <tbody>

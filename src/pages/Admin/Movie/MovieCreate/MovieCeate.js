@@ -185,7 +185,7 @@ const MovieCreate = () => {
                   type="text"
                   name="cn_name"
                   className="create_input"
-                  placeholder="Nhập tên tiếng trung của phim"
+                  placeholder="Nhập tên nước ngoài của phim"
                   value={formData.cn_name}
                   onChange={handleChange}
                   required
@@ -265,7 +265,7 @@ const MovieCreate = () => {
                 </select>
               </div>
               <div className="form_group">
-                <label>Vip</label>
+                <label>Loại phí</label>
                 <select
                   className="create_input"
                   name="vip_movie"
@@ -313,7 +313,7 @@ const MovieCreate = () => {
                 ))}
               </div>
               <br />
-              <label>lịch chiếu</label>
+              <label>Lịch chiếu</label>
               <div className="category_movie_list">
                 {scheduleList.map((item, index) => (
                   <div className="category_movie_list_group" key={index}>
@@ -326,7 +326,7 @@ const MovieCreate = () => {
                 ))}
               </div>
               <div className="form_group">
-                <label>Chọn file phim</label>
+                <label>Chọn ảnh bìa cho phim</label>
                 <input
                   type="file"
                   id="movieFile"
@@ -336,7 +336,7 @@ const MovieCreate = () => {
                   required
                 />
                 <label className="custom-file-label" htmlFor="movieFile">
-                  Chọn file
+                  Chọn ảnh
                 </label>
               </div>
               <div className="form_group image_movie">

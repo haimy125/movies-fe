@@ -6,6 +6,7 @@ import AdminNav from "../../../../components/AdminNav/AdminNav";
 import "./MovieList.css";
 import Loader from "../../../../components/Loader/Loader";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { formatDateToDDMMYYYY } from "../../../../helper/FormatHelper";
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -68,19 +69,6 @@ const MovieList = () => {
       setCurrentPage(page);
     }
   };
-  const convertMillisecondsToDate = (milliseconds) => {
-    const date = new Date(milliseconds);
-
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Months are zero-based, so add 1
-    const year = date.getFullYear();
-
-    // Format the day and month with leading zeros if needed
-    const formattedDay = day < 10 ? `0${day}` : day;
-    const formattedMonth = month < 10 ? `0${month}` : month;
-
-    return `${formattedDay}-${formattedMonth}-${year}`;
-  };
 
   if (loading) {
     return <Loader />;
@@ -130,11 +118,12 @@ const MovieList = () => {
                 <tr>
                   <th>#</th>
                   <th>Tên phim</th>
-                  <th>Tên tiếng hán</th>
-                  <th>ngày đăng</th>
-                  <th>trạng thái</th>
-                  <th>loại hình</th>
-                  <th>chỉnh sửa</th>
+                  <th>Tên nước ngoài</th>
+                  <th>Ngày đăng</th>
+                  <th>Ngày chỉnh sửa</th>
+                  <th>Trạng thái</th>
+                  <th>Loại hình</th>
+                  <th>Hành động</th>
                 </tr>
               </thead>
               <tbody>
@@ -145,7 +134,8 @@ const MovieList = () => {
                       <td>{index + 1}</td>
                       <td className="vnName">{item.vnName}</td>
                       <td className="cnName">{item.cnName}</td>
-                      <td>{convertMillisecondsToDate(item.timeAdd)}</td>
+                      <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
+                      <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td>
                       <td className="status">{item.status}</td>
                       {item.vipmovie === true ? (
                         <td className="vip">Trả phí</td>

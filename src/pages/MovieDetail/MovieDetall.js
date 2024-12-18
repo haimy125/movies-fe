@@ -12,6 +12,7 @@ import "./MovieDetall.css"; // Tạo file CSS cho styling
 import { Typography } from "@mui/material";
 import BasicModal from "../../components/Modal/BasicModal";
 import QRPayModal from "../../components/Modal/QrPayModal";
+import { convertMillisecondsToDate } from "../../helper/FormatHelper";
 
 import { getToken } from "../../services/tokenService";
 const MovieDetail = () => {
@@ -84,19 +85,6 @@ const MovieDetail = () => {
     return <Loader />;
   }
 
-  const convertMillisecondsToDate = (milliseconds) => {
-    const date = new Date(milliseconds);
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Months are zero-based, so add 1
-    const year = date.getFullYear();
-
-    // Format the day and month with leading zeros if needed
-    const formattedDay = day < 10 ? `0${day}` : day;
-    const formattedMonth = month < 10 ? `0${month}` : month;
-
-    return `${formattedDay}-${formattedMonth}-${year}`;
-  };
-
   const handleAction = async (epid) => {
     if (movie?.vipmovie) {
       if (checkPrice) {
@@ -163,7 +151,9 @@ const MovieDetail = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <Header />
@@ -196,7 +186,7 @@ const MovieDetail = () => {
               </span>
             </p>
             {/* {!checkPrice && movie?.price > 0 && ( */}
-            {true && (
+            {(
               <button className="follow_button play" onClick={handleBuyMovie}>
                 Mua Phim
               </button>

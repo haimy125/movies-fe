@@ -6,7 +6,7 @@ import AdminNav from "../../../../components/AdminNav/AdminNav";
 import Loader from "../../../../components/Loader/Loader";
 import "./UserList.css";
 import { Link, useNavigate } from "react-router-dom";
-
+import { formatDateToDDMMYYYY } from "../../../../helper/FormatHelper";
 const UserList = () => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -91,26 +91,6 @@ const UserList = () => {
     setPointCreate(true);
   };
 
-  const convertDateArrayToDate = (dateArray) => {
-    const date = new Date(
-      dateArray[0],
-      dateArray[1] - 1,
-      dateArray[2],
-      dateArray[3],
-      dateArray[4]
-    );
-
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Months are zero-based, so add 1
-    const year = date.getFullYear();
-
-    // Format the day and month with leading zeros if needed
-    const formattedDay = day < 10 ? `0${day}` : day;
-    const formattedMonth = month < 10 ? `0${month}` : month;
-
-    return `${formattedDay}-${formattedMonth}-${year}`;
-  };
-
   if (loading) {
     return <Loader />;
   }
@@ -166,9 +146,10 @@ const UserList = () => {
                   <th>Tên đăng nhập</th>
                   <th>Email</th>
                   <th>Ngày tạo</th>
+                  <th>Ngày chỉnh sửa</th>
                   <th>Xu</th>
                   <th>Quyền hạn</th>
-                  <th>Chỉnh sửa</th>
+                  <th>Hành động</th>
                 </tr>
               </thead>
               <tbody>
@@ -177,7 +158,8 @@ const UserList = () => {
                     <td>{index + 1}</td>
                     <td className="vnName">{item.username}</td>
                     <td className="cnName">{item.email}</td>
-                    <td>{convertDateArrayToDate(item.timeAdd)}</td>
+                    <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
+                    <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td>
                     <td className="status">{item.point}</td>
                     <td className="vip">{item.role.name}</td>
                     <td>

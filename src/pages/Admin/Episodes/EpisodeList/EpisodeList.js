@@ -6,6 +6,7 @@ import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import "./EpisodeList.css";
 import Loader from "../../../../components/Loader/Loader";
+import { convertMillisecondsToDate } from "../../../../helper/FormatHelper";
 const EpisodeList = () => {
   const { id } = useParams();
   const [movies, setMovies] = useState([]);
@@ -61,19 +62,6 @@ const EpisodeList = () => {
       setCurrentPage(page);
     }
   };
-  const convertMillisecondsToDate = (milliseconds) => {
-    const date = new Date(milliseconds);
-
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Months are zero-based, so add 1
-    const year = date.getFullYear();
-
-    // Format the day and month with leading zeros if needed
-    const formattedDay = day < 10 ? `0${day}` : day;
-    const formattedMonth = month < 10 ? `0${month}` : month;
-
-    return `${formattedDay}-${formattedMonth}-${year}`;
-  };
   const handleActiontocreate = () => {
     navigate(`/admin/movie/episodes/${id}/create`);
   };
@@ -120,10 +108,11 @@ const EpisodeList = () => {
                 <tr>
                   <th>#</th>
                   <th>Tên </th>
-                  <th>ngày đăng</th>
+                  <th>Ngày đăng</th>
+                  <th>Ngày chỉnh sửa</th>
                   <th>Lượt xem</th>
                   <th>Lượt thích</th>
-                  <th>chỉnh sửa</th>
+                  <th>Hành động</th>
                 </tr>
               </thead>
               <tbody>
@@ -133,6 +122,7 @@ const EpisodeList = () => {
                     <td className="vnName">{item.name}</td>
 
                     <td>{convertMillisecondsToDate(item.timeAdd)}</td>
+                    <td>{convertMillisecondsToDate(item.timeUpdate)}</td>
                     <td className="vnName">{item.views}</td>
 
                     <td className="status">{item.likes}</td>

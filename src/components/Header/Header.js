@@ -40,7 +40,7 @@ const [keyword, setKeyword] = useState('');
         <span > <Link to="/movie/page" className='action'><i className="fa-solid fa-list"></i> Thể loại phim</Link> </span>
         <div className="dropdown-content">
           {categorys.map((item, index)=>(
-         <Link className='action' key={index} onClick={() => handleAction(item.id)}>{item.name}</Link>
+          <Link className='action' key={index} onClick={() => handleAction(item.id)}>{item.name}</Link>
           ))}
         </div>
       </div>

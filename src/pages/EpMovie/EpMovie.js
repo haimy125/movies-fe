@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./EpMovie.css"; // Tạo file CSS cho styling
 import { useAuth } from "../../services/authService";
+import { convertMillisecondsToDate } from "../../helper/FormatHelper";
 const EpMovie = () => {
   const { movieId, id } = useParams();
   const { isAuthenticated, user } = useAuth();
@@ -69,19 +70,6 @@ const EpMovie = () => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
-  };
-  const convertMillisecondsToDate = (milliseconds) => {
-    const date = new Date(milliseconds);
-
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Months are zero-based, so add 1
-    const year = date.getFullYear();
-
-    // Format the day and month with leading zeros if needed
-    const formattedDay = day < 10 ? `0${day}` : day;
-    const formattedMonth = month < 10 ? `0${month}` : month;
-
-    return `${formattedDay}-${formattedMonth}-${year}`;
   };
   return (
     <div>
