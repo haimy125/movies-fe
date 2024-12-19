@@ -209,6 +209,7 @@ const MovieEdit = () => {
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const scheduleIdString = selectedSchedules.join(",");
     const categoryIdsString = selectedCategories.join(",");
@@ -241,6 +242,7 @@ const MovieEdit = () => {
           },
         }
       );
+      setLoading(false);
       setNotification("Cập nhật thành công!");
       alert("Cập nhật phim thành công!");
       navigate("/admin/movie");
@@ -248,6 +250,7 @@ const MovieEdit = () => {
     } catch (error) {
       setError(error.response ? error.response.data : "Error submitting form");
       console.error("Error submitting form:", error);
+      setLoading(false);
     }
   };
 
