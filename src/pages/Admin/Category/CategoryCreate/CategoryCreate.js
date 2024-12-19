@@ -24,7 +24,8 @@ const CategoryCreate = () => {
     try {
       const response = await axios.post(
         "http://localhost:1412/admin/category/create",
-        newcategory);
+        newcategory
+      );
       setNotification("Thêm mới thành công!");
       setNewcategory({
         name: "",
@@ -65,6 +66,7 @@ const CategoryCreate = () => {
                   value={newcategory.name}
                   onChange={handleChange}
                   required
+                  maxLength={255}
                 />
               </div>
               {error && <p style={{ color: "red" }}>{error}</p>}

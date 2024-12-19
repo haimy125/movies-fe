@@ -92,6 +92,7 @@ const CategoryEdit = () => {
                   value={newcategory.name}
                   onChange={handleChange}
                   required
+                  maxLength={255}
                 />
               </div>
               {error && <p style={{ color: "red" }}>{error}</p>}
