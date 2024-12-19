@@ -11,6 +11,22 @@
     gap: 10px;
     justify-content: center;
   }
+  .movie-list-see-all{
+    align-content: center;
+    text-align: center;
+    margin: 20px;
+
+    .view_all_movies {
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 2px 2px 5px 2px inset #2e2e2e;
+      border: none;
+      padding: 20px;
+      background: linear-gradient(45deg, #393939, #000000);
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+  }
 
   .movie_item {
     /* margin-left: 15px; */
@@ -21,16 +37,23 @@
     /* Đảm bảo không vượt quá 23% */
   }
 
+  @media (max-width: 1400px) {
+    .movie_item {
+      flex: 1 1 calc(100% / 4);
+      /* 2 item mỗi hàng cho màn hình nhỏ */
+    }
+  }
+
   @media (max-width: 1100px) {
     .movie_item {
-      flex: 1 1 calc(100% / 5);
+      flex: 1 1 calc(100% / 4);
       /* 2 item mỗi hàng cho màn hình nhỏ */
     }
   }
 
   @media (max-width: 768px) {
     .movie_item {
-      flex: 1 1 calc(100% / 4);
+      flex: 1 1 calc(100% / 3);
       /* 2 item mỗi hàng cho màn hình nhỏ */
     }
   }
@@ -56,17 +79,4 @@
     margin: 0;
   }
 
-}
-
-.view_all_movies {
-  color: #fff;
-  position: absolute;
-  left: 87%;
-  text-decoration: none;
-  box-shadow: 2px 2px 5px 2px inset #2e2e2e;
-  border: none;
-  padding: 5px 20px;
-  background: linear-gradient(45deg, #393939, #000000);
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
