@@ -27,6 +27,7 @@ const UserList = () => {
   }, [currentPage, keyword, roleid]);
 
   const fetchData = async (page) => {
+    setLoading(true);
     try {
       let rp;
       if (keyword === "") {
@@ -43,6 +44,7 @@ const UserList = () => {
       setTotalPages(rp.data.totalPage); // Assuming API returns total pages
       console.log(rp.data.listResult);
     } catch (error) {
+      setLoading(false);
       console.error(error);
     }
   };
@@ -91,9 +93,9 @@ const UserList = () => {
     setPointCreate(true);
   };
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (loading) {
+  //   return <Loader />;
+  // }
 
   return (
     <div className="admin_layout">
@@ -153,28 +155,37 @@ const UserList = () => {
                 </tr>
               </thead>
               <tbody>
-                {movies.map((item, index) => (
-                  <tr key={item.id}>
-                    <td>{index + 1}</td>
-                    <td className="vnName">{item.username}</td>
-                    <td className="cnName">{item.email}</td>
-                    <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
-                    <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td>
-                    <td className="status">{item.point}</td>
-                    <td className="vip">{item.role.name}</td>
-                    <td>
-                      <button onClick={() => handleAction(item.id)}>
-                        <i className="fa-solid fa-shield-halved"></i>
-                      </button>
-                      <button to="#" onClick={() => handleDelete(item.id)}>
-                        <i className="fa-solid fa-trash"></i>
-                      </button>
-                      <button to="#" onClick={() => handleCreatePoint(item.id)}>
-                        <i className="fa-solid fa-coins"></i>
-                      </button>
-                    </td>
+                {loading ? (
+                  <tr>
+                    <td colSpan={8}>Loading...</td>
                   </tr>
-                ))}
+                ) : (
+                  movies.map((item, index) => (
+                    <tr key={item.id}>
+                      <td>{index + 1}</td>
+                      <td className="vnName">{item.username}</td>
+                      <td className="cnName">{item.email}</td>
+                      <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
+                      <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td>
+                      <td className="status">{item.point}</td>
+                      <td className="vip">{item.role.name}</td>
+                      <td>
+                        <button onClick={() => handleAction(item.id)}>
+                          <i className="fa-solid fa-shield-halved"></i>
+                        </button>
+                        <button to="#" onClick={() => handleDelete(item.id)}>
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
+                        <button
+                          to="#"
+                          onClick={() => handleCreatePoint(item.id)}
+                        >
+                          <i className="fa-solid fa-coins"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
