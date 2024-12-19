@@ -158,6 +158,12 @@ const MovieEdit = () => {
         });
         setFileName(files[0]);
         setSelectedImage(URL.createObjectURL(files[0]));
+      } else if (name === "vip_movie") {
+        setFormData({
+          ...formData,
+          [name]: value,
+          price: value === "false" ? 0 : formData.price,
+        });
       } else {
         setFormData({
           ...formData,
@@ -381,6 +387,10 @@ const MovieEdit = () => {
                   value={formData.price}
                   onChange={handleChange}
                   required
+                  disabled={
+                    formData.vip_movie === "false" ||
+                    formData.vip_movie === false
+                  }
                 />
               </div>
               <div className="form_group">

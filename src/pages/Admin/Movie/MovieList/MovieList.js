@@ -120,7 +120,7 @@ const MovieList = () => {
                   <th>Tên phim</th>
                   <th>Tên nước ngoài</th>
                   <th>Ngày đăng</th>
-                  <th>Ngày chỉnh sửa</th>
+                  {/* <th>Ngày chỉnh sửa</th> */}
                   <th>Trạng thái</th>
                   <th>Loại hình</th>
                   <th>Hành động</th>
@@ -140,7 +140,7 @@ const MovieList = () => {
                         <td className="vnName">{item.vnName}</td>
                         <td className="cnName">{item.cnName}</td>
                         <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
-                        <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td>
+                        {/* <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td> */}
                         <td className="status">{item.status}</td>
                         {item.vipMovie === true ? (
                           <td className="vip">Trả phí</td>
