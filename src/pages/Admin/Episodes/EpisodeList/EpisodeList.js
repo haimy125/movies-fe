@@ -6,7 +6,7 @@ import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import "./EpisodeList.css";
 import Loader from "../../../../components/Loader/Loader";
-import { convertMillisecondsToDate } from "../../../../helper/FormatHelper";
+import { formatDateToDDMMYYYY } from "../../../../helper/FormatHelper";
 const EpisodeList = () => {
   const { id } = useParams();
   const [movies, setMovies] = useState([]);
@@ -24,6 +24,7 @@ const EpisodeList = () => {
       const rp = await axios.get(
         `http://localhost:1412/api/admin/episode/getBymovie/${id}?page=${page}&limit=10`
       );
+      console.log("rp.data.listResult", rp.data.listResult)
       setMovies(rp.data.listResult);
       setTotalPages(rp.data.totalPage); // Giả sử API trả về tổng số trang
       setLoading(false);
@@ -65,6 +66,7 @@ const EpisodeList = () => {
   const handleActiontocreate = () => {
     navigate(`/admin/movie/episodes/${id}/create`);
   };
+  console.log("movies:::::::::::", movies)
   return (
     <div className="admin_layout">
       <div className="header_ad">
@@ -121,8 +123,8 @@ const EpisodeList = () => {
                     <td>{index + 1}</td>
                     <td className="vnName">{item.name}</td>
 
-                    {/* <td>{convertMillisecondsToDate(item.timeAdd)}</td> */}
-                    <td>{convertMillisecondsToDate(item.timeUpdate)}</td>
+                    <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
+                    {/* <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td> */}
                     {/* <td className="vnName">{item.views}</td>
 
                     <td className="status">{item.likes}</td> */}

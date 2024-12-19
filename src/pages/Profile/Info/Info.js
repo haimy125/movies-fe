@@ -6,7 +6,9 @@ import './Info.css';
 import ProfileNav from '../../../components/ProfileNAV/Profilenav';
 import { useAuth } from '../../../services/authService';
 import Loader from '../../../components/Loader/Loader';
-import { formatDateToDDMMYYYY } from '../../../helper/FormatHelper'; 
+import { formatDateToDDMMYYYY } from '../../../helper/FormatHelper';
+import ConfirmationModal from '../../../components/Modal/ConfirmModel';
+import { Modal } from 'bootstrap';
 const Profile = () => {
     const { user, isLoading } = useAuth();
     const [users, setUsers] = useState(null);
@@ -14,6 +16,11 @@ const Profile = () => {
     const [avatar, setAvatar] = useState(null);
     const [avatarPreview, setAvatarPreview] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [basicModel, setBasicModel] = useState({
+        heading: "",
+        content: "",
+    });
+    const [isOpenBasicModel, setIsOpenBasicModel] = useState(false);
 
     useEffect(() => {
         const fetchUserDetail = async () => {
@@ -42,7 +49,11 @@ const Profile = () => {
         formData.append('avatar', avatar);
         axios.post(`http://localhost:1412/api/avatar/${user?.id}`, formData)
             .then(response => {
-                alert('Thay đổi ảnh thành công!');
+                setBasicModel({
+                    heading: "Thay đổi ảnh đại diệnthành công!",
+                    content: "",
+                });
+                setIsOpenBasicModel(true);
                 setUsers({ ...users, avatar: response.data.avatar });
                 window.location.reload();
             })
@@ -62,6 +73,16 @@ const Profile = () => {
     return (
         <div>
             <Header />
+            <ConfirmationModal
+                open={isOpenBasicModel}
+                onClose={() => {
+                    setIsOpenBasicModel(false);
+                }}
+                onConfirm={() => {
+                    setIsOpenBasicModel(false);
+                }}
+                {...basicModel}
+            />
             <div className="profile-container">
                 <ProfileNav />
                 <div className="profile-content">
@@ -81,7 +102,7 @@ const Profile = () => {
                             an image file. When the button is clicked, it triggers the hidden file
                             input field with the id 'avatarInput', which opens a file selection
                             dialog for the user to choose an image file. */}
-                            {/* <button className='button_avartar' onClick={triggerFileInput}>Chọn ảnh</button> */}
+                            <button className='button_avartar' onClick={triggerFileInput}>Chọn ảnh</button>
                             <input
                                 type="file"
                                 id="avatarInput"

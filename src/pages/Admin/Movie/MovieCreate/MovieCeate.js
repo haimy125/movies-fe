@@ -189,210 +189,210 @@ const MovieCreate = () => {
             {loading ? (
               <p>Loading...</p>
             ) : (
-              <form onSubmit={handleSubmit} className="create_movie_form">
-                <div className="form_group">
-                  <label>Tên Việt Nam</label>
-                  <input
-                    type="text"
-                    name="vn_name"
-                    className="create_input"
-                    placeholder="Nhập tên tiếng việt của phim"
-                    value={formData.vn_name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form_group">
-                  <label>Tên nước ngoài</label>
-                  <input
-                    type="text"
-                    name="cn_name"
-                    className="create_input"
-                    placeholder="Nhập tên nước ngoài của phim"
-                    value={formData.cn_name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form_group">
-                  <label>Tác giả</label>
-                  <input
-                    type="text"
-                    name="author"
-                    className="create_input"
-                    placeholder="Nhập tên tác giả của phim"
-                    value={formData.author}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form_group">
-                  <label>Số tập</label>
-                  <input
-                    type="number"
-                    name="episode_number"
-                    className="create_input"
-                    placeholder="Nhập số tập của phim"
-                    value={formData.episode_number}
-                    onChange={handleChange}
-                    required
+            <form onSubmit={handleSubmit} className="create_movie_form">
+              <div className="form_group">
+                <label>Tên Việt Nam</label>
+                <input
+                  type="text"
+                  name="vn_name"
+                  className="create_input"
+                  placeholder="Nhập tên tiếng Việt của phim"
+                  value={formData.vn_name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form_group">
+                <label>Tên nước ngoài</label>
+                <input
+                  type="text"
+                  name="cn_name"
+                  className="create_input"
+                  placeholder="Nhập tên nước ngoài của phim"
+                  value={formData.cn_name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form_group">
+                <label>Tác giả</label>
+                <input
+                  type="text"
+                  name="author"
+                  className="create_input"
+                  placeholder="Nhập tên tác giả của phim"
+                  value={formData.author}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form_group">
+                <label>Số tập</label>
+                <input
+                  type="number"
+                  name="episode_number"
+                  className="create_input"
+                  placeholder="Nhập số tập của phim"
+                  value={formData.episode_number}
+                  onChange={handleChange}
+                  required
                     min={1}
                     max={5000}
-                  />
-                </div>
-                <div className="form_group">
-                  <label>Năm sản xuất</label>
-                  <input
-                    type="number"
-                    name="year"
-                    className="create_input"
-                    placeholder="Nhập năm sản xuất"
-                    value={formData.year}
-                    onChange={handleChange}
-                    required
+                />
+              </div>
+              <div className="form_group">
+                <label>Năm sản xuất</label>
+                <input
+                  type="number"
+                  name="year"
+                  className="create_input"
+                  placeholder="Nhập năm sản xuất"
+                  value={formData.year}
+                  onChange={handleChange}
+                  required
                     min={1900}
                     max={new Date().getFullYear()}
-                  />
-                </div>
-                <div className="form_group">
-                  <label>Trạng thái</label>
-                  <select
-                    className="create_input"
-                    name="status"
-                    value={formData.status}
-                    onChange={handleChange}
+                />
+              </div>
+              <div className="form_group">
+                <label>Trạng thái</label>
+                <select
+                  className="create_input"
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
                     required
-                  >
-                    <option value="Đang ra">Đang ra</option>
-                    <option value="Tạm hoãn">Tạm hoãn</option>
-                    <option value="Hoàn thành">Hoàn thành</option>
-                  </select>
-                </div>
-                <div className="form_group">
-                  <label>Phim mới</label>
-                  <select
-                    className="create_input"
-                    name="new_movie"
-                    value={formData.new_movie}
-                    onChange={handleChange}
+                >
+                  <option value="Đang ra">Đang ra</option>
+                  <option value="Tạm hoãn">Tạm hoãn</option>
+                  <option value="Hoàn thành">Hoàn thành</option>
+                </select>
+              </div>
+              <div className="form_group">
+                <label>Phim mới</label>
+                <select
+                  className="create_input"
+                  name="new_movie"
+                  value={formData.new_movie}
+                  onChange={handleChange}
                     required
-                  >
-                    <option value="true">Phim mới ra</option>
-                    <option value="false">Phim đã ra lâu</option>
-                  </select>
-                </div>
-                <div className="form_group">
-                  <label>Phim hot</label>
-                  <select
-                    className="create_input"
-                    name="hot_movie"
-                    value={formData.hot_movie}
-                    onChange={handleChange}
+                >
+                  <option value="true">Phim mới ra</option>
+                  <option value="false">Phim đã ra lâu</option>
+                </select>
+              </div>
+              <div className="form_group">
+                <label>Phim hot</label>
+                <select
+                  className="create_input"
+                  name="hot_movie"
+                  value={formData.hot_movie}
+                  onChange={handleChange}
                     required
-                  >
-                    <option value="true">Phim đang nổi</option>
-                    <option value="false">Phim thường</option>
-                  </select>
-                </div>
-                <div className="form_group">
-                  <label>Loại phí</label>
-                  <select
-                    className="create_input"
-                    name="vip_movie"
-                    value={formData.vip_movie}
-                    onChange={handleChange}
+                >
+                  <option value="true">Phim đang nổi</option>
+                  <option value="false">Phim thường</option>
+                </select>
+              </div>
+              <div className="form_group">
+                <label>Loại phí</label>
+                <select
+                  className="create_input"
+                  name="vip_movie"
+                  value={formData.vip_movie}
+                  onChange={handleChange}
                     required
-                  >
-                    <option value="true">Trả phí</option>
-                    <option value="false">Miễn phí</option>
-                  </select>
-                </div>
-                <div className="form_group">
-                  <label>Giá</label>
-                  <input
-                    type="number"
-                    name="price"
-                    className="create_input"
-                    placeholder="Nhập giá của phim"
-                    value={formData.price}
-                    onChange={handleChange}
-                    required
-                    disabled={
-                      formData.vip_movie === "false" ||
-                      formData.vip_movie === false
-                    }
-                  />
-                </div>
-                <div className="form_group">
-                  <label>Nội dung chính</label>
-                  <textarea
-                    type="text"
-                    name="description"
-                    className="create_textarea"
-                    placeholder="Nhập nội dung chính của phim"
-                    value={formData.description}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <label>Thể loại</label>
-                <div className="category_movie_list">
-                  {categoryList.map((item, index) => (
-                    <div className="category_movie_list_group" key={index}>
-                      <input
+                >
+                  <option value="true">Trả phí</option>
+                  <option value="false">Miễn phí</option>
+                </select>
+              </div>
+              <div className="form_group">
+                <label>Giá</label>
+                <input
+                  type="number"
+                  name="price"
+                  className="create_input"
+                  placeholder="Nhập giá của phim"
+                  value={formData.price}
+                  onChange={handleChange}
+                  required
+                  disabled={
+                    formData.vip_movie === "false" ||
+                    formData.vip_movie === false
+                  }
+                />
+              </div>
+              <div className="form_group">
+                <label>Nội dung chính</label>
+                <textarea
+                  type="text"
+                  name="description"
+                  className="create_textarea"
+                  placeholder="Nhập nội dung chính của phim"
+                  value={formData.description}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <label>Thể loại</label>
+              <div className="category_movie_list">
+                {categoryList.map((item, index) => (
+                  <div className="category_movie_list_group" key={index}>
+                    <input
                         id={`category-${index}`}
-                        type="checkbox"
-                        onChange={(e) => handleCategoryChange(e, item.id)}
-                      />
+                      type="checkbox"
+                      onChange={(e) => handleCategoryChange(e, item.id)}
+                    />
                       <label htmlFor={`category-${index}`}>{item.name}</label>
-                    </div>
-                  ))}
-                </div>
-                <br />
-                <label>Lịch chiếu</label>
-                <div className="category_movie_list">
-                  {scheduleList.map((item, index) => (
-                    <div className="category_movie_list_group" key={index}>
-                      <input
+                  </div>
+                ))}
+              </div>
+              <br />
+              <label>Lịch chiếu</label>
+              <div className="category_movie_list">
+                {scheduleList.map((item, index) => (
+                  <div className="category_movie_list_group" key={index}>
+                    <input
                         id={`schedule-item-${index}`}
-                        type="checkbox"
-                        onChange={(e) => handleScheduleChange(e, item.id)}
-                      />
+                      type="checkbox"
+                      onChange={(e) => handleScheduleChange(e, item.id)}
+                    />
                       <label htmlFor={`schedule-item-${index}`}>
                         {item.name}
                       </label>
-                    </div>
-                  ))}
-                </div>
-                <div className="form_group">
-                  <label>Chọn ảnh bìa cho phim</label>
-                  <input
-                    type="file"
-                    id="movieFile"
-                    name="image"
-                    className="custom-file-input"
-                    onChange={handleChange}
-                    required
-                  />
-                  <label className="custom-file-label" htmlFor="movieFile">
-                    Chọn ảnh
-                  </label>
-                </div>
-                <div className="form_group image_movie">
-                  <img
-                    src={selectedImage}
-                    alt="Selected"
-                    className="selected_image"
-                  />
-                </div>
-                {error && <p style={{ color: "red" }}>{error}</p>}
+                  </div>
+                ))}
+              </div>
+              <div className="form_group">
+                <label>Chọn ảnh bìa cho phim</label>
+                <input
+                  type="file"
+                  id="movieFile"
+                  name="image"
+                  className="custom-file-input"
+                  onChange={handleChange}
+                  required
+                />
+                <label className="custom-file-label" htmlFor="movieFile">
+                  Chọn ảnh
+                </label>
+              </div>
+              <div className="form_group image_movie">
+                <img
+                  src={selectedImage}
+                  alt="Selected"
+                  className="selected_image"
+                />
+              </div>
+              {error && <p style={{ color: "red" }}>{error}</p>}
                 {notification && (
                   <p style={{ color: "green" }}>{notification}</p>
                 )}
-                <button className="create_button" type="submit">
-                  Thêm mới phim
-                </button>
-              </form>
+              <button className="create_button" type="submit">
+                Thêm mới phim
+              </button>
+            </form>
             )}
           </div>
         </div>
