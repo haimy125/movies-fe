@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../../../../assets/styles/Admin.css";
-import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
+import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import { useAuth } from "../../../../services/authService";
 import "./MovieCreate.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getToken } from "../../../../services/tokenService";
 
 const MovieCreate = () => {
@@ -21,7 +21,7 @@ const MovieCreate = () => {
     new_movie: false,
     hot_movie: false,
     vip_movie: false,
-    price: "0",
+    price: "",
     image: null,
     year: "",
   });
@@ -33,8 +33,6 @@ const MovieCreate = () => {
   const [scheduleList, setScheduleList] = useState([]);
   const [notification, setNotification] = useState("");
   const [error, setError] = useState("");
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -71,12 +69,6 @@ const MovieCreate = () => {
       });
       setFileName(files[0]);
       setSelectedImage(URL.createObjectURL(files[0]));
-    } else if (name === "vip_movie") {
-      setFormData({
-        ...formData,
-        [name]: value,
-        price: value === "false" ? 0 : formData.price,
-      });
     } else {
       setFormData({
         ...formData,
@@ -147,7 +139,6 @@ const MovieCreate = () => {
         }
       );
       setNotification("Thêm mới thành công!");
-      navigate("/admin/movie");
       console.log(response.data);
     } catch (error) {
       setError(error.response ? error.response.data : "Error submitting form");
@@ -158,7 +149,7 @@ const MovieCreate = () => {
   return (
     <div className="admin_layout">
       <div className="header_ad">
-        <HeaderAdmin />
+        <AdminHeader />
       </div>
       <div className="content">
         <div className="nav">
@@ -186,7 +177,6 @@ const MovieCreate = () => {
                   value={formData.vn_name}
                   onChange={handleChange}
                   required
-                  maxLength={255}
                 />
               </div>
               <div className="form_group">
@@ -199,7 +189,6 @@ const MovieCreate = () => {
                   value={formData.cn_name}
                   onChange={handleChange}
                   required
-                  maxLength={255}
                 />
               </div>
               <div className="form_group">
@@ -212,7 +201,6 @@ const MovieCreate = () => {
                   value={formData.author}
                   onChange={handleChange}
                   required
-                  maxLength={255}
                 />
               </div>
               <div className="form_group">
@@ -225,7 +213,6 @@ const MovieCreate = () => {
                   value={formData.episode_number}
                   onChange={handleChange}
                   required
-                  min={1}
                 />
               </div>
               <div className="form_group">
@@ -238,8 +225,6 @@ const MovieCreate = () => {
                   value={formData.year}
                   onChange={handleChange}
                   required
-                  min={1900}
-                  max={2100}
                 />
               </div>
               <div className="form_group">
@@ -249,7 +234,6 @@ const MovieCreate = () => {
                   name="status"
                   value={formData.status}
                   onChange={handleChange}
-                  required
                 >
                   <option value="Đang ra">Đang ra</option>
                   <option value="Tạm hoãn">Tạm hoãn</option>
@@ -263,7 +247,6 @@ const MovieCreate = () => {
                   name="new_movie"
                   value={formData.new_movie}
                   onChange={handleChange}
-                  required
                 >
                   <option value="true">Phim mới ra</option>
                   <option value="false">Phim đã ra lâu</option>
@@ -276,7 +259,6 @@ const MovieCreate = () => {
                   name="hot_movie"
                   value={formData.hot_movie}
                   onChange={handleChange}
-                  required
                 >
                   <option value="true">Phim đang nổi</option>
                   <option value="false">Phim thường</option>
@@ -289,10 +271,9 @@ const MovieCreate = () => {
                   name="vip_movie"
                   value={formData.vip_movie}
                   onChange={handleChange}
-                  required
                 >
-                  <option value={true}>Trả phí</option>
-                  <option value={false}>Miễn phí</option>
+                  <option value="true">Trả phí</option>
+                  <option value="false">Miễn phí</option>
                 </select>
               </div>
               <div className="form_group">
@@ -304,15 +285,7 @@ const MovieCreate = () => {
                   placeholder="Nhập giá của phim"
                   value={formData.price}
                   onChange={handleChange}
-                  step={0.1}
-                  disabled={
-                    formData.vip_movie === "false" ||
-                    formData.vip_movie === false
-                      ? true
-                      : false
-                  }
                   required
-                  min={0}
                 />
               </div>
               <div className="form_group">
@@ -325,7 +298,6 @@ const MovieCreate = () => {
                   value={formData.description}
                   onChange={handleChange}
                   required
-                  maxLength={1000}
                 />
               </div>
               <label>Thể loại</label>
@@ -333,13 +305,10 @@ const MovieCreate = () => {
                 {categoryList.map((item, index) => (
                   <div className="category_movie_list_group" key={index}>
                     <input
-                      id={`category_movie_item${index}`}
                       type="checkbox"
                       onChange={(e) => handleCategoryChange(e, item.id)}
                     />
-                    <label htmlFor={`category_movie_item${index}`}>
-                      {item.name}
-                    </label>
+                    <label>{item.name}</label>
                   </div>
                 ))}
               </div>

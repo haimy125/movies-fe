@@ -4,7 +4,7 @@ import UserMenu from '../UserMenu/UserMenu';
 import './AdminHeader.css'; // Tạo file CSS cho styling
 
 
-const HeaderAdmin = () => {
+const AdminHeader = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -36,4 +36,4 @@ const HeaderAdmin = () => {
   );
 };
 
-export default HeaderAdmin;
+export default AdminHeader;

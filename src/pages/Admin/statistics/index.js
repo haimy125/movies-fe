@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell } from 'recharts';
 import './Stats.css';
 import '../../../assets/styles/Admin.css';
-import HeaderAdmin from '../../../components/AdminHeader/AdminHeader';
+import AdminHeader from '../../../components/AdminHeader/AdminHeader';
 import AdminNav from '../../../components/AdminNav/AdminNav';
 import axios from 'axios';
 import Loader from '../../../components/Loader/Loader';
@@ -52,7 +52,7 @@ const Stats = () => {
     return (
         <div className='admin_layout'>
             <div className='header_ad'>
-                <HeaderAdmin />
+                <AdminHeader />
             </div>
             <div className='content'>
                 <div className='nav'>

@@ -4,7 +4,7 @@
   background: #2e2e2e;
   margin-left: 20px;
 
-  .h2 {
+  h2 {
     margin-bottom: 20px;
     color: #fff;
   }
@@ -29,7 +29,6 @@
     .movie-info {
       margin: 10px 0 !important;
       padding: 10px;
-
 
       .h3 {
         margin: 0;

@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
 import "../../../../assets/styles/Admin.css";
-import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
+import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import "./EpisodeCreate.css";
 import { useAuth } from "../../../../services/authService";
@@ -82,7 +82,7 @@ const EpisodeCreate = () => {
   return (
     <div className="admin_layout">
       <div className="header_ad">
-        <HeaderAdmin />
+        <AdminHeader />
       </div>
       <div className="content">
         <div className="nav">

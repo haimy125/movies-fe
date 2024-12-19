@@ -171,6 +171,7 @@ const MovieDetail = () => {
                 {showFullDescription ? "Thu gọn" : "Xem thêm"}
               </span>
             </p>
+            <div className="button_movie_detail">
             {/* {!checkPrice && movie?.price > 0 && ( */}
             {(
               <button className="follow_button play" onClick={handleBuyMovie}>
@@ -180,7 +181,7 @@ const MovieDetail = () => {
             <button className="follow_button" onClick={() => handleFollow()}>
               Theo dõi
             </button>
-          </div>
+            </div>  </div>
           <div className="info_review">
             {isAuthenticated ? (
               <StarRating userId={user.id} movieId={id} />
@@ -212,7 +213,6 @@ const MovieDetail = () => {
               <div className="comment_list">
                 {comments.map((item, index) => (
                   <div key={index} className="comment_item">
-                    <p className="comment_content">{item.content}</p>
                     <div className="info_coment_user">
                       {/* Kiểm tra nếu item.useradd và item.useradd.username tồn tại */}
                       <p className="comment_user">
@@ -224,6 +224,7 @@ const MovieDetail = () => {
                         {convertMillisecondsToDate(item.timeAdd)}
                       </p>
                     </div>
+                    <p className="comment_content">{item.content}</p>
                   </div>
                 ))}
                 <div className="pagination_user">
@@ -268,26 +269,28 @@ const MovieDetail = () => {
         </div>
       </div>
       <Footer />
-      {showNotification && (
-        <>
-          <div className="notification-background"></div>
-          <div className="notification">
-            <p>{notificationMessage}</p>
-            <button
-              className="notification_button"
-              onClick={() => setShowNotification(false)}
-            >
-              Xác nhận
-            </button>
-          </div>
-        </>
-      )}
-      {/* <BasicModal open={true} heading="test">
+      {
+    showNotification && (
+      <>
+        <div className="notification-background"></div>
+        <div className="notification">
+          <p>{notificationMessage}</p>
+          <button
+            className="notification_button"
+            onClick={() => setShowNotification(false)}
+          >
+            Xác nhận
+          </button>
+        </div>
+      </>
+    )
+  }
+  {/* <BasicModal open={true} heading="test">
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
         </Typography>
       </BasicModal> */}
-    </div>
+    </div >
   );
 };
 

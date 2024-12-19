@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../../../../assets/styles/Admin.css";
-import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
+import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import "./MovieList.css";
 import Loader from "../../../../components/Loader/Loader";
@@ -22,7 +22,6 @@ const MovieList = () => {
     fetchData(currentPage);
   }, [currentPage, keyword]);
   const fetchData = async (page) => {
-    setLoading(true);
     try {
       let rp;
       if (keyword === "") {
@@ -40,7 +39,6 @@ const MovieList = () => {
       console.log(rp.data.listResult);
       setLoading(false);
     } catch (error) {
-      setLoading(false);
       console.error(error);
     }
   };
@@ -72,13 +70,13 @@ const MovieList = () => {
     }
   };
 
-  // if (loading) {
-  //   return <Loader />;
-  // }
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="admin_layout">
       <div className="header_ad">
-        <HeaderAdmin />
+        <AdminHeader />
       </div>
       <div className="content">
         <div className="nav">

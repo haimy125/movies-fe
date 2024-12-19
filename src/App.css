@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-flow: column;
 }
 
 .App-logo {
@@ -35,4 +37,7 @@
   to {
     transform: rotate(360deg);
   }
+}
+h2 {
+  color: white;
 }

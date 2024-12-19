@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../../../../assets/styles/Admin.css";
-import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
+import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import Loader from "../../../../components/Loader/Loader";
 import "./Category.css";
@@ -18,7 +18,6 @@ const CategoryList = () => {
     fetchData(currentPage);
   }, [currentPage, keyword]);
   const fetchData = async (page) => {
-    setLoading(true);
     try {
       let rp;
       if (keyword === "") {
@@ -37,7 +36,6 @@ const CategoryList = () => {
       console.log(rp.data.listResult);
     } catch (error) {
       console.error(error);
-      setLoading(false);
     }
   };
   const navigate = useNavigate();
@@ -63,13 +61,13 @@ const CategoryList = () => {
       setCurrentPage(page);
     }
   };
-  // if (loading) {
-  //   return <Loader />;
-  // }
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="admin_layout">
       <div className="header_ad">
-        <HeaderAdmin />
+        <AdminHeader />
       </div>
       <div className="content">
         <div className="nav">
@@ -115,26 +113,20 @@ const CategoryList = () => {
                 </tr>
               </thead>
               <tbody>
-                {loading ? (
+                {category.map((item, index) => (
                   <tr>
-                    <td colSpan={3}>Loading...</td>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>
+                      <button onClick={() => handleAction(item.id)}>
+                        <i className="fa-solid fa-pen-to-square"></i>
+                      </button>
+                      <button onClick={() => handleDelete(item.id)}>
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </td>
                   </tr>
-                ) : (
-                  category.map((item, index) => (
-                    <tr>
-                      <td>{index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>
-                        <button onClick={() => handleAction(item.id)}>
-                          <i className="fa-solid fa-pen-to-square"></i>
-                        </button>
-                        <button onClick={() => handleDelete(item.id)}>
-                          <i className="fa-solid fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
+                ))}
               </tbody>
             </table>
           </div>

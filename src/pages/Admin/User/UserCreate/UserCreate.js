@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "../../../../assets/styles/Admin.css";
-import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
+import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import ReusableForm from "../../../../components/ReusableForm";
 import { useForm } from "react-hook-form";
@@ -122,7 +122,7 @@ const UserCreate = () => {
   return (
     <div className="admin_layout">
       <div className="header_ad">
-        <HeaderAdmin />
+        <AdminHeader />
       </div>
       <div className="content">
         <div className="nav">
