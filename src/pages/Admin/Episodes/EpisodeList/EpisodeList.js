@@ -109,7 +109,7 @@ const EpisodeList = () => {
                   <th>#</th>
                   <th>Tên </th>
                   {/* <th>Ngày đăng</th> */}
-                  <th>Ngày tạo</th>
+                  {/* <th>Ngày tạo</th> */}
                   {/* <th>Lượt xem</th>
                   <th>Lượt thích</th> */}
                   <th>Hành động</th>
@@ -122,7 +122,7 @@ const EpisodeList = () => {
                     <td className="vnName">{item.name}</td>
 
                     {/* <td>{convertMillisecondsToDate(item.timeAdd)}</td> */}
-                    <td>{convertMillisecondsToDate(item.timeUpdate)}</td>
+                    {/* <td>{convertMillisecondsToDate(item.timeUpdate)}</td> */}
                     {/* <td className="vnName">{item.views}</td>
 
                     <td className="status">{item.likes}</td> */}
