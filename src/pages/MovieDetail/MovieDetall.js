@@ -154,7 +154,7 @@ const MovieDetail = () => {
           </div>
           <div className="info_content">
             <h1>{movie?.vnName}</h1>
-            <p>Tên tiếng hán: {movie?.cnName}</p>
+            <p>Tên nước ngoài: {movie?.cnName}</p>
             <p>Tác giả: {movie?.author}</p>
             <p>
               Thời điểm đăng:{" "}

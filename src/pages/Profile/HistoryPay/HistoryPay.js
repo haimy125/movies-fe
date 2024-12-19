@@ -51,7 +51,7 @@ const HistoryPay = () => {
                     <div className="account-info">
                         <div className='detal_info'>
                             <h2>Lịch sửa giao dịch </h2>
-                            <p>Đây là lịch sử giao dịch của bạn trên hệ thống.</p>
+                            {/* <p>Đây là lịch sử giao dịch của bạn trên hệ thống.</p> */}
                         </div>
                         <div className="avatar-section">
                             <div className='history_table'>
