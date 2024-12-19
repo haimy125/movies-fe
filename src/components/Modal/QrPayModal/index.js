@@ -112,8 +112,11 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
   }, [timeLeft]);
 
   useEffect(() => {
-    if (open) setTimeLeft(MODAL_TIME);
-    else setTimeLeft(0);
+    if (open) {
+      setTimeLeft(MODAL_TIME);
+    } else {
+      setTimeLeft(0);
+    }
   }, [open]);
 
   // Hiển thị thời gian theo định dạng phút:giây
@@ -201,7 +204,9 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
             </Typography>
 
             {/* Hình ảnh QR Code */}
-            {!isCheckingPayment ? (
+            {isCheckingPayment ?
+              <span> Đang kiểm tra thanh toán... </span>
+              :
               <Box
                 sx={{
                   display: "flex",
@@ -220,10 +225,7 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
                     objectPosition: "center",
                   }}
                 />
-              </Box>
-            ) : (
-              <span> Đang kiểm tra thanh toán... </span>
-            )}
+              </Box>}
 
             {/* Nút xác nhận */}
             <Box sx={{ textAlign: "center", mt: 4 }}>
