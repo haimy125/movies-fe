@@ -342,7 +342,7 @@ const MovieEdit = () => {
                 </select>
               </div>
               <div className="form_group">
-                <label>Truyện mới</label>
+                <label>Phim mới</label>
                 <select
                   className="create_input"
                   name="new_movie"
@@ -354,7 +354,7 @@ const MovieEdit = () => {
                 </select>
               </div>
               <div className="form_group">
-                <label>Truyện hot</label>
+                <label>Phim hot</label>
                 <select
                   className="create_input"
                   name="hot_movie"
