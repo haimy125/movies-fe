@@ -123,15 +123,36 @@ const UserEdit = () => {
       });
   }, []);
 
+  const roleList = [
+    {
+      id: 1,
+      name: "ROLE_ADMIN",
+    },
+    {
+      id: 2,
+      name: "ROLE_USER",
+    },
+  ];
+
   const handleSubmitForm = async (data) => {
+    setIsLoading(true);
+    const { confirmPassword, ...keepData } = data;
+    const fetchData = {
+      ...keepData,
+      role: roleList.find((item) => item.id === data.role),
+      id,
+    };
+    console.log(fetchData);
+
     await axios
-      .post("http://localhost:1412/api/admin/user/update", data, {
+      .post("http://localhost:1412/api/admin/user/update", fetchData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + getToken(),
         },
       })
       .then(() => {
+        setIsLoading(false);
         navigate("/admin/users");
       })
       .catch((err) => {
