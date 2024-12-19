@@ -64,47 +64,50 @@ const UpdateInfo = () => {
                             <h2>Thông tin tài khoản</h2>
                             <p>Bạn có thể thay đổi họ tên và email của bản thân </p>
                         </div>
-                        <div className="avatar-section">
-                            <div className='password_group'>
-                                <label>Tên đăng nhập</label>
-                                {/* <p className='notification_info'>Bạn không thể sửa thông tin này.</p> */}
-                                <input
-                                    type='text'
-                                    className='input_password donts_write'
-                                    value={users?.username}
-
-                                    readOnly />
+                        <form onSubmit={fetchUserDetail}>
+                            <div className="avatar-section">
+                                <div className='password_group'>
+                                    <label>Tên đăng nhập</label>
+                                    <input
+                                        type='text'
+                                        required
+                                        className='input_password donts_write'
+                                        value={users?.username}
+                                        readOnly />
+                                </div>
+                                <div className='password_group'>
+                                    <label>Họ và tên</label>
+                                    <input
+                                        type='text'
+                                        required
+                                        className='input_password'
+                                        value={fullname || ''}
+                                        onChange={(e) => setFullname(e.target.value)}
+                                    />
+                                </div>
+                                <div className='password_group'>
+                                    <label>Email</label>
+                                    <input
+                                        required
+                                        type='email'
+                                        className='input_password'
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)} />
+                                </div>
+                                <div className='password_group'>
+                                    <label>Số xu</label>
+                                    {/* <p className='notification_info'>Bạn không thể sửa thông tin này.</p> */}
+                                    <input
+                                        type='text'
+                                        className='input_password donts_write'
+                                        value={users?.point}
+                                        readOnly />
+                                </div>
+                                <div className='password_group'>
+                                    <button className='button_change_password' type='Submit' >Lưu</button>
+                                </div>
                             </div>
-                            <div className='password_group'>
-                                <label>Họ và tên</label>
-                                <input
-                                    type='text'
-                                    className='input_password'
-                                    value={fullname || ''}
-                                    onChange={(e) => setFullname(e.target.value)}
-                                />
-                            </div>
-                            <div className='password_group'>
-                                <label>email</label>
-                                <input
-                                    type='text'
-                                    className='input_password'
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)} />
-                            </div>
-                            <div className='password_group'>
-                                <label>Số xu</label>
-                                {/* <p className='notification_info'>Bạn không thể sửa thông tin này.</p> */}
-                                <input
-                                    type='text'
-                                    className='input_password donts_write'
-                                    value={users?.point}
-                                    readOnly />
-                            </div>
-                            <div className='password_group'>
-                                <button className='button_change_password' onClick={fetchUserDetail} >Lưu</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

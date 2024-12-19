@@ -103,7 +103,7 @@ const EpisodeCreate = () => {
                   type="text"
                   name="name"
                   className="create_input"
-                  placeholder="Nhập tên tiếng việt của phim"
+                  placeholder="Nhập tên tiếng Việt của phim"
                   value={formData.name}
                   onChange={handleChange}
                   required

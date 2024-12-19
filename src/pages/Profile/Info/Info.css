@@ -51,7 +51,6 @@
 }
 
 .button_avartar_update {
-    position: absolute;
     top: 80%;
     left: 90%;
     width: 50px;
@@ -60,11 +59,12 @@
     border: 1px solid #fff;
     color: #fff;
     border-radius: 8px;
+    align-self: center;
 }
 
 .button_avartar {
     padding: 5px;
-    background: #2e2e2e;
+    background: #f39c12;
     border: 1px solid #fff;
     color: #fff;
     border-radius: 8px;

@@ -6,7 +6,7 @@ import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import "./EpisodeList.css";
 import Loader from "../../../../components/Loader/Loader";
-import { convertMillisecondsToDate } from "../../../../helper/FormatHelper";
+import { formatDateToDDMMYYYY } from "../../../../helper/FormatHelper";
 const EpisodeList = () => {
   const { id } = useParams();
   const [movies, setMovies] = useState([]);
