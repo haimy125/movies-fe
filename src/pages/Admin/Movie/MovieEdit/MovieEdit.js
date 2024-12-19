@@ -233,6 +233,7 @@ const MovieEdit = () => {
         }
       );
       setNotification("Cập nhật thành công!");
+      alert("Cập nhật phim thành công!");
       navigate("/admin/movie");
       console.log(response.data);
     } catch (error) {
@@ -314,6 +315,8 @@ const MovieEdit = () => {
                   value={formData.episode_number}
                   onChange={handleChange}
                   required
+                  min={1}
+                  max={5000}
                 />
               </div>
               <div className="form_group">
@@ -326,6 +329,8 @@ const MovieEdit = () => {
                   value={formData.year}
                   onChange={handleChange}
                   required
+                  min={1900}
+                  max={new Date().getFullYear()}
                 />
               </div>
               <div className="form_group">
@@ -335,6 +340,7 @@ const MovieEdit = () => {
                   name="status"
                   defaultValue={formData.status}
                   onChange={handleChange}
+                  required
                 >
                   <option value="Đang ra">Đang ra</option>
                   <option value="Tạm hoãn">Tạm hoãn</option>
@@ -348,6 +354,7 @@ const MovieEdit = () => {
                   name="new_movie"
                   defaultValue={formData.new_movie}
                   onChange={handleChange}
+                  required
                 >
                   <option value={true}>Phim mới ra</option>
                   <option value={false}>Phim đã ra lâu</option>
@@ -360,6 +367,7 @@ const MovieEdit = () => {
                   name="hot_movie"
                   defaultValue={formData.hot_movie}
                   onChange={handleChange}
+                  required
                 >
                   <option value={true}>Phim đang nổi</option>
                   <option value={false}>Phim thường</option>
@@ -372,6 +380,7 @@ const MovieEdit = () => {
                   name="vip_movie"
                   defaultValue={formData.vip_movie}
                   onChange={handleChange}
+                  required
                 >
                   <option value={true}>Trả phí</option>
                   <option value={false}>Miễn phí</option>

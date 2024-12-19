@@ -20,8 +20,13 @@ const MovieList = () => {
 
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage, keyword]);
+  }, [currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [keyword]);
   const fetchData = async (page) => {
+    setLoading(true);
     try {
       let rp;
       if (keyword === "") {
@@ -40,6 +45,7 @@ const MovieList = () => {
       setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
   const handleAction = (id) => {
@@ -55,7 +61,7 @@ const MovieList = () => {
       await axios.delete(`http://localhost:1412/api/admin/movies/delete/${id}`);
       setNotificationMessage("Xóa thành công!");
       setShowNotification(true);
-      fetchData(currentPage); // Refresh the data
+      await fetchData(currentPage); // Refresh the data
     } catch (error) {
       console.error(error);
     }
@@ -69,10 +75,6 @@ const MovieList = () => {
       setCurrentPage(page);
     }
   };
-
-  if (loading) {
-    return <Loader />;
-  }
   return (
     <div className="admin_layout">
       <div className="header_ad">
