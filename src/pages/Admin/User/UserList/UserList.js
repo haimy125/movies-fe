@@ -148,7 +148,7 @@ const UserList = () => {
                   <th>Tên đăng nhập</th>
                   <th>Email</th>
                   <th>Ngày tạo</th>
-                  <th>Ngày chỉnh sửa</th>
+                  {/* <th>Ngày chỉnh sửa</th> */}
                   <th>Xu</th>
                   <th>Quyền hạn</th>
                   <th>Hành động</th>
@@ -166,7 +166,7 @@ const UserList = () => {
                       <td className="vnName">{item.username}</td>
                       <td className="cnName">{item.email}</td>
                       <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
-                      <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td>
+                      {/* <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td> */}
                       <td className="status">{item.point}</td>
                       <td className="vip">{item.role.name}</td>
                       <td>
