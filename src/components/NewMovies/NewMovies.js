@@ -46,7 +46,9 @@ const NewMovies = () => {
           </div>
         ))}
       </div>
+      <div className="movie-list-see-all">
       <a href='/movie/page' className='view_all_movies'>Xem tất cả </a>
+      </div>
     </div>
   );
 };
