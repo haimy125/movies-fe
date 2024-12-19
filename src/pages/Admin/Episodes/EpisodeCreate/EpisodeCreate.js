@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../../../assets/styles/Admin.css";
 import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
@@ -9,6 +9,9 @@ import { useAuth } from "../../../../services/authService";
 const EpisodeCreate = () => {
   const { id } = useParams();
   const { user } = useAuth();
+
+  const navigate = useNavigate();
+
   console.log("user", user);
   const [formData, setFormData] = useState({
     name: "",
@@ -61,11 +64,12 @@ const EpisodeCreate = () => {
         dataToSubmit,
         {
           headers: {
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "multipart/form-data",
           },
         }
       );
       setNotification("Thêm mới thành công!");
+      navigate(`/admin/movie/episodes/${id}`);
       console.log(response.data);
     } catch (error) {
       setError(error.response ? error.response.data : "Error submitting form");
@@ -103,9 +107,10 @@ const EpisodeCreate = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  maxLength={255}
                 />
               </div>
-              <div className="form_group">
+              {/* <div className="form_group">
                 <label>Lượt xem</label>
                 <input
                   type="text"
@@ -130,7 +135,7 @@ const EpisodeCreate = () => {
                   required
                   disabled
                 />
-              </div>
+              </div> */}
               <div className="form_group">
                 <label>Mô tả</label>
                 <textarea
@@ -140,6 +145,7 @@ const EpisodeCreate = () => {
                   value={formData.description}
                   onChange={handleChange}
                   required
+                  maxLength={5000}
                 />
               </div>
               <div className="form_group">

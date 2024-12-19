@@ -108,10 +108,10 @@ const EpisodeList = () => {
                 <tr>
                   <th>#</th>
                   <th>Tên </th>
-                  <th>Ngày đăng</th>
-                  <th>Ngày chỉnh sửa</th>
-                  <th>Lượt xem</th>
-                  <th>Lượt thích</th>
+                  {/* <th>Ngày đăng</th> */}
+                  <th>Ngày tạo</th>
+                  {/* <th>Lượt xem</th>
+                  <th>Lượt thích</th> */}
                   <th>Hành động</th>
                 </tr>
               </thead>
@@ -121,11 +121,11 @@ const EpisodeList = () => {
                     <td>{index + 1}</td>
                     <td className="vnName">{item.name}</td>
 
-                    <td>{convertMillisecondsToDate(item.timeAdd)}</td>
+                    {/* <td>{convertMillisecondsToDate(item.timeAdd)}</td> */}
                     <td>{convertMillisecondsToDate(item.timeUpdate)}</td>
-                    <td className="vnName">{item.views}</td>
+                    {/* <td className="vnName">{item.views}</td>
 
-                    <td className="status">{item.likes}</td>
+                    <td className="status">{item.likes}</td> */}
                     <td>
                       <button onClick={() => handleAction(item.id)}>
                         <i className="fa-solid fa-pen-to-square"></i>

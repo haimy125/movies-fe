@@ -134,7 +134,7 @@ const EpisodeEdit = () => {
                   required
                 />
               </div>
-              <div className="form_group">
+              {/* <div className="form_group">
                 <label>Lượt xem</label>
                 <input
                   type="text"
@@ -157,7 +157,7 @@ const EpisodeEdit = () => {
                   onChange={handleChange}
                   required
                 />
-              </div>
+              </div> */}
               <div className="form_group">
                 <label>Mô tả</label>
                 <textarea
