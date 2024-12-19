@@ -47,13 +47,22 @@ const MovieEdit = () => {
 
   const fetchInit = async () => {
     setLoading(true);
-    await fetchData();
-    await fetchDetail();
-    await fetchDetailcategory();
-    await fetchDataSchedule();
-    await fetchImageFromDatabase();
-    await fetchDetailSchedules();
-    setLoading(false);
+
+    try {
+      // Thực thi tất cả các hàm fetch song song
+      await Promise.all([
+        fetchData(),
+        fetchDetail(),
+        fetchDetailcategory(),
+        fetchDataSchedule(),
+        fetchImageFromDatabase(),
+        fetchDetailSchedules(),
+      ]);
+    } catch (error) {
+      console.error("Error in fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const fetchData = async () => {
@@ -158,12 +167,6 @@ const MovieEdit = () => {
         });
         setFileName(files[0]);
         setSelectedImage(URL.createObjectURL(files[0]));
-      } else if (name === "vip_movie") {
-        setFormData({
-          ...formData,
-          [name]: value,
-          price: value === "false" ? 0 : formData.price,
-        });
       } else {
         setFormData({
           ...formData,
@@ -172,6 +175,12 @@ const MovieEdit = () => {
         setFileName(null);
         setSelectedImage(`http://localhost:1412/api/admin/movies/view/${id}`);
       }
+    } else if (name === "vip_movie") {
+      setFormData({
+        ...formData,
+        [name]: value,
+        price: value === "false" || value === false ? 0 : formData.price,
+      });
     } else {
       setFormData({
         ...formData,
@@ -242,7 +251,6 @@ const MovieEdit = () => {
     }
   };
 
-  console.log(formData);
   if (loading) {
     return <Loader />;
   }
@@ -374,8 +382,8 @@ const MovieEdit = () => {
                   defaultValue={formData.vip_movie}
                   onChange={handleChange}
                 >
-                  <option value={true}>Trả phí</option>
-                  <option value={false}>Miễn phí</option>
+                  <option value={"true"}>Trả phí</option>
+                  <option value={"false"}>Miễn phí</option>
                 </select>
               </div>
               <div className="form_group">
