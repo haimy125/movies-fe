@@ -336,7 +336,6 @@ const MovieCreate = () => {
                       id={`category_movie_item${index}`}
                       type="checkbox"
                       onChange={(e) => handleCategoryChange(e, item.id)}
-                      required
                     />
                     <label htmlFor={`category_movie_item${index}`}>
                       {item.name}
