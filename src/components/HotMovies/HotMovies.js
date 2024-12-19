@@ -17,6 +17,7 @@ const HotMovies = () => {
       const rp = await axios.get(
         "http://localhost:1412/user/home/hot?page=1&limit=10"
       );
+      console.log("hot movies::::",rp )
       setMovies(rp.data.listResult);
     } catch (error) {
       console.error(error.data);
@@ -54,7 +55,7 @@ const HotMovies = () => {
       setOffset(newOffset);
     }
   };
-  if (movies || movies?.length === 0) {
+  if (!movies || movies?.length === 0) {
     return (
       <div className="hot-movies">
         <h2>Không có phim nào</h2>
