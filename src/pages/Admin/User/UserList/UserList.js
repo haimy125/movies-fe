@@ -234,11 +234,12 @@ const UserList = () => {
                 <div className="form_group">
                   <label>Xu nạp</label>
                   <input
-                    type="text"
+                    type="number"
                     className="create_input"
                     placeholder="Nhập số xu"
                     onChange={(e) => setPoint(e.target.value)}
                     required
+                    min={1}
                   />
                 </div>
                 <button
