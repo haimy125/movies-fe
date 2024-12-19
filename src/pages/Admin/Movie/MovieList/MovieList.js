@@ -144,7 +144,7 @@ const MovieList = () => {
                         <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
                         <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td>
                         <td className="status">{item.status}</td>
-                        {item.vipmovie === true ? (
+                        {item.vipMovie === true ? (
                           <td className="vip">Trả phí</td>
                         ) : (
                           <td className="non_vip">Miễn phí</td>

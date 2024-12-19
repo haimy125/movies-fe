@@ -42,14 +42,19 @@ const MovieEdit = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchData();
-    fetchDetail();
-    fetchDetailcategory();
-    fetchDataSchedule();
-    fetchImageFromDatabase();
-    fetchDetailSchedules();
-    setLoading(false);
+    fetchInit();
   }, []);
+
+  const fetchInit = async () => {
+    setLoading(true);
+    await fetchData();
+    await fetchDetail();
+    await fetchDetailcategory();
+    await fetchDataSchedule();
+    await fetchImageFromDatabase();
+    await fetchDetailSchedules();
+    setLoading(false);
+  };
 
   const fetchData = async () => {
     try {
@@ -101,6 +106,7 @@ const MovieEdit = () => {
         `http://localhost:1412/api/admin/movies/getbyid/${id}`
       );
       const data = rp?.data;
+      console.log("data: ", data);
       setFormData({
         vn_name: data.vnName,
         cn_name: data.cnName,
@@ -118,6 +124,7 @@ const MovieEdit = () => {
       });
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
   const fetchImageFromDatabase = async () => {
@@ -140,9 +147,7 @@ const MovieEdit = () => {
       console.error(error);
     }
   };
-  if (loading) {
-    return <Loader />;
-  }
+
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     if (name === "image") {
@@ -235,6 +240,11 @@ const MovieEdit = () => {
       console.error("Error submitting form:", error);
     }
   };
+
+  console.log(formData);
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="admin_layout">
       <div className="header_ad">
@@ -347,8 +357,8 @@ const MovieEdit = () => {
                   onChange={handleChange}
                   required
                 >
-                  <option value={true}>Truyện mới ra</option>
-                  <option value={false}>Truyện đã ra lâu</option>
+                  <option value={true}>Phim mới ra</option>
+                  <option value={false}>Phim đã ra lâu</option>
                 </select>
               </div>
               <div className="form_group">
@@ -360,8 +370,8 @@ const MovieEdit = () => {
                   onChange={handleChange}
                   required
                 >
-                  <option value={true}>Truyện đang nổi</option>
-                  <option value={false}>Truyện thường</option>
+                  <option value={true}>Phim đang nổi</option>
+                  <option value={false}>Phim thường</option>
                 </select>
               </div>
               <div className="form_group">
