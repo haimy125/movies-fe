@@ -29,9 +29,10 @@
   border-bottom: 1px solid #000;
 }
 .search_lable {
-  width: 90%;
+  width: 100%;
   display: flex;
   padding: 30px;
+  align-items: center;
 }
 .search {
   width: 40%;
@@ -51,7 +52,7 @@
 }
 .search_button {
   width: 20%;
-  height: 50px;
+  height: 40px;
   border-radius: 10px;
   border: none;
   background: #ffbf00;
@@ -67,6 +68,7 @@
   padding: 10px 15px;
   border-radius: 10px;
   margin-left: 50px;
+  display: flex;
 }
 .select_admin_user {
   appearance: none;

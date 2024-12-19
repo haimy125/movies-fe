@@ -1,4 +1,4 @@
-.profile-content{
+.profile-content {
     display: grid;
     place-items: center;
     padding: 20px;
@@ -6,53 +6,66 @@
     color: #fff;
 
 }
-.account-info{
+
+.account-info {
     border-radius: 10px;
     padding: 20px;
     width: 70%;
     height: auto;
     display: flex;
     background: #2e2e2e;
+    flex-flow: column;
 }
-.avatar{
+
+.avatar {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     border: 1px solid #fff;
 }
-.avatar-section{
+
+.avatar-section {
     position: relative;
     border-radius: 10px;
-    background:#1f1f1f ;
-    padding: 20px ;
+    background: #1f1f1f;
+    padding: 20px;
     display: grid;
     place-items: center;
-    width: 60%;
-    gap: 10px   ;
+    width: 100%;
+    gap: 10px;
 }
-.detal_info{
-    width: 35%;
+
+.detal_info {
+    width: 100%;
+    justify-items: center;
+    margin-bottom: 20px;
 }
-.info_user_detail{
+
+.info_user_detail {
     position: relative;
     top: 0;
     left: 0;
+    gap: 10px;
+    display: flex;
+    flex-flow: column;
 }
-.button_avartar_update{
+
+.button_avartar_update {
     position: absolute;
     top: 80%;
     left: 90%;
     width: 50px;
     height: 40px;
-    background: #2e2e2e ;
+    background: #2e2e2e;
     border: 1px solid #fff;
     color: #fff;
-    border-radius: 8px ;
+    border-radius: 8px;
 }
-.button_avartar{
-    padding:5px;
-    background: #2e2e2e ;
+
+.button_avartar {
+    padding: 5px;
+    background: #2e2e2e;
     border: 1px solid #fff;
     color: #fff;
-    border-radius: 8px ;
+    border-radius: 8px;
 }
