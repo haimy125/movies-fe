@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
 import "../../../../assets/styles/Admin.css";
 import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
