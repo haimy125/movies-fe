@@ -5,7 +5,7 @@ import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import { useAuth } from "../../../../services/authService";
 import "./MovieCreate.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getToken } from "../../../../services/tokenService";
 
 const MovieCreate = () => {
@@ -33,6 +33,8 @@ const MovieCreate = () => {
   const [scheduleList, setScheduleList] = useState([]);
   const [notification, setNotification] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -140,6 +142,7 @@ const MovieCreate = () => {
       );
       setNotification("Thêm mới thành công!");
       console.log(response.data);
+      navigate("/admin/movie");
     } catch (error) {
       setError(error.response ? error.response.data : "Error submitting form");
       console.error("Error submitting form:", error);

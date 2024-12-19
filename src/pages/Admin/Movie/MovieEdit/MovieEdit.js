@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "../../../../assets/styles/Admin.css";
 import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
@@ -38,6 +38,9 @@ const MovieEdit = () => {
   const [scheduleList, setScheduleList] = useState([]);
   const [selectedSchedules, setSelectedSchedules] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchInit();
   }, []);
@@ -224,6 +227,7 @@ const MovieEdit = () => {
         }
       );
       setNotification("Cập nhật thành công!");
+      navigate("/admin/movie");
       console.log(response.data);
     } catch (error) {
       setError(error.response ? error.response.data : "Error submitting form");
