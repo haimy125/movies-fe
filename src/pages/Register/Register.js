@@ -9,7 +9,7 @@ const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [fullName, setFullName] = useState('');
+    const [fullname, setFullname] = useState('');
     const [error, setError] = useState('');
     const [notification, setNotification] = useState('');
     const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ const Register = () => {
                     username: username,
                     password: password,
                     email: email,
-                    fullName: fullName,
+                    fullname: fullname,
                 },
                 {
                     headers: {
@@ -81,8 +81,8 @@ const Register = () => {
                                 className='form_input'
                                 placeholder='Nhập họ tên của bạn!'
                                 type="text"
-                                value={fullName}
-                                onChange={(e) => setFullName(e.target.value)}
+                                value={fullname}
+                                onChange={(e) => setFullname(e.target.value)}
                                 required
                             />
                         </div>
