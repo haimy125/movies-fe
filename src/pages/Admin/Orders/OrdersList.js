@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../../../assets/styles/Admin.css';
-import HeaderAdmin from '../../../components/AdminHeader/AdminHeader';
+import AdminHeader from '../../../components/AdminHeader/AdminHeader';
 import AdminNav from '../../../components/AdminNav/AdminNav';
 import Loader from '../../../components/Loader/Loader';
 import { convertMillisecondsToDate } from '../../../helper/FormatHelper';
@@ -41,7 +41,7 @@ const OrdersList = () => {
   return (
     <div className='admin_layout'>
       <div className='header_ad'>
-        <HeaderAdmin />
+        <AdminHeader />
       </div>
       <div className='content'>
         <div className='nav'>

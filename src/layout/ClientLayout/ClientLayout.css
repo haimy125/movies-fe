@@ -1,6 +1,10 @@
-.client-layout-wrap {
-}
+.client-layout-wrap {}
 
 .main {
   padding: 20px;
+
+  h2 {
+    color: white !important;
+  }
+
 }

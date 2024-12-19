@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "../../../../assets/styles/Admin.css";
-import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
+import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import { useAuth } from "../../../../services/authService";
 import ReusableForm from "../../../../components/ReusableForm";
@@ -188,7 +188,7 @@ const UserEdit = () => {
   return (
     <div className="admin_layout">
       <div className="header_ad">
-        <HeaderAdmin />
+        <AdminHeader />
       </div>
       <div className="content">
         <div className="nav">

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../../../../assets/styles/Admin.css";
-import HeaderAdmin from "../../../../components/AdminHeader/AdminHeader";
+import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import "./MovieList.css";
 import Loader from "../../../../components/Loader/Loader";
@@ -22,7 +22,6 @@ const MovieList = () => {
     fetchData(currentPage);
   }, [currentPage, keyword]);
   const fetchData = async (page) => {
-    setLoading(true);
     try {
       let rp;
       if (keyword === "") {
@@ -40,7 +39,6 @@ const MovieList = () => {
       console.log(rp.data.listResult);
       setLoading(false);
     } catch (error) {
-      setLoading(false);
       console.error(error);
     }
   };
@@ -72,13 +70,13 @@ const MovieList = () => {
     }
   };
 
-  // if (loading) {
-  //   return <Loader />;
-  // }
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div className="admin_layout">
       <div className="header_ad">
-        <HeaderAdmin />
+        <AdminHeader />
       </div>
       <div className="content">
         <div className="nav">
@@ -129,41 +127,35 @@ const MovieList = () => {
                 </tr>
               </thead>
               <tbody>
-                {loading ? (
-                  <tr>
-                    <td colSpan={8}>Loading...</td>
-                  </tr>
-                ) : (
-                  movies.map((item, index) => {
-                    console.log("item movie", item);
-                    return (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td className="vnName">{item.vnName}</td>
-                        <td className="cnName">{item.cnName}</td>
-                        <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
-                        <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td>
-                        <td className="status">{item.status}</td>
-                        {item.vipmovie === true ? (
-                          <td className="vip">Trả phí</td>
-                        ) : (
-                          <td className="non_vip">Miễn phí</td>
-                        )}
-                        <td>
-                          <a href="#" onClick={() => handleAction(item.id)}>
-                            <i className="fa-solid fa-pen-to-square"></i>
-                          </a>
-                          <a href="#" onClick={() => handleDelete(item.id)}>
-                            <i className="fa-solid fa-trash"></i>
-                          </a>
-                          <a href="#" onClick={() => handleActiontoep(item.id)}>
-                            <i className="fa-solid fa-bars-staggered"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
+                {movies.map((item, index) => {
+                  console.log("item movie", item);
+                  return (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td className="vnName">{item.vnName}</td>
+                      <td className="cnName">{item.cnName}</td>
+                      <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
+                      <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td>
+                      <td className="status">{item.status}</td>
+                      {item.vipmovie === true ? (
+                        <td className="vip">Trả phí</td>
+                      ) : (
+                        <td className="non_vip">Miễn phí</td>
+                      )}
+                      <td>
+                        <a href="#" onClick={() => handleAction(item.id)}>
+                          <i className="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a href="#" onClick={() => handleDelete(item.id)}>
+                          <i className="fa-solid fa-trash"></i>
+                        </a>
+                        <a href="#" onClick={() => handleActiontoep(item.id)}>
+                          <i className="fa-solid fa-bars-staggered"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -12,10 +12,8 @@ html {
   scrollbar-width: none; /* Ẩn thanh cuộn trên Firefox */
 }
 .info {
-  width: 95%;
   height: 600px;
   max-height: 790px;
-  padding: 30px;
   border-radius: 5px;
 }
 .movie_name {
