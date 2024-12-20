@@ -239,6 +239,7 @@ const UserList = () => {
                     placeholder="Nhập số xu"
                     onChange={(e) => setPoint(e.target.value)}
                     required
+                    min={1}
                   />
                 </div>
                 <button

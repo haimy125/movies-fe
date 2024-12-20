@@ -24,7 +24,6 @@ const EpisodeList = () => {
       const rp = await axios.get(
         `http://localhost:1412/api/admin/episode/getBymovie/${id}?page=${page}&limit=10`
       );
-      console.log("rp.data.listResult", rp.data.listResult)
       setMovies(rp.data.listResult);
       setTotalPages(rp.data.totalPage); // Giả sử API trả về tổng số trang
       setLoading(false);
@@ -66,7 +65,6 @@ const EpisodeList = () => {
   const handleActiontocreate = () => {
     navigate(`/admin/movie/episodes/${id}/create`);
   };
-  console.log("movies:::::::::::", movies)
   return (
     <div className="admin_layout">
       <div className="header_ad">
@@ -111,7 +109,7 @@ const EpisodeList = () => {
                   <th>#</th>
                   <th>Tên </th>
                   {/* <th>Ngày đăng</th> */}
-                  <th>Ngày tạo</th>
+                  {/* <th>Ngày tạo</th> */}
                   {/* <th>Lượt xem</th>
                   <th>Lượt thích</th> */}
                   <th>Hành động</th>
@@ -123,8 +121,8 @@ const EpisodeList = () => {
                     <td>{index + 1}</td>
                     <td className="vnName">{item.name}</td>
 
-                    <td>{formatDateToDDMMYYYY(item.timeAdd)}</td>
-                    {/* <td>{formatDateToDDMMYYYY(item.timeUpdate)}</td> */}
+                    {/* <td>{convertMillisecondsToDate(item.timeAdd)}</td> */}
+                    {/* <td>{convertMillisecondsToDate(item.timeUpdate)}</td> */}
                     {/* <td className="vnName">{item.views}</td>
 
                     <td className="status">{item.likes}</td> */}
