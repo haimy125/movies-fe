@@ -1,6 +1,7 @@
-import { useState } from "react";
 import axios from "axios";
-
+import React, { useState } from 'react';
+import Footer from '../../components/Footer/Footer';
+import Header from '../../components/Header/Header';
 function ForgetPassword() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -16,15 +17,21 @@ function ForgetPassword() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </label>
-        <button type="submit">Gửi yêu cầu</button>
-      </form>
-      {message && <p>{message}</p>}
+    <div className='font_body'>
+      <Header />
+      <div className="login-container">
+        <div className='font_container'>
+          <form onSubmit={handleSubmit} className="login-form">
+            <label>
+              Email:
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </label>
+            <button type="submit">Gửi yêu cầu</button>
+          </form>
+          {message && <p>{message}</p>}
+        </div>
+        <Footer />
+      </div>
     </div>
   );
 }

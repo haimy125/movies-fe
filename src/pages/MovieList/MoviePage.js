@@ -149,14 +149,11 @@ const MoviePage = () => {
       </button>
     );
 
-    const filterContainer = (
+    return (
       <div className="filter-container">
         {filterBtn}
         {filterApplied && unFilterBtn}
-      </div>
-    );
-
-    return filterContainer;
+      </div>);
   };
 
   const __renderMovieList = () => (
@@ -176,7 +173,7 @@ const MoviePage = () => {
         </div>
       );
     })
-    );
+  );
 
   if (loading) {
     return <Loader />;
