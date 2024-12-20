@@ -44,52 +44,50 @@ const MovieDetail = () => {
     //  return; // Thoát khỏi useEffect nếu chưa có token
     //}
 
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const [movieResponse, episodeResponse, commentResponse] =
-          await Promise.all([
-            user
-              ? axios.get(
-                  `http://localhost:1412/api/admin/movies/userMovieDetail?userId=${user.id}&movieId=${id}`
-                )
-              : axios.get(
-                  `http://localhost:1412/api/admin/movies/getbyid/${id}`
-                ),
-            axios.get(
-              `http://localhost:1412/api/admin/episode/getBymovie/all/${id}`
-            ),
-            axios.get(
-              `http://localhost:1412/api/user/comment/movie/bymovie/${id}?page=${currentPage}&limit=10`
-            ),
-          ]);
-
-        if (user) {
-          setMovie(movieResponse.data.movie);
-          setIsBuy(movieResponse.data.buy);
-          setIsFollowed(movieResponse.data.followed);
-        } else {
-          setMovie(movieResponse.data);
-        }
-
-        setEpisode(episodeResponse.data.listResult);
-        setComments(commentResponse.data.listResult || {});
-        setLoading(false);
-
-        // if (user?.id) {
-        //   const vipResponse = await axios.get(
-        //     `http://localhost:1412/api/user/movie/checkvip?userid=${user.id}&movieid=${id}`
-        //   );
-        //   setCheckPrice(true);
-        // }
-      } catch (error) {
-        console.error("Error fetching data", error);
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, [id, currentPage, accessToken, user?.id]); // Thêm user?.id để tránh render vô tận
+
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const [movieResponse, episodeResponse, commentResponse] =
+        await Promise.all([
+          user
+            ? axios.get(
+                `http://localhost:1412/api/admin/movies/userMovieDetail?userId=${user.id}&movieId=${id}`
+              )
+            : axios.get(`http://localhost:1412/api/admin/movies/getbyid/${id}`),
+          axios.get(
+            `http://localhost:1412/api/admin/episode/getBymovie/all/${id}`
+          ),
+          axios.get(
+            `http://localhost:1412/api/user/comment/movie/bymovie/${id}?page=${currentPage}&limit=10`
+          ),
+        ]);
+
+      if (user) {
+        setMovie(movieResponse.data.movie);
+        setIsBuy(movieResponse.data.buy);
+        setIsFollowed(movieResponse.data.followed);
+      } else {
+        setMovie(movieResponse.data);
+      }
+
+      setEpisode(episodeResponse.data.listResult);
+      setComments(commentResponse.data.listResult || {});
+      setLoading(false);
+
+      // if (user?.id) {
+      //   const vipResponse = await axios.get(
+      //     `http://localhost:1412/api/user/movie/checkvip?userid=${user.id}&movieid=${id}`
+      //   );
+      //   setCheckPrice(true);
+      // }
+    } catch (error) {
+      console.error("Error fetching data", error);
+      setLoading(false);
+    }
+  };
 
   console.log("Đây nè: ", episode, comments);
 
@@ -128,6 +126,7 @@ const MovieDetail = () => {
       const response = await axios.post(
         `http://localhost:1412/api/user/movie/buymovie?userid=${user.id}&movieid=${id}`
       );
+      fetchData();
       setIsBuy(true);
       setNotificationMessage("Bạn đã mua phim thành công ");
       setShowNotification(true);
