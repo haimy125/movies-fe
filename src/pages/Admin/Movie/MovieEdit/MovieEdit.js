@@ -179,7 +179,12 @@ const MovieEdit = () => {
       setFormData({
         ...formData,
         [name]: value,
-        price: value === "false" || value === false ? 0 : formData.price,
+        price:
+          value === "false" || value === false
+            ? 0
+            : formData.price > 0
+            ? formData.price
+            : 1,
       });
     } else {
       setFormData({

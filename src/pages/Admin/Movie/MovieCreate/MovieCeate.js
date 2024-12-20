@@ -82,7 +82,12 @@ const MovieCreate = () => {
       setFormData({
         ...formData,
         [name]: value,
-        price: value ? formData.price : 0,
+        price:
+          value === "false" || value === false
+            ? 0
+            : formData.price > 0
+            ? formData.price
+            : 1,
       });
     } else {
       setFormData({
@@ -304,44 +309,44 @@ const MovieCreate = () => {
                     value={formData.vip_movie}
                     onChange={handleChange}
                     required
-                >
-                  <option value="true">Trả phí</option>
-                  <option value="false">Miễn phí</option>
-                </select>
-              </div>
-              <div className="form_group">
-                <label>Giá</label>
-                <input
-                  type="number"
-                  name="price"
-                  className="create_input"
-                  placeholder="Nhập giá của phim"
-                  value={formData.price}
-                  onChange={handleChange}
-                  required
-                  disabled={
-                    formData.vip_movie === "false" ||
-                    formData.vip_movie === false
-                  }
-                />
-              </div>
-              <div className="form_group">
-                <label>Nội dung chính</label>
-                <textarea
-                  type="text"
-                  name="description"
-                  className="create_textarea"
-                  placeholder="Nhập nội dung chính của phim"
-                  value={formData.description}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <label>Thể loại</label>
-              <div className="category_movie_list">
-                {categoryList.map((item, index) => (
-                  <div className="category_movie_list_group" key={index}>
-                    <input
+                  >
+                    <option value="true">Trả phí</option>
+                    <option value="false">Miễn phí</option>
+                  </select>
+                </div>
+                <div className="form_group">
+                  <label>Giá</label>
+                  <input
+                    type="number"
+                    name="price"
+                    className="create_input"
+                    placeholder="Nhập giá của phim"
+                    value={formData.price}
+                    onChange={handleChange}
+                    required
+                    disabled={
+                      formData.vip_movie === "false" ||
+                      formData.vip_movie === false
+                    }
+                  />
+                </div>
+                <div className="form_group">
+                  <label>Nội dung chính</label>
+                  <textarea
+                    type="text"
+                    name="description"
+                    className="create_textarea"
+                    placeholder="Nhập nội dung chính của phim"
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <label>Thể loại</label>
+                <div className="category_movie_list">
+                  {categoryList.map((item, index) => (
+                    <div className="category_movie_list_group" key={index}>
+                      <input
                         id={`category-${index}`}
                         type="checkbox"
                         onChange={(e) => handleCategoryChange(e, item.id)}
