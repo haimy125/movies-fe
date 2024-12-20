@@ -13,6 +13,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import BasicModal from "../BasicModal";
 import ConfirmationModal from "../ConfirmModel";
+import NotificationModal from "../NotificationModal";
 
 const MODAL_TIME = 300;
 
@@ -204,9 +205,9 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
             </Typography>
 
             {/* Hình ảnh QR Code */}
-            {isCheckingPayment ?
+            {isCheckingPayment ? (
               <span> Đang kiểm tra thanh toán... </span>
-              :
+            ) : (
               <Box
                 sx={{
                   display: "flex",
@@ -225,7 +226,8 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
                     objectPosition: "center",
                   }}
                 />
-              </Box>}
+              </Box>
+            )}
 
             {/* Nút xác nhận */}
             <Box sx={{ textAlign: "center", mt: 4 }}>
@@ -249,16 +251,16 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
         }}
         {...basicModel}
       /> */}
-      <ConfirmationModal
+      <NotificationModal
         open={isOpenBasicModel}
         onClose={() => {
           setIsOpenBasicModel(false);
           !isHaveErrOnPayment && handleClose();
         }}
-        onConfirm={() => {
-          setIsOpenBasicModel(false);
-          !isHaveErrOnPayment && handleClose();
-        }}
+        // onConfirm={() => {
+        //   setIsOpenBasicModel(false);
+        //   !isHaveErrOnPayment && handleClose();
+        // }}
         {...basicModel}
       />
     </div>

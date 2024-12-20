@@ -8,9 +8,30 @@ import ReusableForm from "../../../../components/ReusableForm";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { getToken } from "../../../../services/tokenService";
+import ConfirmationModal from "../../../../components/Modal/ConfirmModel";
+import Loader from "../../../../components/Loader/Loader";
 
 const UserCreate = () => {
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+  const [confirmModelProps, setConfirmModelProps] = useState({
+    open: false,
+    heading: "Confirm Model Heading",
+    content: "Confirm Model Content",
+    onClose: () => {
+      setConfirmModelProps({
+        ...confirmModelProps,
+        open: false,
+      });
+    },
+    onConfirm: () => {
+      setConfirmModelProps({
+        ...confirmModelProps,
+        open: false,
+      });
+    },
+  });
 
   const {
     control,
@@ -20,6 +41,7 @@ const UserCreate = () => {
   } = useForm();
 
   const handleSubmitForm = async (data) => {
+    setLoading(true);
     console.log("Submitted Data:", data);
     const { confirmPassword, ...keepData } = data;
     const formData = {
@@ -36,9 +58,42 @@ const UserCreate = () => {
         },
       })
       .then((response) => {
-        navigate("/admin/users");
+        setLoading(false);
+        setConfirmModelProps({
+          ...confirmModelProps,
+          heading: "Thêm mới thành công!",
+          content: "Thêm mới người dùng thành công!",
+          open: true,
+          onClose: () => {
+            setConfirmModelProps({
+              ...confirmModelProps,
+              open: false,
+            });
+            navigate("/admin/users");
+          },
+          onConfirm: () => {
+            setConfirmModelProps({
+              ...confirmModelProps,
+              open: false,
+            });
+            navigate("/admin/users");
+          },
+        });
       })
       .catch((err) => {
+        setLoading(false);
+        setConfirmModelProps({
+          ...confirmModelProps,
+          heading: "Có lỗi xảy ra!",
+          content: "Có lỗi xảy ra khi thêm người dùng!",
+          open: true,
+          onConfirm: () => {
+            setConfirmModelProps({
+              ...confirmModelProps,
+              open: false,
+            });
+          },
+        });
         console.log("Có lỗi xảy ra khi Create User", err);
       });
   };
@@ -119,6 +174,8 @@ const UserCreate = () => {
     },
   ];
 
+  if (loading) return <Loader />;
+
   return (
     <div className="admin_layout">
       <div className="header_ad">
@@ -143,6 +200,7 @@ const UserCreate = () => {
           />
         </div>
       </div>
+      <ConfirmationModal {...confirmModelProps} />
     </div>
   );
 };
