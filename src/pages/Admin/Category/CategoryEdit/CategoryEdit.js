@@ -74,7 +74,7 @@ const CategoryEdit = () => {
         </div>
         <div className="content_data">
           <div className="label_list">
-            <h2>Thêm mới thể loại</h2>
+            <h2>Cập nhật thể loại</h2>
             <Link to="/admin/category" className="backtolist">
               {" "}
               Quay lại{" "}
