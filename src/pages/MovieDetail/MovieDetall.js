@@ -26,6 +26,8 @@ const MovieDetail = () => {
   const [episode, setEpisode] = useState([]);
   const [comments, setComments] = useState([]);
   const [movie, setMovie] = useState(null);
+  const [isBuy, setIsBuy] = useState(false);
+  const [isFollowed, setIsFollowed] = useState(false);
   const [checkPrice, setCheckPrice] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -43,6 +45,7 @@ const MovieDetail = () => {
     //}
 
     const fetchData = async () => {
+      setLoading(true);
       try {
         const [movieResponse, episodeResponse, commentResponse] =
           await Promise.all([
@@ -61,7 +64,11 @@ const MovieDetail = () => {
             ),
           ]);
 
-        setMovie(movieResponse.data);
+        if (user) {
+          setMovie(movieResponse.data.movie);
+          setIsBuy(movieResponse.data.buy);
+          setIsFollowed(movieResponse.data.followed);
+        } else setMovie(movieResponse.data);
         setEpisode(episodeResponse.data.listResult);
         setComments(commentResponse.data.listResult || {});
 
@@ -80,6 +87,8 @@ const MovieDetail = () => {
 
     fetchData();
   }, [id, currentPage, accessToken, user?.id]); // Thêm user?.id để tránh render vô tận
+
+  console.log("Is Followed: ", isFollowed);
 
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
@@ -116,6 +125,7 @@ const MovieDetail = () => {
       const response = await axios.post(
         `http://localhost:1412/api/user/movie/buymovie?userid=${user.id}&movieid=${id}`
       );
+      setIsBuy(true);
       setNotificationMessage("Bạn đã mua phim thành công ");
       setShowNotification(true);
       setCheckPrice(true);
@@ -137,6 +147,24 @@ const MovieDetail = () => {
         `http://localhost:1412/api/user/follow/add?userid=${user.id}&movieid=${id}`
       );
       setNotificationMessage("Bạn đã theo dõi phim thành công ");
+      setShowNotification(true);
+    } catch (error) {
+      setNotificationMessage(error.response.data);
+      setShowNotification(true);
+    }
+  };
+
+  const handleUnFollow = async () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+    try {
+      const response = await axios.delete(
+        `http://localhost:1412/api/user/follow/delete/${user.id}`
+      );
+      setIsFollowed(false);
+      setNotificationMessage("Bạn đã hủy theo dõi phim thành công ");
       setShowNotification(true);
     } catch (error) {
       setNotificationMessage(error.response.data);
@@ -173,21 +201,32 @@ const MovieDetail = () => {
             <p>
               {showFullDescription
                 ? movie?.description
-                : `${movie?.description.substring(0, 100)}...`}
+                : `${movie?.description?.substring(0, 100)}...`}
               <span className="toggle-description" onClick={toggleDescription}>
                 {showFullDescription ? "Thu gọn" : "Xem thêm"}
               </span>
             </p>
             <div className="button_movie_detail">
-              {/* {!checkPrice && movie?.price > 0 && ( */}
-              {
+              {!isBuy && (
                 <button className="follow_button play" onClick={handleBuyMovie}>
                   Mua Phim
                 </button>
-              }
-              <button className="follow_button" onClick={() => handleFollow()}>
-                Theo dõi
-              </button>
+              )}
+              {isFollowed ? (
+                <button
+                  className="follow_button"
+                  onClick={() => handleUnFollow()}
+                >
+                  Hủy theo dõi
+                </button>
+              ) : (
+                <button
+                  className="follow_button"
+                  onClick={() => handleFollow()}
+                >
+                  Theo dõi
+                </button>
+              )}
             </div>{" "}
           </div>
           <div className="info_review">
