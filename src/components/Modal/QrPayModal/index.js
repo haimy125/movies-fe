@@ -78,15 +78,17 @@ const QRPayModal = ({ open, onOpen, onClose, onSubmit, bankInfo, qrImg }) => {
         }
       })
       .then((response) => {
-        console.log(response.data);
-        localStorage.setItem("user", JSON.stringify(response.data));
-        setBasicModel({
-          heading: "Thanh toán thành công!",
-          content: "Hãy mua và tận hưởng những bộ phim chất lượng cao.",
+        response.then((response) => {
+          console.log(response.data);
+          localStorage.setItem("user", JSON.stringify(response.data));
+          setBasicModel({
+            heading: "Thanh toán thành công!",
+            content: "Hãy mua và tận hưởng những bộ phim chất lượng cao.",
+          });
+          setIsHaveErrOnPayment(false);
+          setIsOpenBasicModel(true);
+          console.log("Thanh toán thành công");
         });
-        setIsHaveErrOnPayment(false);
-        setIsOpenBasicModel(true);
-        console.log("Thanh toán thành công");
       })
       .catch((error) => {
         console.log("Có lỗi khi thanh toán");

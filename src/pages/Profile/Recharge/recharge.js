@@ -161,7 +161,7 @@ const Recharge = () => {
         onClose={() => {
           setIsOpenConfirmModel(false);
         }}
-        onConfirm={() => {
+        onConfirm={async () => {
           setIsOpenConfirmModel(false);
         }}
         {...confirmModel}
