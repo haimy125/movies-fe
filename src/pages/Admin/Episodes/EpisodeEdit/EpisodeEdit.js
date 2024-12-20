@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "../../../../assets/styles/Admin.css";
 import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import { useAuth } from "../../../../services/authService";
+import ConfirmationModal from "../../../../components/Modal/ConfirmModel";
+import Loader from "../../../../components/Loader/Loader";
 const EpisodeEdit = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { id } = useParams();
   const movie = localStorage.getItem("movieid");
@@ -23,9 +26,28 @@ const EpisodeEdit = () => {
   const [notification, setNotification] = useState("");
   const [error, setError] = useState("");
   const [nameFile, setNameFile] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [confirmModelProps, setConfirmModelProps] = useState({
+    open: false,
+    heading: "Confirm Model Heading",
+    content: "Confirm Model Content",
+    onClose: () => {
+      setConfirmModelProps({
+        ...confirmModelProps,
+        open: false,
+      });
+    },
+    onConfirm: () => {
+      setConfirmModelProps({
+        ...confirmModelProps,
+        open: false,
+      });
+    },
+  });
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
           `http://localhost:1412/api/admin/episode/getbyid/${id}`
@@ -42,7 +64,9 @@ const EpisodeEdit = () => {
           videofile: null,
           subfile: null,
         });
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         setError(error.response ? error.response.data : "Error fetching data");
         console.error("Error fetching data:", error);
       }
@@ -68,6 +92,7 @@ const EpisodeEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const dataToSubmit = new FormData();
     dataToSubmit.append("name", formData.name);
     dataToSubmit.append("views", formData.views);
@@ -92,9 +117,38 @@ const EpisodeEdit = () => {
           },
         }
       );
+      setLoading(false);
       setNotification("Cập nhật thành công!");
+      setConfirmModelProps({
+        ...confirmModelProps,
+        heading: "Cập nhật thành công!",
+        content: "Cập nhật tập phim thành công!",
+        open: true,
+        onConfirm: () => {
+          setConfirmModelProps({
+            ...confirmModelProps,
+            open: false,
+          });
+          setNotification("Cập nhật thành công!");
+          navigate(`/admin/movie/episodes/${id}`);
+        },
+      });
       console.log(response.data);
     } catch (error) {
+      setLoading(false);
+      setConfirmModelProps({
+        ...confirmModelProps,
+        heading: "Có lỗi xảy ra!",
+        content: "Có lỗi xảy ra khi cập tập phim!",
+        open: true,
+        onConfirm: () => {
+          setConfirmModelProps({
+            ...confirmModelProps,
+            open: false,
+          });
+          setError("Có lỗi xảy ra khi cập nhật tập phim!");
+        },
+      });
       setError(error.response ? error.response.data : "Error submitting form");
       console.error("Error submitting form:", error);
     }
@@ -103,6 +157,8 @@ const EpisodeEdit = () => {
   const handleAction = () => {
     window.location.href = `/admin/movie/episodes/${movie}`;
   };
+
+  if (loading) return <Loader />;
 
   return (
     <div className="admin_layout">
@@ -192,6 +248,7 @@ const EpisodeEdit = () => {
           </div>
         </div>
       </div>
+      <ConfirmationModal {...confirmModelProps} />
     </div>
   );
 };

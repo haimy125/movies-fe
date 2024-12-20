@@ -29,7 +29,23 @@ const EpisodeCreate = () => {
   const [notification, setNotification] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [confirmModelProps, setConfirmModelProps] = useState({});
+  const [confirmModelProps, setConfirmModelProps] = useState({
+    open: false,
+    heading: "Confirm Model Heading",
+    content: "Confirm Model Content",
+    onClose: () => {
+      setConfirmModelProps({
+        ...confirmModelProps,
+        open: false,
+      });
+    },
+    onConfirm: () => {
+      setConfirmModelProps({
+        ...confirmModelProps,
+        open: false,
+      });
+    },
+  });
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -74,12 +90,37 @@ const EpisodeCreate = () => {
         }
       );
       setLoading(false);
-      setNotification("Thêm mới thành công!");
-      alert("Thêm mới thành công");
-      navigate(`/admin/movie/episodes/${id}`);
+      setConfirmModelProps({
+        ...confirmModelProps,
+        heading: "Thêm mới thành công!",
+        content: "Thêm mới tập phim thành công!",
+        open: true,
+        onConfirm: () => {
+          setConfirmModelProps({
+            ...confirmModelProps,
+            open: false,
+          });
+          setNotification("Thêm mới thành công!");
+          navigate(`/admin/movie/episodes/${id}`);
+        },
+      });
+
       console.log(response.data);
     } catch (error) {
       setLoading(false);
+      setConfirmModelProps({
+        ...confirmModelProps,
+        heading: "Có lỗi xảy ra!",
+        content: "Có lỗi xảy ra khi thêm tập phim!",
+        open: true,
+        onConfirm: () => {
+          setConfirmModelProps({
+            ...confirmModelProps,
+            open: false,
+          });
+          setError("Có lỗi xảy ra khi thêm tập phim!");
+        },
+      });
       setError(error.response ? error.response.data : "Error submitting form");
       console.error("Error submitting form:", error);
     }
@@ -187,7 +228,7 @@ const EpisodeCreate = () => {
           </div>
         </div>
       </div>
-      <ConfirmationModal />
+      <ConfirmationModal {...confirmModelProps} />
     </div>
   );
 };
