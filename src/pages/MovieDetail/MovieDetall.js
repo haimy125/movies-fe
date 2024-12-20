@@ -68,9 +68,13 @@ const MovieDetail = () => {
           setMovie(movieResponse.data.movie);
           setIsBuy(movieResponse.data.buy);
           setIsFollowed(movieResponse.data.followed);
-        } else setMovie(movieResponse.data);
+        } else {
+          setMovie(movieResponse.data);
+        }
+
         setEpisode(episodeResponse.data.listResult);
         setComments(commentResponse.data.listResult || {});
+        setLoading(false);
 
         // if (user?.id) {
         //   const vipResponse = await axios.get(
@@ -80,7 +84,6 @@ const MovieDetail = () => {
         // }
       } catch (error) {
         console.error("Error fetching data", error);
-      } finally {
         setLoading(false);
       }
     };
@@ -88,7 +91,7 @@ const MovieDetail = () => {
     fetchData();
   }, [id, currentPage, accessToken, user?.id]); // Thêm user?.id để tránh render vô tận
 
-  console.log("Is Followed: ", isFollowed);
+  console.log("Đây nè: ", episode, comments);
 
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
@@ -96,13 +99,9 @@ const MovieDetail = () => {
     }
   };
 
-  if (loading) {
-    return <Loader />;
-  }
-
-  if (!movie) {
-    return <p>Đang tải dữ liệu...</p>;
-  }
+  // if (!movie) {
+  //   return <p>Đang tải dữ liệu...</p>;
+  // }
 
   const handleAction = async (epid) => {
     if (movie?.vipmovie) {
@@ -134,7 +133,6 @@ const MovieDetail = () => {
       setShowNotification(true);
       setCheckPrice(true);
     } catch (error) {
-      console.error("lỗi", error.response.data);
       setNotificationMessage(error.response.data);
       setShowNotification(true);
       setCheckPrice(false);
@@ -177,8 +175,8 @@ const MovieDetail = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (loading) {
+    return <Loader />;
   }
   return (
     <div>
@@ -249,7 +247,7 @@ const MovieDetail = () => {
         </div>
       </div>
       <div className="ep_cmt">
-        {isBuy && (
+        {(isBuy || movie.price === 0) && (
           <div className="episodes">
             <h2>Danh sách tập phim</h2>
             <div className="episode-list">

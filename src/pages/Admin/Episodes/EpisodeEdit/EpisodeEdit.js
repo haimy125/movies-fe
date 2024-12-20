@@ -235,9 +235,9 @@ const EpisodeEdit = () => {
               </div>
               <div className="form_group">
                 <label>Chọn file phim mới</label>
-                <p className="notification_info">
+                {/* <p className="notification_info">
                   kích cỡ file không quá 100MB
-                </p>
+                </p> */}
                 <input type="file" name="videofile" onChange={handleChange} />
               </div>
               {/* <div className="form_group">
