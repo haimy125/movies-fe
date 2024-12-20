@@ -212,7 +212,7 @@ const MovieDetail = () => {
               </span>
             </p>
             <div className="button_movie_detail">
-              {!(isBuy || movie.price === 0) && (
+              {!(isBuy || movie?.price === 0) && (
                 <button className="follow_button play" onClick={handleBuyMovie}>
                   Mua Phim
                 </button>
@@ -247,7 +247,7 @@ const MovieDetail = () => {
         </div>
       </div>
       <div className="ep_cmt">
-        {(isBuy || movie.price === 0) && (
+        {(isBuy || movie?.price === 0) && (
           <div className="episodes">
             <h2>Danh sách tập phim</h2>
             <div className="episode-list">
