@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CommentForm from "../../components/Comment/CommentForm";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
@@ -72,12 +72,12 @@ const MovieDetail = () => {
         setEpisode(episodeResponse.data.listResult);
         setComments(commentResponse.data.listResult || {});
 
-        if (user?.id) {
-          const vipResponse = await axios.get(
-            `http://localhost:1412/api/user/movie/checkvip?userid=${user.id}&movieid=${id}`
-          );
-          setCheckPrice(true);
-        }
+        // if (user?.id) {
+        //   const vipResponse = await axios.get(
+        //     `http://localhost:1412/api/user/movie/checkvip?userid=${user.id}&movieid=${id}`
+        //   );
+        //   setCheckPrice(true);
+        // }
       } catch (error) {
         console.error("Error fetching data", error);
       } finally {
@@ -150,6 +150,7 @@ const MovieDetail = () => {
       const response = await axios.post(
         `http://localhost:1412/api/user/follow/add?userid=${user.id}&movieid=${id}`
       );
+      setIsFollowed(true);
       setNotificationMessage("Bạn đã theo dõi phim thành công ");
       setShowNotification(true);
     } catch (error) {
@@ -165,7 +166,7 @@ const MovieDetail = () => {
     }
     try {
       const response = await axios.delete(
-        `http://localhost:1412/api/user/follow/delete/${user.id}`
+        `http://localhost:1412/api/user/follow/delete?userid=${user.id}&movieid=${id}`
       );
       setIsFollowed(false);
       setNotificationMessage("Bạn đã hủy theo dõi phim thành công ");
@@ -213,7 +214,7 @@ const MovieDetail = () => {
               </span>
             </p>
             <div className="button_movie_detail">
-              {!isBuy && (
+              {!(isBuy || movie.price === 0) && (
                 <button className="follow_button play" onClick={handleBuyMovie}>
                   Mua Phim
                 </button>
@@ -239,26 +240,31 @@ const MovieDetail = () => {
             {isAuthenticated ? (
               <StarRating userId={user.id} movieId={id} />
             ) : (
-              "Bạn phải đăng nhập mới có thể sử dụng chức năng này!"
+              <p>
+                Bạn phải <Link to={"/login"}>đăng nhập</Link> để thực hiện chức
+                năng đánh giá phim
+              </p>
             )}
           </div>
         </div>
       </div>
       <div className="ep_cmt">
-        <div className="episodes">
-          <h2>Danh sách tập phim</h2>
-          <div className="episode-list">
-            {episode.map((item, index) => (
-              <div
-                key={index}
-                className="episode-item"
-                onClick={() => handleAction(item?.id)}
-              >
-                {item?.name}
-              </div>
-            ))}
+        {isBuy && (
+          <div className="episodes">
+            <h2>Danh sách tập phim</h2>
+            <div className="episode-list">
+              {episode.map((item, index) => (
+                <div
+                  key={index}
+                  className="episode-item"
+                  onClick={() => handleAction(item?.id)}
+                >
+                  {item?.name}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
         <div className="comment">
           <h2>Danh sách bình luận</h2>
           {isAuthenticated ? (
