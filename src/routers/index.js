@@ -31,6 +31,7 @@ import Recharge from "../pages/Profile/Recharge/recharge";
 import UpdateInfo from "../pages/Profile/UpdateInfo/UpdateInfo";
 import Register from "../pages/Register/Register";
 import Schedule from "../pages/Schedule/Schedule";
+import ResetPassword from "../pages/ForgetPassword/ResetPassword"; // Import component ResetPassword
 
 //chưa login
 const publicRoutes = [
@@ -45,6 +46,7 @@ const publicRoutes = [
   { path: "/schedule/movie", component: Schedule },
   { path: "/security/finduser", component: CheckUser },
   { path: "/forgetpassword/:id", component: ForgetPassword },
+  { path: "/reset-password", component: ResetPassword }, 
 ];
 
 // đã login

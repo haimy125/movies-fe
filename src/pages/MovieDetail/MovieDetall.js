@@ -46,7 +46,13 @@ const MovieDetail = () => {
       try {
         const [movieResponse, episodeResponse, commentResponse] =
           await Promise.all([
-            axios.get(`http://localhost:1412/api/admin/movies/getbyid/${id}`),
+            user
+              ? axios.get(
+                  `http://localhost:1412/api/admin/movies/userMovieDetail?userId=${user.id}&movieId=${id}`
+                )
+              : axios.get(
+                  `http://localhost:1412/api/admin/movies/getbyid/${id}`
+                ),
             axios.get(
               `http://localhost:1412/api/admin/episode/getBymovie/all/${id}`
             ),
@@ -83,6 +89,10 @@ const MovieDetail = () => {
 
   if (loading) {
     return <Loader />;
+  }
+
+  if (!movie) {
+    return <p>Đang tải dữ liệu...</p>;
   }
 
   const handleAction = async (epid) => {
@@ -128,7 +138,8 @@ const MovieDetail = () => {
     }
     try {
       const response = await axios.post(
-        `http://localhost:1412/api/user/follow/add?userid=${user.id}&movieid=${id}`);
+        `http://localhost:1412/api/user/follow/add?userid=${user.id}&movieid=${id}`
+      );
       setNotificationMessage("Bạn đã theo dõi phim thành công ");
       setShowNotification(true);
     } catch (error) {
@@ -165,23 +176,26 @@ const MovieDetail = () => {
             <p>Mô tả:</p>
             <p>
               {showFullDescription
-                ? movie?.description
-                : `${movie?.description.substring(0, 100)}...`}
+                ? movie?.description || "Mô tả không có sẵn"
+                : movie?.description
+                ? `${movie.description.substring(0, 100)}...`
+                : "Mô tả không có sẵn"}
               <span className="toggle-description" onClick={toggleDescription}>
                 {showFullDescription ? "Thu gọn" : "Xem thêm"}
               </span>
             </p>
             <div className="button_movie_detail">
-            {/* {!checkPrice && movie?.price > 0 && ( */}
-            {(
-              <button className="follow_button play" onClick={handleBuyMovie}>
-                Mua Phim
+              {/* {!checkPrice && movie?.price > 0 && ( */}
+              {
+                <button className="follow_button play" onClick={handleBuyMovie}>
+                  Mua Phim
+                </button>
+              }
+              <button className="follow_button" onClick={() => handleFollow()}>
+                Theo dõi
               </button>
-            )}
-            <button className="follow_button" onClick={() => handleFollow()}>
-              Theo dõi
-            </button>
-            </div>  </div>
+            </div>{" "}
+          </div>
           <div className="info_review">
             {isAuthenticated ? (
               <StarRating userId={user.id} movieId={id} />
@@ -269,28 +283,26 @@ const MovieDetail = () => {
         </div>
       </div>
       <Footer />
-      {
-    showNotification && (
-      <>
-        <div className="notification-background"></div>
-        <div className="notification">
-          <p>{notificationMessage}</p>
-          <button
-            className="notification_button"
-            onClick={() => setShowNotification(false)}
-          >
-            Xác nhận
-          </button>
-        </div>
-      </>
-    )
-  }
-  {/* <BasicModal open={true} heading="test">
+      {showNotification && (
+        <>
+          <div className="notification-background"></div>
+          <div className="notification">
+            <p>{notificationMessage}</p>
+            <button
+              className="notification_button"
+              onClick={() => setShowNotification(false)}
+            >
+              Xác nhận
+            </button>
+          </div>
+        </>
+      )}
+      {/* <BasicModal open={true} heading="test">
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
         </Typography>
       </BasicModal> */}
-    </div >
+    </div>
   );
 };
 
