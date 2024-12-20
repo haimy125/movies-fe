@@ -224,31 +224,30 @@ const UserList = () => {
           {pointCreate && (
             <>
               <div className="notification-background"></div>
-              <div className="notification">
-                <div
-                  className="closes_point"
-                  onClick={() => setPointCreate(false)}
-                >
-                  <i className="fa-solid fa-xmark"></i>
+              <form onSubmit={handleCreatePoints}>
+                <div className="notification">
+                  <div
+                    className="closes_point"
+                    onClick={() => setPointCreate(false)}
+                  >
+                    <i className="fa-solid fa-xmark"></i>
+                  </div>
+                  <div className="form_group">
+                    <label>Xu nạp</label>
+                    <input
+                      type="number"
+                      className="create_input"
+                      placeholder="Nhập số xu"
+                      onChange={(e) => setPoint(e.target.value)}
+                      required
+                      min={1}
+                    />
+                  </div>
+                  <button type="submit" className="notification_button">
+                    Xác nhận
+                  </button>
                 </div>
-                <div className="form_group">
-                  <label>Xu nạp</label>
-                  <input
-                    type="number"
-                    className="create_input"
-                    placeholder="Nhập số xu"
-                    onChange={(e) => setPoint(e.target.value)}
-                    required
-                    min={1}
-                  />
-                </div>
-                <button
-                  className="notification_button"
-                  onClick={handleCreatePoints}
-                >
-                  Xác nhận
-                </button>
-              </div>
+              </form>
             </>
           )}
         </div>
