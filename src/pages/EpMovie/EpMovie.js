@@ -53,7 +53,7 @@ const EpMovie = () => {
   }, []);
 
   const handleaction = (id) => {
-    window.location.href = `/movie/ep/${id}`;
+    window.location.href = `/movie/ep/${movieId}/${id}`;
   };
   const formatViews = (views) => {
     if (views < 1000) {
