@@ -69,6 +69,18 @@ const MovieCreate = () => {
     }
   };
 
+  const handleKeyDown = (event) => {
+    // Ngăn nhập "e", "-", "+" và ký tự không hợp lệ
+    if (
+      event.key === "e" ||
+      event.key === "E" ||
+      event.key === "+" ||
+      event.key === "-"
+    ) {
+      event.preventDefault();
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     if (name === "image") {
@@ -241,6 +253,7 @@ const MovieCreate = () => {
                     className="create_input"
                     placeholder="Nhập số tập của phim"
                     value={formData.episode_number}
+                    onKeyDown={(e) => handleKeyDown(e)}
                     onChange={handleChange}
                     required
                     min={1}
@@ -255,6 +268,7 @@ const MovieCreate = () => {
                     className="create_input"
                     placeholder="Nhập năm sản xuất"
                     value={formData.year}
+                    onKeyDown={(e) => handleKeyDown(e)}
                     onChange={handleChange}
                     required
                     min={1900}
@@ -322,6 +336,7 @@ const MovieCreate = () => {
                     className="create_input"
                     placeholder="Nhập giá của phim"
                     value={formData.price}
+                    onKeyDown={(e) => handleKeyDown(e)}
                     onChange={handleChange}
                     required
                     disabled={

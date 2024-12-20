@@ -212,6 +212,17 @@ const MovieEdit = () => {
       );
     }
   };
+  const handleKeyDown = (event) => {
+    // Ngăn nhập "e", "-", "+" và ký tự không hợp lệ
+    if (
+      event.key === "e" ||
+      event.key === "E" ||
+      event.key === "+" ||
+      event.key === "-"
+    ) {
+      event.preventDefault();
+    }
+  };
 
   const handleSubmit = async (e) => {
     setLoading(true);
@@ -329,6 +340,7 @@ const MovieEdit = () => {
                   className="create_input"
                   placeholder="Nhập số tập của phim"
                   value={formData.episode_number}
+                  onKeyDown={(e) => handleKeyDown(e)}
                   onChange={handleChange}
                   required
                 />
@@ -341,6 +353,7 @@ const MovieEdit = () => {
                   className="create_input"
                   placeholder="Nhập năm xản xuất"
                   value={formData.year}
+                  onKeyDown={(e) => handleKeyDown(e)}
                   onChange={handleChange}
                   required
                 />
@@ -402,6 +415,7 @@ const MovieEdit = () => {
                   className="create_input"
                   placeholder="Nhập giá của phim"
                   value={formData.price}
+                  onKeyDown={(e) => handleKeyDown(e)}
                   onChange={handleChange}
                   required
                   disabled={
