@@ -8,7 +8,7 @@ const NotificationModal = (props) => {
     onClose,
     heading = "Thông báo",
     content = "Thao tác thành công!",
-    timeToClose = 10,
+    timeToClose = 3,
   } = props;
 
   const [countdown, setCountdown] = useState(timeToClose);

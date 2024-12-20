@@ -44,11 +44,13 @@ const Recharge = () => {
 
   useEffect(() => {
     console.log("Bank: ", bankInfo);
+    setLoading(true);
     setQrImg(
       `${QR_IMG_ROOT}?amount=${bankInfo.amount ?? 0}&addInfo=${
         bankInfo.description
       }&accountName=${bankInfo.accountName}`
     );
+    setLoading(false);
   }, [bankInfo]);
 
   const handleOnClickNap = () => {
@@ -124,6 +126,7 @@ const Recharge = () => {
                   "--variant-containedColor": "white",
                   "--variant-containedBg": "#f39c12",
                 }}
+                disabled={loading}
               >
                 Nạp
               </Button>
