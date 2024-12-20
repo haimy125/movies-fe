@@ -10,7 +10,7 @@ import Loader from "../../../../components/Loader/Loader";
 const EpisodeEdit = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { id } = useParams();
+  const { movieId, id } = useParams();
   const movie = localStorage.getItem("movieid");
   const [formData, setFormData] = useState({
     name: "",
@@ -124,13 +124,21 @@ const EpisodeEdit = () => {
         heading: "Cập nhật thành công!",
         content: "Cập nhật tập phim thành công!",
         open: true,
+        onClose: () => {
+          setConfirmModelProps({
+            ...confirmModelProps,
+            open: false,
+          });
+          setNotification("Thêm mới thành công!");
+          navigate(`/admin/movie/episodes/${movieId}`);
+        },
         onConfirm: () => {
           setConfirmModelProps({
             ...confirmModelProps,
             open: false,
           });
           setNotification("Cập nhật thành công!");
-          navigate(`/admin/movie/episodes/${id}`);
+          navigate(`/admin/movie/episodes/${movieId}`);
         },
       });
       console.log(response.data);

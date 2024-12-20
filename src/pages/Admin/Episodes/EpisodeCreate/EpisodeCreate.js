@@ -95,6 +95,14 @@ const EpisodeCreate = () => {
         heading: "Thêm mới thành công!",
         content: "Thêm mới tập phim thành công!",
         open: true,
+        onClose: () => {
+          setConfirmModelProps({
+            ...confirmModelProps,
+            open: false,
+          });
+          setNotification("Thêm mới thành công!");
+          navigate(`/admin/movie/episodes/${id}`);
+        },
         onConfirm: () => {
           setConfirmModelProps({
             ...confirmModelProps,
@@ -146,7 +154,17 @@ const EpisodeCreate = () => {
           <div className="label_list">
             <h2>Thêm mới phim</h2>
           </div>
-          <a onClick={() => handleAction()}>Quay lại </a>
+          <button
+            style={{
+              backgroundColor: "transparent",
+              border: "none",
+              padding: "10px",
+              cursor: "pointer",
+            }}
+            onClick={() => handleAction()}
+          >
+            Quay lại{" "}
+          </button>
           <div className="create_movie_font">
             <form onSubmit={handleSubmit} className="create_movie_form">
               <div className="form_group">

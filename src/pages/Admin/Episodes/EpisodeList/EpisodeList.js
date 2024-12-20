@@ -38,7 +38,7 @@ const EpisodeList = () => {
     return <Loader />;
   }
   const handleAction = (epid) => {
-    navigate(`/admin/movie/episodes/edit/${epid}`);
+    navigate(`/admin/movie/episodes/${id}/edit/${epid}`);
     localStorage.setItem("movieid", id);
   };
   const handleDelete = async (id) => {
@@ -98,9 +98,17 @@ const EpisodeList = () => {
             </div> */}
           </div>
           <div className="create_movie">
-            <a onClick={() => handleActiontocreate()} className="crate_button">
+            <button
+              onClick={() => handleActiontocreate()}
+              className="crate_button"
+              style={{
+                cursor: "pointer",
+                display: "inline-block",
+                width: "auto",
+              }}
+            >
               Thêm mới <i className="fa-solid fa-plus"></i>
-            </a>
+            </button>
           </div>
           <div className="table">
             <table>

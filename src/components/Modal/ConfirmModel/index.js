@@ -60,10 +60,14 @@ const ConfirmationModal = (props) => {
               display: "flex",
               justifyContent: "center",
               mt: 3,
+              gap: "10px",
             }}
           >
             <Button variant="contained" color="success" onClick={handleConfirm}>
               Xác nhận
+            </Button>
+            <Button variant="contained" color="warning" onClick={handleClose}>
+              Hủy
             </Button>
           </Box>
         </Box>

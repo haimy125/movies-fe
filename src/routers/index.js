@@ -46,7 +46,7 @@ const publicRoutes = [
   { path: "/schedule/movie", component: Schedule },
   { path: "/security/finduser", component: CheckUser },
   { path: "/forgetpassword/:id", component: ForgetPassword },
-  { path: "/reset-password", component: ResetPassword }, 
+  { path: "/reset-password", component: ResetPassword },
 ];
 
 // đã login
@@ -69,7 +69,7 @@ const AdminRouters = [
   { path: "/admin/movie/edit/:id", component: MovieEdit },
   { path: "/admin/movie/episodes/:id", component: EpisodeList },
   { path: "/admin/movie/episodes/:id/create", component: EpisodeCreate },
-  { path: "/admin/movie/episodes/edit/:id", component: EpisodeEdit },
+  { path: "/admin/movie/episodes/:movieId/edit/:id", component: EpisodeEdit },
   { path: "/admin/category", component: CategoryList },
   { path: "/admin/category/create", component: CategoryCreate },
   { path: "/admin/category/edit/:id", component: CategoryEdit },
