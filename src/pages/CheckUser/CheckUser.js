@@ -6,20 +6,29 @@ import Loader from '../../components/Loader/Loader';
 const CheckUser = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+   const [message, setMessage] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:1412/api/find/user?username=${username}&email=${email}`);
-      setLoading(true);
-      setTimeout(() => {
-        window.location.href = `/forgetpassword/${response.data.id}`;
-      }, 3000);
+      const response = await axios.post(`http://localhost:1412/api/password-reset/request?email=${email}`);
+      setMessage(response.data);
     } catch (error) {
-      setError(error.response.data);
+      setMessage("Có lỗi xảy ra: " + error.response.data);
     }
   };
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     // const response = await axios.get(`http://localhost:1412/api/find/user?username=${username}&email=${email}`);
+  //     setLoading(true);
+  //     setTimeout(() => {
+  //       window.location.href = `/forgetpassword/${response.data.id}`;
+  //     }, 3000);
+  //   } catch (error) {
+  //     setError(error.response.data);
+  //   }
+  // };
   if (loading) {
     return <Loader />
   }
@@ -29,18 +38,7 @@ const CheckUser = () => {
       <div className="login-container">
         <div className='font_container'>
           <form onSubmit={handleSubmit} className="login-form">
-            <h2>Tìm kiếm tài khoản</h2>
-            <div className="form-group">
-              <label>Tên đăng nhập:</label>
-              <input
-                className='form_input'
-                placeholder='Nhập tên đăng nhập của bạn!'
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </div>
+            <h2>Tìm kiếm tài khoản theo email</h2>
             <div className="form-group">
               <label>Email:</label>
               <input
@@ -52,8 +50,8 @@ const CheckUser = () => {
                 required
               />
             </div>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <button type="submit" className="login-button">Đăng nhập</button>
+            {message && <p style={{ color: 'red' }}>{message}</p>}
+            <button type="submit" className="login-button">Gửi yêu cầu</button>
             <p>Bạn đã có tài khoản.<a href='/login'>Đăng nhập</a>  tài đây!</p>
           </form>
         </div>

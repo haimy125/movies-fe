@@ -100,6 +100,10 @@ const MovieDetail = () => {
     return <Loader />;
   }
 
+  if (!movie) {
+    return <p>Đang tải dữ liệu...</p>;
+  }
+
   const handleAction = async (epid) => {
     if (movie?.vipmovie) {
       if (checkPrice) {
@@ -200,8 +204,10 @@ const MovieDetail = () => {
             <p>Mô tả:</p>
             <p>
               {showFullDescription
-                ? movie?.description
-                : `${movie?.description?.substring(0, 100)}...`}
+                ? movie?.description || "Mô tả không có sẵn"
+                : movie?.description
+                ? `${movie.description.substring(0, 100)}...`
+                : "Mô tả không có sẵn"}
               <span className="toggle-description" onClick={toggleDescription}>
                 {showFullDescription ? "Thu gọn" : "Xem thêm"}
               </span>
