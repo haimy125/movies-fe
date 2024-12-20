@@ -200,7 +200,7 @@ const MovieDetail = () => {
               Thời điểm đăng:{" "}
               {movie ? convertMillisecondsToDate(movie?.timeAdd) : "N/A"}
             </p>
-            <p>Loại phim: {movie?.vipmovie ? "trả phí" : "Miễn phí"} </p>
+            <p>Loại phim: {movie?.vipMovie ? "Trả phí" : "Miễn phí"} </p>
             <p>Giá: {movie?.price} xu</p>
             <p>Mô tả:</p>
             <p>
