@@ -328,6 +328,18 @@ const MovieCreate = () => {
                       formData.vip_movie === "false" ||
                       formData.vip_movie === false
                     }
+                    min={
+                      formData.vip_movie === "false" ||
+                      formData.vip_movie === false
+                        ? 0
+                        : 1
+                    }
+                    max={
+                      formData.vip_movie === "false" ||
+                      formData.vip_movie === false
+                        ? 0
+                        : undefined
+                    }
                   />
                 </div>
                 <div className="form_group">

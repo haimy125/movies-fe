@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useParams, useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "../../../../assets/styles/Admin.css";
 import AdminHeader from "../../../../components/AdminHeader/AdminHeader";
 import AdminNav from "../../../../components/AdminNav/AdminNav";
 import "./EpisodeCreate.css";
 import { useAuth } from "../../../../services/authService";
+import Loader from "../../../../components/Loader/Loader";
+import ConfirmationModal from "../../../../components/Modal/ConfirmModel";
 const EpisodeCreate = () => {
   const { id } = useParams();
   const { user } = useAuth();
@@ -26,6 +28,8 @@ const EpisodeCreate = () => {
 
   const [notification, setNotification] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [confirmModelProps, setConfirmModelProps] = useState({});
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -44,6 +48,7 @@ const EpisodeCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const dataToSubmit = new FormData();
     dataToSubmit.append("name", formData.name);
     dataToSubmit.append("views", formData.views);
@@ -68,17 +73,23 @@ const EpisodeCreate = () => {
           },
         }
       );
+      setLoading(false);
       setNotification("Thêm mới thành công!");
+      alert("Thêm mới thành công");
       navigate(`/admin/movie/episodes/${id}`);
       console.log(response.data);
     } catch (error) {
+      setLoading(false);
       setError(error.response ? error.response.data : "Error submitting form");
       console.error("Error submitting form:", error);
     }
   };
   const handleAction = () => {
-    window.location.href = `/admin/movie/episodes/${id}`;
+    navigate(`/admin/movie/episodes/${id}`);
   };
+
+  if (loading) return <Loader />;
+
   return (
     <div className="admin_layout">
       <div className="header_ad">
@@ -176,6 +187,7 @@ const EpisodeCreate = () => {
           </div>
         </div>
       </div>
+      <ConfirmationModal />
     </div>
   );
 };
