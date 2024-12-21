@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./StarRating.css";
+import Loading from "../Loading";
 const StarRating = ({ maxRating = 5, userId, movieId }) => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [isRated, setIsRated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // Fetch existing rating when the component mounts
 
   useEffect(() => {
     const fetchRantings = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(
           `http://localhost:1412/api/user/ratings/getuserandmovie?userid=${userId}&movieid=${movieId}`
         );
         setRating(response.data.rating);
         setIsRated(true);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error submitting rating:", error);
+        setIsLoading(false);
       }
     };
     fetchRantings();
@@ -71,9 +76,15 @@ const StarRating = ({ maxRating = 5, userId, movieId }) => {
   return (
     <div className="star-rating">
       <h1>Đánh giá phim</h1>
-      <div className="large-star">{rating}</div>
-      <div className="stars">{stars}</div>
-      {isRated && <p>Bạn đã đánh giá phim này.</p>}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="large-star">{rating}</div>
+          <div className="stars">{stars}</div>
+          {isRated && <p>Bạn đã đánh giá phim này.</p>}
+        </>
+      )}
     </div>
   );
 };

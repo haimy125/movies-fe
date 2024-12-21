@@ -20,11 +20,9 @@
 }
 
 .info_review {
-  position: absolute;
-  width: 20%;
-  top: 25%;
-  left: 70%;
-
+  display: flex;
+  align-items: center;
+  width: 300px;
 }
 
 .toggle-description {
@@ -58,7 +56,6 @@
 }
 
 .episode-item {
-
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -78,7 +75,6 @@
   color: #fff;
   height: 600px;
   width: 100%;
-
 }
 
 .movie-image {
@@ -122,13 +118,12 @@
 .info_coment_user {
   display: flex;
   align-items: center;
-  p{
+  p {
     text-align: center;
     font-weight: 700;
   }
-
 }
-.button_movie_detail{
+.button_movie_detail {
   display: flex;
   flex-flow: row;
   gap: 20px;
@@ -152,7 +147,6 @@ p {
 .follow_button:hover {
   background: #e74c3c;
   color: #fff;
-
 }
 
 p {
