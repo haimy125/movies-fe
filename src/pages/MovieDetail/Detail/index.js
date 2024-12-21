@@ -31,19 +31,30 @@ const Detail = (props) => {
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "center",
-            padding: "10px 20px",
+            padding: "20px",
+            height: "80%",
           }}
         >
           <div
             className="images_movies"
             style={{
               width: "30%",
+              height: "100%",
+              backgroundColor: "#1C1C1C",
+              borderRadius: "12px",
+              overflow: "hidden",
             }}
           >
             <img
               src={`http://localhost:1412/api/admin/movies/view/${id}`}
               className="movie-image"
               alt="Movie Poster"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                objectPosition: "center",
+              }}
             />
           </div>
           <div className="info_content">
@@ -60,14 +71,17 @@ const Detail = (props) => {
                   display: "inline",
                 }}
               >
-                {showFullDescription
-                  ? description || " Mô tả không có sẵn"
-                  : " " + description
-                  ? ` ${description.substring(0, 100)}...`
+                {!!description
+                  ? showFullDescription
+                    ? " " + description
+                    : ` ${description?.substring(0, 100)}...`
                   : " Mô tả không có sẵn"}
                 <span
                   className="toggle-description"
                   onClick={toggleDescription}
+                  style={{
+                    cursor: "pointer",
+                  }}
                 >
                   {showFullDescription ? "Thu gọn" : "Xem thêm"}
                 </span>
